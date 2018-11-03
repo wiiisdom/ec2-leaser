@@ -1,25 +1,17 @@
 var router = require('express').Router();
-var loki = require('lokijs');
 
-var db = new loki('loki.json', {autoupdate: true})
-var backend = db.addCollection('backend')
+const backend_controller = require('../../controllers/backend.controller');
 
 // add a backend via a POST query
-router.post('/backend/add', function(req, res, next) {
-  console.log(req.body);
-  backend.insert(req.body);
-  res.send('hello');
-
-});
+router.post('/backend/add', backend_controller.add);
 
 // delete a backend via a DELETE query
-router.delete('/backend/:backend', function(req, res, next) {
-  console.log(res);
-});
+router.delete('/backend/:backend', backend_controller.delete);
+
+// get backend details via a GET query
+router.get('/backend/:backend', backend_controller.show);
 
 // list backends via a GET query
-router.get('/backend', function(req, res, next) {
-  res.send(backend.find());
-});
+router.get('/backend', backend_controller.list);
 
 module.exports = router;
