@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "client": "cd client && npm start",
+    "server": "nodemon ./bin/www",
+    "both": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www"
   },
