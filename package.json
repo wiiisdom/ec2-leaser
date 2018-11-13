@@ -6,6 +6,7 @@
     "client": "cd client && npm start",
     "server": "nodemon ./bin/www",
     "both": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
+    "buildclient": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www"
   },
