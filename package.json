@@ -15,6 +15,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "mongoose": "^5.3.9",
-    "morgan": "~1.9.0"
+    "morgan": "~1.9.0",
+    "vsphere-connect": "^1.1.2"
   }
 }
