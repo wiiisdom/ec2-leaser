@@ -6,7 +6,7 @@
     "client": "cd client && npm start",
     "server": "nodemon ./bin/www",
     "both": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
-    "start": "node ./bin/www",
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "aws-sdk": "^2.348.0",
