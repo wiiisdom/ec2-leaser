@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = process.env.NODE_ENV === 'production' ? "todo" : "http://localhost:5000/api/"
+const url = process.env.NODE_ENV === 'production' ? "/api/" : "http://localhost:5000/api/"
 
 export const addBackendLoadVms = (backend) => {
   return (dispatch) => {

@@ -6,6 +6,7 @@
     "client": "cd client && npm start",
     "server": "nodemon ./bin/www",
     "both": "concurrently --kill-others-on-fail \"npm run client\" \"npm run server\"",
+    "buildclient": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www"
   },
@@ -15,6 +16,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "mongoose": "^5.3.9",
-    "morgan": "~1.9.0"
+    "morgan": "~1.9.0",
+    "vsphere-connect": "^1.1.2"
   }
 }

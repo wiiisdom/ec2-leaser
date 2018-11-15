@@ -6,7 +6,7 @@ var logger = require('morgan');
 // Set up mongoose connection
 const mongoose = require('mongoose');
 let dev_db_url = 'mongodb://localhost/test';
-let mongoDB = process.env.MONGODB_URI || dev_db_url;
+let mongoDB = process.env.MONGO_URL || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true});
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
@@ -29,6 +29,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  // Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
 
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);
