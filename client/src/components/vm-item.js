@@ -22,6 +22,7 @@ class Vm extends Component {
           <Content>
             <p>
               <strong>{this.props.vm.name}</strong>
+              <strong>{this.props.vm.ram}</strong>
               <br/>
               id: {this.props.vm.id}
               <br/>
