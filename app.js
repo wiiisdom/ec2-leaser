@@ -30,6 +30,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', indexRouter);
+//app.use('/users', usersRouter);
+
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
@@ -38,8 +41,5 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
-
-app.use('/', indexRouter);
-//app.use('/users', usersRouter);
 
 module.exports = app;
