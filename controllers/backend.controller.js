@@ -1,6 +1,7 @@
 const Backend = require('../models/backend.model');
 const aws = require('../services/aws.service');
 const xen = require('../services/xen.service');
+const vmware = require('../services/vmware.service');
 
 exports.add = function (req, res, next) {
     let backend = new Backend(
@@ -40,7 +41,7 @@ exports.show = function (req, res, next) {
       xen.list(res, next, backend)
     }
     else if(backend.type=='wmware') {
-      wmare.list(res, next, backend)
+      wmware.list(res, next, backend)
     }
     else{
       res.send('notfound');
