@@ -39,7 +39,7 @@ exports.show = function (req, res, next) {
     else if(backend.type=='xen') {
       xen.list(res, next, backend)
     }
-    else if(backend.type=='wmare') {
+    else if(backend.type=='wmware') {
       wmare.list(res, next, backend)
     }
     else{
