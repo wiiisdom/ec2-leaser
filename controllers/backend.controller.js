@@ -40,8 +40,8 @@ exports.show = function (req, res, next) {
     else if(backend.type=='xen') {
       xen.list(res, next, backend)
     }
-    else if(backend.type=='wmware') {
-      wmware.list(res, next, backend)
+    else if(backend.type=='vmware') {
+      vmware.list(res, next, backend)
     }
     else{
       res.send('notfound');
