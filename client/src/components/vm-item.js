@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Card } from 'reactbulma'
 // import { loadBookInfo, renewBook } from '../actions'
-import { Media, Content, Level, Icon } from 'reactbulma'
+import { Content, Level, Icon } from 'reactbulma'
 
 
 class Vm extends Component {
@@ -17,12 +18,16 @@ class Vm extends Component {
 
   render() {
     return (
-      <Media key={this.props.vm.id}>
-        <Media.Content>
+      <Card key={this.props.vm.id}>
+        <Card.Header>
+          <Card.Header.Title>
+            <strong>{this.props.vm.name}</strong>
+          </Card.Header.Title>
+        </Card.Header>
+        <Card.Content>
           <Content>
             <p>
-              <strong>{this.props.vm.name}</strong>
-              <strong>{this.props.vm.ram}</strong>
+              ram: {this.props.vm.ram}
               <br/>
               id: {this.props.vm.id}
               <br/>
@@ -40,16 +45,21 @@ class Vm extends Component {
                   <i className="fa fa-retweet"/>
                 </Icon>
               </Level.Item>
-            </Level.Left>
+              </Level.Left>
+              <Level.Right>
+                <Icon>
+                  <i title="Renew" className="fa fa-retweet"/>
+                </Icon>
+            </Level.Right>
           </Level>
-        </Media.Content>
-        <Media.Right>
-            <Icon>
-              <i title="Renew" className="fa fa-retweet"/>
-            </Icon>
-        </Media.Right>
-      </Media>
-    );
+        </Card.Content>
+        <Card.Footer>
+          <Card.Footer.Item>Save</Card.Footer.Item>
+          <Card.Footer.Item>Edit</Card.Footer.Item>
+          <Card.Footer.Item>Delete</Card.Footer.Item>
+        </Card.Footer>
+      </Card>
+      );
   }
 }
 

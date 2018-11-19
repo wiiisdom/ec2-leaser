@@ -14,12 +14,12 @@ class App extends Component {
         <Header />
         <Section>
           <div className="container">
+          <VmList />
             <div className="columns">
               <div className="column">
                 <BackendForm />
                 <BackendList />
               </div>
-              <VmList />
             </div>
           </div>
         </Section>
