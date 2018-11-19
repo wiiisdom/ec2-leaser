@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css';
-import { Input, Button, Control, Field } from 'reactbulma'
+import { Input, Control, Field } from 'react-bulma-components/lib/components/form'
+import Button from 'react-bulma-components/lib/components/button';
 import {connect} from 'react-redux';
 import { addBackendLoadVms } from '../actions'
 
@@ -31,7 +32,7 @@ render() {
     <h3 className="title is-3">Backends</h3>
     <p>Add a new backend here !</p>
     <form id="add-backend-form" onSubmit={this.handleSubmit}>
-      <Field grouped>
+      <Field kind='grouped'>
         <Control>
           <div className="select">
             <select id="type" name="type">
@@ -47,7 +48,7 @@ render() {
       </Field>
       <Field>
         <Control>
-          <Button type="submit">Save new backend</Button>
+          <Button>Save new backend</Button>
         </Control>
       </Field>
     </form>

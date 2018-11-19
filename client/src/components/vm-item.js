@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 // import { loadBookInfo, renewBook } from '../actions'
-import { Media, Content, Level, Icon } from 'reactbulma'
+import { Media, Content, Level, Icon } from 'react-bulma-components/full'
 
 
 class Vm extends Component {

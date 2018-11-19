@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Media, Delete } from 'reactbulma'
+import { Media, Delete } from 'react-bulma-components/full'
 import {connect} from 'react-redux';
 //import {bindActionCreators} from 'redux';
 import {deleteBackend, loadBackends} from '../actions'
