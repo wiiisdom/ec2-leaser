@@ -9,7 +9,7 @@
     "font-awesome": "^4.7.0",
     "node-sass": "^4.10.0",
     "react": "^16.6.1",
-    "react-bulma-components": "^2.3.0",
+    "react-bulma-components": "github:couds/react-bulma-components",
     "react-dom": "^16.6.1",
     "react-redux": "^5.1.0",
     "react-router-redux": "^4.0.8",

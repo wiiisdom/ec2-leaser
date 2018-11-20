@@ -18,36 +18,8 @@ class Vm extends Component {
   render() {
     return (
       <Media key={this.props.vm.id}>
-        <Media.Content>
-          <Content>
-            <p>
-              <strong>{this.props.vm.name}</strong>
-              <strong>{this.props.vm.ram}</strong>
-              <br/>
-              id: {this.props.vm.id}
-              <br/>
-            </p>
-          </Content>
-          <Level mobile>
-            <Level.Left>
-              <Level.Item>
-                <Icon small>
-                  <i className="fa fa-reply" />
-                </Icon>
-              </Level.Item>
-              <Level.Item>
-                <Icon small>
-                  <i className="fa fa-retweet"/>
-                </Icon>
-              </Level.Item>
-            </Level.Left>
-          </Level>
-        </Media.Content>
-        <Media.Right>
-            <Icon>
-              <i title="Renew" className="fa fa-retweet"/>
-            </Icon>
-        </Media.Right>
+        <strong>{this.props.vm.name}</strong>
+        <strong>{this.props.vm.ram}</strong>
       </Media>
     );
   }
