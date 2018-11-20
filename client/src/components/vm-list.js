@@ -19,6 +19,19 @@ class VmList extends Component {
     return (
       <Columns.Column>
         <h3 className="title is-3">Vms</h3>
+        <div class="field has-addons">
+          <p class="control"></p>
+          <div class="buttons has-addons">
+            <span class="button">Running</span>
+            <span class="button">Paused</span>
+            <span class="button">Stopped</span>
+            <span class="button">All</span>
+          </div>
+          <p class="control">
+            <input class="input" type="text" placeholder="Filter Vms"></input>
+          </p>
+        </div>
+       
         <Columns>
           {this.createListItems()}
         </Columns>
