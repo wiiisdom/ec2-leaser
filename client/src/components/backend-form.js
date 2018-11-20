@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import 'bulma/css/bulma.css';
 import { Control, Field } from 'react-bulma-components/lib/components/form'
 import Button from 'react-bulma-components/lib/components/button';
 import {connect} from 'react-redux';

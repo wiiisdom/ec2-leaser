@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import 'font-awesome/css/font-awesome.css'
 import './App.css'
+import 'bulma/css/bulma.css';
 import Header from './components/header'
 import BackendForm from './components/backend-form'
 import BackendList from './components/backend-list'
