@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 // import { loadBookInfo, renewBook } from '../actions'
-import { Media, Content, Level, Icon } from 'react-bulma-components/full'
-
+import Media from 'react-bulma-components/lib/components/media';
+import Icon from 'react-bulma-components/lib/components/icon';
+import Content from 'react-bulma-components/lib/components/content';
+import Card from 'react-bulma-components/lib/components/card';
+import Heading from 'react-bulma-components/lib/components/heading';
+import Columns from 'react-bulma-components/lib/components/columns';
 
 class Vm extends Component {
 
@@ -16,12 +20,46 @@ class Vm extends Component {
   // }
 
   render() {
+    const classes = `vm ${this.props.vm.state}`
     return (
-      <Media key={this.props.vm.id}>
-        <strong>{this.props.vm.name}</strong>
-        <strong>{this.props.vm.ram}</strong>
-      </Media>
-    );
+      <Columns.Column size={3} key={this.props.vm.id}>
+      <Card className={classes}>
+        <Card.Content>
+          <Media>
+            <Media.Item>
+              <Heading size={4}>{this.props.vm.name}</Heading>
+              <Heading subtitle size={6}>
+                <span dangerouslySetInnerHTML={{__html: this.props.vm.description}} />
+              </Heading>
+            </Media.Item>
+            <Media.Item renderAs="figure" position="right">
+              <Icon icon="angle-down" />
+            </Media.Item>
+          </Media>
+          <Content>
+            <p>
+              ram: {this.props.vm.ram}<br/>
+              id: {this.props.vm.id}<br/>
+              dns : {this.props.vm.dns}<br/>
+              ip : {this.props.vm.ip}
+              <br/>
+            </p>
+          </Content>
+        </Card.Content>
+        <Card.Footer>
+          <Card.Footer.Item renderAs="a" href="#Yes">
+            Do
+          </Card.Footer.Item>
+          <Card.Footer.Item renderAs="a" href="#No">
+            Nothing
+          </Card.Footer.Item>
+          <Card.Footer.Item renderAs="a" href="#Maybe">
+            Yey
+          </Card.Footer.Item>
+        </Card.Footer>
+      </Card>
+    </Columns.Column>
+      );
   }
 }
 

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { loadVms } from '../actions'
 import Vm from './vm-item'
 
+import Columns from 'react-bulma-components/lib/components/columns';
 
 class VmList extends Component {
 
@@ -16,10 +17,12 @@ class VmList extends Component {
 
   render() {
     return (
-      <div className="column">
+      <Columns.Column>
         <h3 className="title is-3">Vms</h3>
-        {this.createListItems()}
-      </div>
+        <Columns>
+          {this.createListItems()}
+        </Columns>
+      </Columns.Column>
     );
   }
 }

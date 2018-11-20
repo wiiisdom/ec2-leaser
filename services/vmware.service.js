@@ -41,7 +41,10 @@ exports.list = function (res, next, backend) {
           var vm = {}
           vm.id = element.id
           vm.name = element.name
-          vm.description = element.config.annotation
+          //console.log(typeof element.config.annotation)
+          if(typeof element.config.annotation == 'string' ) {
+            vm.description = element.config.annotation
+          }
           vm.launch = element.runtime.bootTime
           vm.state = statusVmWareToVmList(element.runtime.powerState)
           vm.ram = element.summary.config.memorySizeMB

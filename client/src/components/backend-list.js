@@ -29,7 +29,7 @@ class BackendList extends Component {
                 {item.name} {item.type}
               </Content>
             </Media.Item>
-            <Button delete onClick={() => this.props.deleteBackend(key)} id={item.id} />
+            <Button remove onClick={() => this.props.deleteBackend(key)} id={item.id} />
           </Media>
       )
       }

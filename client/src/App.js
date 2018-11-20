@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import 'font-awesome/css/font-awesome.css'
+import './App.css'
 import Header from './components/header'
 import BackendForm from './components/backend-form'
 import BackendList from './components/backend-list'
@@ -13,12 +14,12 @@ class App extends Component {
         <Header />
         <Section>
           <div className="container">
+          <VmList />
             <div className="columns">
               <div className="column">
                 <BackendForm />
                 <BackendList />
               </div>
-              <VmList />
             </div>
           </div>
         </Section>
