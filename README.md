@@ -28,4 +28,4 @@ And then check on http://localhost:3000 for the frontend. The backend is on http
 
 ### Generate a production build
 
-**Not yet setup !**
+Using [Dokku](https://github.com/dokku/dokku)
