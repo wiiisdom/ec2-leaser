@@ -14,6 +14,15 @@ export default (state=initialState, action) => {
           ...state.slice(0, action.payload),
           ...state.slice(action.payload + 1)
       ]
+    case 'UPDATE_BACKEND':
+      return state.map(backend => {
+        if(backend._id === action.payload._id) {
+          return {...backend, ...action.payload};
+        }
+        else{
+          return backend;
+        }
+      })
     case 'LOAD_BACKENDS':
       // return {
       //   backends: action.payload

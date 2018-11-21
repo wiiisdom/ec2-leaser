@@ -23,10 +23,10 @@ class BackendList extends Component {
         this.props.backends &&
         this.props.backends.map((item, key) =>
           // eslint-disable-next-line
-          <Media key={item._id}>
+          <Media key={item._id} className={item.err !== undefined ? 'error' : ''}>
             <Media.Item>
               <Content>
-                {item.name} {item.type}
+                {item.name} {item.type} <strong>{item.err}</strong>
               </Content>
             </Media.Item>
             <Button remove onClick={() => this.props.deleteBackend(key)} id={item.id} />

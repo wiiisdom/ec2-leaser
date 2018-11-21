@@ -33,6 +33,8 @@ export const loadVms = (backend) => {
       dispatch({type:'LOAD_VMS', payload: vms})
     }).catch((err) => {
       console.log(err)
+      backend.err = err.message
+      dispatch({type:'UPDATE_BACKEND', payload: backend})
     })
   }
 }
