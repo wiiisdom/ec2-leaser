@@ -22,7 +22,7 @@ class Vm extends Component {
   render() {
     const classes = `vm ${this.props.vm.state}`
     return (
-      <Columns.Column size={3} key={this.props.vm.id}>
+      <Columns.Column size={3}>
       <Card className={classes}>
         <Card.Content>
           <Media>

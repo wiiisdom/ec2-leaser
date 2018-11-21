@@ -14,7 +14,6 @@ export const loadBackends = () => {
     axios.get(`${url}backend`)
     .then((res) => {
       let backends = res.data
-      console.log(backends)
       backends.forEach(function(backend) {
         dispatch(loadVms(backend))
       })

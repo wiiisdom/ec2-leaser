@@ -4,38 +4,85 @@ import { loadVms } from '../actions'
 import Vm from './vm-item'
 
 import Columns from 'react-bulma-components/lib/components/columns';
+import Heading from 'react-bulma-components/lib/components/heading';
+import Button from 'react-bulma-components/lib/components/button';
+import {Field, Control} from 'react-bulma-components/lib/components/form';
 
 class VmList extends Component {
+  constructor() {
+    super()
+    this.state = {search: '', buttons : [
+      {id:"starting", text: "Starting", state:true},
+      {id:"running", text: "Running", state:true},
+      {id: "terminated", text: "Stopping", state:true},
+      {id: "stopped", text: "Stopped", state:true},
+    ]}
+    this.handleChangeSearch = this.handleChangeSearch.bind(this);
+    this.handleButtonSwitch = this.handleButtonSwitch.bind(this);
+  }
+
+  handleChangeSearch = (event) => {
+    this.setState({search: event.target.value});
+  }
+
+  handleButtonSwitch = (item) => {
+
+    item.state = ! item.state
+    this.setState({buttons: this.state.buttons.map(button => {
+      if(button.id === item.id) {
+        return {...button, ...item};
+      }
+      else{
+        return button;
+      }
+    })});
+  }
 
   createListItems() {
-    return this.props.vms.map(item => {
+    return this.props.vms
+      .filter(vm => {
+        if (vm.name) {
+          return vm.name.includes(this.state.search)
+        }
+        else return true
+      })
+      .filter(vm => {
+        return this.state.buttons.filter(item => item.state).map(item => item.id).includes(vm.state)
+      })
+      .map(item => {
       return (
-            <Vm key={item._id} vm={item}/>
+            <Vm key={item.id} vm={item}/>
       );
     });
   }
 
+  createButtons() {
+    return this.state.buttons.map(
+      item => {
+        return (
+          <Control>
+            <Button id={item.id} color={item.state ? 'primary' : ''} onClick={(event) => this.handleButtonSwitch(item)}>{item.text}</Button>
+          </Control>
+        )
+      }
+    )
+  }
+
   render() {
     return (
-      <Columns.Column>
-        <h3 className="title is-3">Vms</h3>
-        <div class="field has-addons">
-          <p class="control"></p>
-          <div class="buttons has-addons">
-            <span class="button">Running</span>
-            <span class="button">Paused</span>
-            <span class="button">Stopped</span>
-            <span class="button">All</span>
-          </div>
-          <p class="control">
-            <input class="input" type="text" placeholder="Filter Vms"></input>
-          </p>
-        </div>
-       
+      <div>
+        <Heading size={3}>Vms</Heading>
+        <Field kind="addons">
+            {this.createButtons()}
+          <Control>
+            <input className="input" type="text" placeholder="Filter Vms" onChange={this.handleChangeSearch}></input>
+          </Control>
+        </Field>
+
         <Columns>
           {this.createListItems()}
         </Columns>
-      </Columns.Column>
+      </div>
     );
   }
 }
