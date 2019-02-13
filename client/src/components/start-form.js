@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Control, Field } from 'react-bulma-components/lib/components/form'
 import Button from 'react-bulma-components/lib/components/button';
 import Section from 'react-bulma-components/lib/components/section';
 import Notification from 'react-bulma-components/lib/components/notification';
-import {connect} from 'react-redux';
-import { startInstance, loadImages } from '../actions'
+import {  url } from '../actions'
 
 class StartForm extends Component {
+  state = {
+    images: []
+  }
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.props.loadImages();
+    axios.get(`${url}image`)
+    .then((res) => {
+      let images = res.data
+      this.setState({ images });
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 
   handleSubmit(event) {
@@ -27,7 +36,11 @@ class StartForm extends Component {
     if (instance === {}) {
       return;
     }
-    this.props.startInstance(instance);
+    axios.post(`${url}image/start`, instance)
+    .then((res) => {
+      console.log(res)
+    })
+    //this.props.startInstance(instance);
     document.getElementById("add-instance-form").reset();
   }
 
@@ -42,8 +55,7 @@ render() {
           <div className="select">
             <select id="image" name="image">
               {
-                this.props.images &&
-                this.props.images.map((item, key) =>
+                this.state.images.map((item, key) =>
                 <option key={key} value={item._id}>{item.name} ({item.description})</option>
               )
               }
@@ -63,24 +75,20 @@ render() {
         </Control>
       </Field>
     </form>
-
+    <Section>
+      <Notification color="success">
+        Done !
+        <Button remove />
+      </Notification>
+      <Notification color="danger">
+        Error !
+        <Button remove />
+      </Notification>
+    </Section>
 
   </div>
   );
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        loadImages: () => dispatch(loadImages()),
-        startInstance: (instance) => dispatch(startInstance(instance))
-    };
-};
-
-function mapStateToProps(state) {
-  return {
-    images: state.images,
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(StartForm);
+export default StartForm;
