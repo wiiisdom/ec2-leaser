@@ -9,6 +9,29 @@ export const addBackendLoadVms = (backend) => {
   }
 }
 
+export const startInstance = (instance) => {
+  return (dispatch) => {
+    console.log(instance)
+    axios.post(`${url}image/start`, instance)
+    .then((res) => {
+      dispatch({type:'UPDATE_BACKEND', payload: instance.image.backend})
+    })
+  }
+}
+
+export const loadImages = () => {
+  return (dispatch) => {
+    axios.get(`${url}image`)
+    .then((res) => {
+      let images = res.data
+      dispatch({type:'LOAD_IMAGES', payload: images})
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+}
+
+
 export const loadBackends = () => {
   return (dispatch) => {
     axios.get(`${url}backend`)

@@ -24,6 +24,20 @@ $ npm run client (launch front)
 $ npm run server (launch back)
 ```
 
+### Test REST API
+
+```
+# list images
+http :5000/api/image
+
+# add image
+http :5000/api/image/add region=us-east-2 id=ami-05807dd4c81877220 description='SAP BOBJ 4.2.6 INT Fenix' type=t2.large
+
+# remove image
+http DELETE :5000/api/image/0
+
+```
+
 And then check on http://localhost:3000 for the frontend. The backend is on http://localhost:5000.
 
 ### Generate a production build

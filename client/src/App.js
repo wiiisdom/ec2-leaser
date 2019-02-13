@@ -5,6 +5,7 @@ import 'bulma/css/bulma.css';
 import Header from './components/header'
 import BackendForm from './components/backend-form'
 import BackendList from './components/backend-list'
+import StartForm from './components/start-form'
 import VmList from './components/vm-list'
 import Section from 'react-bulma-components/lib/components/section'
 
@@ -16,6 +17,7 @@ class App extends Component {
         <Section>
           <div className="container">
           <VmList />
+          <StartForm />
             <div className="columns">
               <div className="column">
                 <BackendForm />
