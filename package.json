@@ -6,8 +6,8 @@
     "ignore": ["client/*"]
   },
   "engines": {
-    "node": "8.x",
-    "npm": "6.x"
+    "node": "8.14.x",
+    "npm": "6.4.x"
   },
   "scripts": {
     "client": "cd client && npm start",
