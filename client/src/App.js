@@ -17,8 +17,11 @@ class App extends Component {
         <Section>
           <div className="container">
           <VmList />
-          <StartForm />
+
             <div className="columns">
+              <div className="column">
+                <StartForm />
+              </div>
               <div className="column">
                 <BackendForm />
                 <BackendList />

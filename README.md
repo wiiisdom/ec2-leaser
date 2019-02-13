@@ -31,10 +31,11 @@ $ npm run server (launch back)
 http :5000/api/image
 
 # add image
-http :5000/api/image/add region=us-east-2 id=ami-05807dd4c81877220 description='SAP BOBJ 4.2.6 INT Fenix' type=t2.large
+http :5000/api/image/add backend=5bddeeeb9b3da872b006bd2b id=ami-05807dd4c81877220 description='SAP BOBJ 4.2.6 INT Fenix' type=t2.large
 
 # remove image
-http DELETE :5000/api/image/0
+http DELETE :5000/api/image/5c6392d6d9d37f1e398def9e
+
 
 ```
 

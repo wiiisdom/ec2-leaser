@@ -5,6 +5,10 @@
   "nodemonConfig": {
     "ignore": ["client/*"]
   },
+  "engines": {
+    "node": "8.x",
+    "npm": "6.x"
+  },
   "scripts": {
     "client": "cd client && npm start",
     "server": "nodemon ./bin/www",
