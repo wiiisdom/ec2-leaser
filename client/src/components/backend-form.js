@@ -28,7 +28,6 @@ class BackendForm extends Component {
 render() {
   return (
     <div>
-    <h3 className="title is-3">Backends</h3>
     <p>Add a new backend here !</p>
     <form id="add-backend-form" onSubmit={this.handleSubmit}>
       <Field>

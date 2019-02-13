@@ -36,15 +36,13 @@ exports.delete = function (req, res, next) {
 };
 
 exports.start = function (req, res, next) {
-  Image.findById({_id: req.body.image })
+  Image.findById({_id: req.body.image }, '+content')
   .populate('backend', '+content').exec((err, image) => {
     var instance = {
       image: image,
       name: req.body.name,
       description: req.body.description
     }
-    console.log(instance)
-
     aws.start(res,next, instance);
   })
 

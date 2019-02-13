@@ -3,6 +3,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// mongo express
+var mongo_express = require('mongo-express/lib/middleware')
+var mongo_express_config = require('./mongo_express_config')
+
 // Set up mongoose connection
 const mongoose = require('mongoose');
 let dev_db_url = 'mongodb://localhost/test';
@@ -41,5 +45,8 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
+
+// mongo express
+app.use('/mongo', mongo_express(mongo_express_config))
 
 module.exports = app;

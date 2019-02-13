@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import Media from 'react-bulma-components/lib/components/media'
 import Content from 'react-bulma-components/lib/components/content'
-import Button from 'react-bulma-components/lib/components/button'
 import {connect} from 'react-redux';
-//import {bindActionCreators} from 'redux';
-import {deleteBackend, loadBackends} from '../actions'
+import {loadBackends} from '../actions'
 
 class BackendList extends Component {
 
@@ -29,7 +27,6 @@ class BackendList extends Component {
                 {item.name} {item.type} <strong>{item.err}</strong>
               </Content>
             </Media.Item>
-            <Button remove onClick={() => this.props.deleteBackend(key)} id={item.id} />
           </Media>
       )
       }
@@ -41,7 +38,6 @@ class BackendList extends Component {
 function mapDispatchToProps(dispatch) {
   return {
       loadBackends: () => dispatch(loadBackends()),
-      deleteBackend: (backend) => dispatch(deleteBackend(backend)),
   };
 }
 

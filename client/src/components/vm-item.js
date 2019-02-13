@@ -2,22 +2,12 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 // import { loadBookInfo, renewBook } from '../actions'
 import Media from 'react-bulma-components/lib/components/media';
-import Icon from 'react-bulma-components/lib/components/icon';
 import Content from 'react-bulma-components/lib/components/content';
 import Card from 'react-bulma-components/lib/components/card';
 import Heading from 'react-bulma-components/lib/components/heading';
 import Columns from 'react-bulma-components/lib/components/columns';
 
 class Vm extends Component {
-
-  // componentDidMount() {
-  //   this.props.loadBookInfo(this.props.book);
-  // }
-
-  // handleRenew(event) {
-  //   console.log(event.target);
-  //   this.props.renewBook(this.props.book);
-  // }
 
   render() {
     const classes = `vm ${this.props.vm.state}`
@@ -32,8 +22,9 @@ class Vm extends Component {
                 <span dangerouslySetInnerHTML={{__html: this.props.vm.description}} />
               </Heading>
             </Media.Item>
+
             <Media.Item renderAs="figure" position="right">
-              <Icon icon="angle-down" />
+              <Heading size={6}>{this.props.vm.backend}</Heading>
             </Media.Item>
           </Media>
           <Content>

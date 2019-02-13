@@ -4,7 +4,21 @@ exports.list = function (res, next, backend) {
   var ec2 = new AWS.EC2(
     backend.content
   );
-  ec2.describeInstances({}, function(err, data) {
+  var params = {
+    Filters: [
+       {
+      Name: "instance-state-name",
+      Values: [
+         "pending",
+         "running",
+         "shutting-down",
+         "stopping",
+         "stopped"
+      ]
+     }
+    ]
+   };
+  ec2.describeInstances(params, function(err, data) {
     if (err) {
       return next(err)
     } else {
@@ -32,28 +46,19 @@ exports.start = function (res, next, instance) {
     instance.image.backend.content
   );
 
-   var params = {
-    ImageId: instance.image.id,
-    InstanceType: instance.image.type,
-    KeyName: "gbandsmith",
-    MaxCount: 1,
-    MinCount: 1,
-    SecurityGroupIds: instance.image.securityGroups,
-    TagSpecifications: [
-       {
-      ResourceType: "instance",
-      Tags: [
-         {Key: "Name", Value: "TEMP_"+instance.image.name+"_"+instance.name},
-         {Key: "pool", Value: "TEMP"},
-         {Key: "description", Value: instance.description},
-         {Key: "scheduler:ec2-startstop", Value: "none;2300;utc;all"},
-         {Key: "costcenter", Value: "varied"},
+  // put the name and description in the template
+  instance.image.content.TagSpecifications.forEach((item) => {
+    item.Tags.push({
+      Key: "Name",
+      Value: "TEMP_" + instance.image.name + "_" + instance.name
+    })
+    item.Tags.push({
+      Key: "description",
+      Value: instance.image.description + " @ " + instance.description
+    })
+  })
 
-      ]
-     }
-    ]
-   };
-  ec2.runInstances(params, function(err,data) {
+  ec2.runInstances(instance.image.content, function(err,data) {
     if (err) return next(err);
     res.send('Image started successfully')
   });

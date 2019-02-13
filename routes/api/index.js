@@ -19,12 +19,12 @@ router.get('/backend', backend_controller.list);
 router.get('/image', image_controller.list);
 
 // add ami via POST
-router.post('/image/add', image_controller.add);
+//router.post('/image/add', image_controller.add);
 
 // delete ami via DELETE
-router.delete('/image/:image', image_controller.delete);
+//router.delete('/image/:image', image_controller.delete);
 
-// add ami via POST
+// start ami via POST
 router.post('/image/start', image_controller.start);
 
 module.exports = router;

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Control, Field } from 'react-bulma-components/lib/components/form'
 import Button from 'react-bulma-components/lib/components/button';
+import Section from 'react-bulma-components/lib/components/section';
+import Notification from 'react-bulma-components/lib/components/notification';
 import {connect} from 'react-redux';
 import { startInstance, loadImages } from '../actions'
 
@@ -42,7 +44,7 @@ render() {
               {
                 this.props.images &&
                 this.props.images.map((item, key) =>
-                <option key={key} value={item._id}>{item.name}</option>
+                <option key={key} value={item._id}>{item.name} ({item.description})</option>
               )
               }
             </select>
@@ -61,6 +63,8 @@ render() {
         </Control>
       </Field>
     </form>
+
+
   </div>
   );
   }

@@ -30,14 +30,18 @@ $ npm run server (launch back)
 # list images
 http :5000/api/image
 
-# add image
-http :5000/api/image/add backend=5bddeeeb9b3da872b006bd2b id=ami-05807dd4c81877220 description='SAP BOBJ 4.2.6 INT Fenix' type=t2.large
+# start instance
+http :5000/api/image/start id=5c6392d6d9d37f1e398def9e name=bla description=bli
 
-# remove image
-http DELETE :5000/api/image/5c6392d6d9d37f1e398def9e
-
+# list backend
+http :5000/api/backend
 
 ```
+
+### Populate Data in MongDB
+
+Go to http://localhost:5000/mongo (admin/pass) for the Mongo administrative interface.
+It allow to CRUD backends, and images.
 
 And then check on http://localhost:3000 for the frontend. The backend is on http://localhost:5000.
 

@@ -3,7 +3,6 @@ import 'font-awesome/css/font-awesome.css'
 import './App.css'
 import 'bulma/css/bulma.css';
 import Header from './components/header'
-import BackendForm from './components/backend-form'
 import BackendList from './components/backend-list'
 import StartForm from './components/start-form'
 import VmList from './components/vm-list'
@@ -23,7 +22,7 @@ class App extends Component {
                 <StartForm />
               </div>
               <div className="column">
-                <BackendForm />
+                <h3 className="title is-3">Backends</h3>
                 <BackendList />
               </div>
             </div>

@@ -52,6 +52,11 @@ export const loadVms = (backend) => {
     axios.get(`${url}backend/${backend._id}`)
     .then((res) => {
       let vms = res.data
+
+      // add backend name on vm
+      vms.forEach((item) => {
+        item.backend = backend.name
+      })
       dispatch({type:'LOAD_VMS', payload: vms})
     }).catch((err) => {
       console.log(err)
