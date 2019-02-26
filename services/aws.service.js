@@ -42,10 +42,18 @@ exports.list = function (res, next, backend) {
 };
 
 exports.start = function (res, next, instance) {
+  if(instance.image.backend == null) {
+    return next("No backend on image");
+  }
   var ec2 = new AWS.EC2(
     instance.image.backend.content
   );
-
+  if(instance.image.content == null) {
+    return next("No content on image");
+  }
+  if(instance.image.content.TagSpecifications == null) {
+    return next("No tags on image");
+  }
   // put the name and description in the template
   instance.image.content.TagSpecifications.forEach((item) => {
     item.Tags.push({

@@ -4,6 +4,9 @@ import Button from 'react-bulma-components/lib/components/button';
 import {connect} from 'react-redux';
 import { addBackendLoadVms } from '../actions'
 
+/*
+ NOT USED ANYMORE
+*/
 class BackendForm extends Component {
   constructor() {
     super();

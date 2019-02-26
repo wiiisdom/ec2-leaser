@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Control, Field } from 'react-bulma-components/lib/components/form'
 import Button from 'react-bulma-components/lib/components/button';
-import Section from 'react-bulma-components/lib/components/section';
 import Notification from 'react-bulma-components/lib/components/notification';
 import {  url } from '../actions'
 
 class StartForm extends Component {
   state = {
-    images: []
+    images: [],
+    message: "",
+    error: ""
   }
   constructor() {
     super();
@@ -21,12 +22,14 @@ class StartForm extends Component {
       let images = res.data
       this.setState({ images });
     }).catch((err) => {
-      console.log(err)
+      console.log("Errr " + err)
     })
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ message: ""});
+    this.setState({ error: "" });
     const data = new FormData(event.target);
     var instance = {};
     data.forEach(function(value, key){
@@ -39,14 +42,28 @@ class StartForm extends Component {
     axios.post(`${url}image/start`, instance)
     .then((res) => {
       console.log(res)
+      this.setState({ message: res.data });
+    }).catch((err) => {
+      this.setState({ error: err.message });
     })
-    //this.props.startInstance(instance);
     document.getElementById("add-instance-form").reset();
   }
 
+getClassName() {
+  if(this.state.message) {
+    return "success"
+  }
+  else if(this.state.error) {
+    return "error"
+  }
+  else {
+    return ""
+  }
+}
+
 render() {
   return (
-    <div>
+    <div className={this.getClassName()}>
     <h3 className="title is-3">Start Instance</h3>
     <p>Start a new instance here !</p>
     <form id="add-instance-form" onSubmit={this.handleSubmit}>
@@ -63,10 +80,10 @@ render() {
           </div>
         </Control>
         <Control>
-          <input className="input"  id="name" name="name" placeholder="Instance Name" type="text" />
+          <input className="input"  id="name" name="name" placeholder="Instance Name" type="text" required />
         </Control>
         <Control>
-          <input className="input"  id="description" name="description" placeholder="Instance Description" type="text" />
+          <input className="input"  id="description" name="description" placeholder="Instance Description" type="text" required />
         </Control>
       </Field>
       <Field>
@@ -75,17 +92,8 @@ render() {
         </Control>
       </Field>
     </form>
-    <Section>
-      <Notification color="success">
-        Done !
-        <Button remove />
-      </Notification>
-      <Notification color="danger">
-        Error !
-        <Button remove />
-      </Notification>
-    </Section>
-
+    <p>{this.state.message}</p>
+    <p><strong>{this.state.error}</strong></p>
   </div>
   );
   }
