@@ -1,12 +1,19 @@
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
 
 // API subfolder
 router.use('/api', require('./api'));
 
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
+// router.get('/auth/google', passport.authenticate('google', {
+//    scope: ['profile']
+//  }));
+//
+// router.get('/auth/google/callback',
+//     passport.authenticate('google', {
+//         failureRedirect: '/'
+//     }),
+//     (req, res) => {
+//       res.redirect('/');
+//     }
+// );
 
-module.exports = router;
+module.exports =  router

@@ -1,7 +1,9 @@
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+// var passport = require('passport');
+// const auth = require('./services/auth.service');
+var cors = require('cors');
+require('dotenv').config()
 
 // mongo express
 var mongo_express = require('mongo-express/lib/middleware')
@@ -16,26 +18,31 @@ mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-var indexRouter = require('./routes/index');
+var app = express()
 
-var app = express();
+var corsOption = {
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    exposedHeaders: ['x-auth-token'],
+};
+app.use(cors(corsOption));
 
-// Add headers
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    next();
-});
-
-app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true }));
+
+// auth(passport);
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
+var indexRouter = require('./routes/index');
 app.use('/', indexRouter);
-//app.use('/users', usersRouter);
 
 // mongo express
 app.use('/mongo', mongo_express(mongo_express_config))

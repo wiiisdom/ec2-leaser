@@ -1,17 +1,19 @@
 import axios from 'axios'
+import { url, authHeader } from '../helpers';
 
-export const url = process.env.NODE_ENV === 'production' ? "/api/" : "http://localhost:5000/api/";
 
-export const addBackendLoadVms = (backend) => {
-  return (dispatch) => {
-    dispatch(addBackend(backend));
-    dispatch(loadVms(backend));
-  }
-}
+// export const addBackendLoadVms = (backend) => {
+//   return (dispatch) => {
+//     dispatch(addBackend(backend));
+//     dispatch(loadVms(backend));
+//   }
+// }
 
 export const loadBackends = () => {
   return (dispatch) => {
-    axios.get(`${url}backend`)
+    axios.get(`${url}backend`, {
+      headers: authHeader()
+    })
     .then((res) => {
       let backends = res.data
       backends.forEach(function(backend) {
@@ -19,6 +21,8 @@ export const loadBackends = () => {
       })
       dispatch({type:'LOAD_BACKENDS', payload: backends})
     }).catch((err) => {
+      // if error we remove local storaqge to force user to re-auth
+      localStorage.removeItem('user')
       console.log(err)
     })
   }
@@ -26,7 +30,9 @@ export const loadBackends = () => {
 
 export const loadVms = (backend) => {
   return (dispatch) => {
-    axios.get(`${url}backend/${backend._id}`)
+    axios.get(`${url}backend/${backend._id}`, {
+      headers: authHeader()
+    })
     .then((res) => {
       let vms = res.data
 
@@ -42,20 +48,20 @@ export const loadVms = (backend) => {
     })
   }
 }
-
-export const addBackend = (backend) => {
-  return {
-    type: 'ADD_BACKEND',
-    payload: backend
-  }
-}
-
-export const deleteBackend = (backend) => {
-  return {
-    type: 'DELETE_BACKEND',
-    payload: backend
-  }
-}
+//
+// export const addBackend = (backend) => {
+//   return {
+//     type: 'ADD_BACKEND',
+//     payload: backend
+//   }
+// }
+//
+// export const deleteBackend = (backend) => {
+//   return {
+//     type: 'DELETE_BACKEND',
+//     payload: backend
+//   }
+// }
 
   export const deleteVms = (backend) => {
     return {

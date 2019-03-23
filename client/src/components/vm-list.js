@@ -60,7 +60,7 @@ class VmList extends Component {
     return this.state.buttons.map(
       item => {
         return (
-          <Control>
+          <Control key={item.id}>
             <Button id={item.id} color={item.state ? 'primary' : ''} onClick={(event) => this.handleButtonSwitch(item)}>{item.text}</Button>
           </Control>
         )

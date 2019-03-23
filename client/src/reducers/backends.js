@@ -24,9 +24,6 @@ export default (state=initialState, action) => {
         }
       })
     case 'LOAD_BACKENDS':
-      // return {
-      //   backends: action.payload
-      // }
       return action.payload
     default:
     return state

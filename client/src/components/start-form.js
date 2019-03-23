@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Control, Field } from 'react-bulma-components/lib/components/form'
 import Button from 'react-bulma-components/lib/components/button';
-import Notification from 'react-bulma-components/lib/components/notification';
-import {  url } from '../actions'
+import { url, authHeader } from '../helpers';
 
 class StartForm extends Component {
   state = {
@@ -17,7 +16,9 @@ class StartForm extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${url}image`)
+    axios.get(`${url}image`, {
+      headers: authHeader()
+    })
     .then((res) => {
       let images = res.data
       this.setState({ images });
@@ -39,7 +40,9 @@ class StartForm extends Component {
     if (instance === {}) {
       return;
     }
-    axios.post(`${url}image/start`, instance)
+    axios.post(`${url}image/start`, instance, {
+      headers: authHeader()
+    })
     .then((res) => {
       console.log(res)
       this.setState({ message: res.data });
