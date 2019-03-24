@@ -7,6 +7,10 @@ var { generateToken, sendToken } = require('../../services/token.service');
 
 var router = require('express').Router();
 
+router.get('/check', (req,res) => {
+  return res.send('OK')
+})
+
 // get backend details via a GET query
 router.get('/backend/:backend',
     passport.authenticate('jwt', {session: false}),
