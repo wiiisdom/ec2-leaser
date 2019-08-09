@@ -44,7 +44,7 @@ exports.start = function (req, res, next) {
       name: req.body.name,
       description: req.body.description
     }
-    aws.start(res,next, instance);
+    aws.start(res,next, instance, req.user.email);
   })
 
 

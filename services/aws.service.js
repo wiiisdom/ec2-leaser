@@ -41,7 +41,7 @@ exports.list = function (res, next, backend) {
   });
 };
 
-exports.start = function (res, next, instance) {
+exports.start = function (res, next, instance, userid) {
   if(instance.image.backend == null) {
     return next("No backend on image");
   }
@@ -54,7 +54,8 @@ exports.start = function (res, next, instance) {
   if(instance.image.content.TagSpecifications == null) {
     return next("No tags on image");
   }
-  // put the name and description in the template
+
+  // put the name, description, userid in the template
   instance.image.content.TagSpecifications.forEach((item) => {
     item.Tags.push({
       Key: "Name",
@@ -63,6 +64,10 @@ exports.start = function (res, next, instance) {
     item.Tags.push({
       Key: "description",
       Value: instance.image.description + " @ " + instance.description
+    })
+    item.Tags.push({
+      Key: "vmlist_creator",
+      Value: userid
     })
   })
 
