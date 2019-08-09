@@ -1,5 +1,7 @@
 # vmlist
 
+[![Build Status](https://travis-ci.org/gbandsmith/vmlist.svg?branch=master)](https://travis-ci.org/gbandsmith/vmlist)
+
 A tool tolist and manage virtual machines all around the company. Will manage this kind of backends :
 
 * AWS EC2
@@ -21,9 +23,9 @@ $ npm install -g concurrently nodemon
 ### Launch the application
 ```
 $ npm install
-$ npm run both (launch both back and front)
-$ npm run client (launch front)
-$ npm run server (launch back)
+$ npm run both # launch both back and front
+$ npm run client # launch front
+$ npm run server # launch back
 ```
 
 ### Test REST API
