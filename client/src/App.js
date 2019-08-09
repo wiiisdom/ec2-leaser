@@ -59,17 +59,19 @@ class App extends Component {
             Log out
           </button>
           <div className="container">
+
+          <div className="columns">
+            <div className="column">
+              <StartForm/>
+            </div>
+            <div className="column">
+              <h3 className="title is-3">Backends</h3>
+              <BackendList/>
+            </div>
+          </div>
+
           <VmList />
 
-            <div className="columns">
-              <div className="column">
-                <StartForm/>
-              </div>
-              <div className="column">
-                <h3 className="title is-3">Backends</h3>
-                <BackendList/>
-              </div>
-            </div>
           </div>
         </Section>
       </div>

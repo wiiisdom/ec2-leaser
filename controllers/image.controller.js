@@ -21,6 +21,7 @@ exports.add = function (req, res, next) {
 
 exports.list = function (req, res, next) {
   Image.find()
+    .sort('name')
     .select()
     .exec(function (err, images) {
     if (err) return next(err);
