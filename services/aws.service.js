@@ -69,6 +69,10 @@ exports.start = function (res, next, instance, userid) {
       Key: "vmlist_creator",
       Value: userid
     })
+    item.Tags.push({
+      Key: "vmlist_days",
+      Value: "3"
+    })
   })
 
   ec2.runInstances(instance.image.content, function(err,data) {
