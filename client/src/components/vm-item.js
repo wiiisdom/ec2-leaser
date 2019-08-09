@@ -29,23 +29,18 @@ class Vm extends Component {
           </Media>
           <Content>
             <p>
-              ram: {this.props.vm.ram}<br/>
-              id: {this.props.vm.id}<br/>
-              dns : {this.props.vm.dns}<br/>
-              ip : {this.props.vm.ip}
+              <strong>type</strong> {this.props.vm.awsType}<br/>
+              <strong>ram</strong> {this.props.vm.ram}<br/>
+              <strong>id</strong> {this.props.vm.id}<br/>
+              <strong>dns</strong> {this.props.vm.dns}<br/>
+              <strong>ip</strong> {this.props.vm.ip}
               <br/>
             </p>
           </Content>
         </Card.Content>
         <Card.Footer>
-          <Card.Footer.Item renderAs="a" href="#Yes">
-            Do
-          </Card.Footer.Item>
-          <Card.Footer.Item renderAs="a" href="#No">
-            Nothing
-          </Card.Footer.Item>
-          <Card.Footer.Item renderAs="a" href="#Maybe">
-            Yey
+          <Card.Footer.Item renderAs="p" href="#">
+            {this.props.vm.state=='running'?'Stop':'Start'}
           </Card.Footer.Item>
         </Card.Footer>
       </Card>
