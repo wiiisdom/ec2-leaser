@@ -28,7 +28,7 @@ exports.list = function (req, res, next) {
       if (err) return next(err);
       let images = backends.map(e => {
         const promise = new Promise(function(resolve, reject) {
-          Image.find({backend: e._id}).lean().exec((err, images) => {
+          Image.find({backend: e._id}).sort('name').lean().exec((err, images) => {
             if (err) reject(err)
             e.images = images
             resolve(e)
