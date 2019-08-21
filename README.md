@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/gbandsmith/vmlist.svg?branch=master)](https://travis-ci.org/gbandsmith/vmlist)
 
-A tool tolist and manage virtual machines all around the company. Will manage this kind of backends :
+A tool to list and manage virtual machines all around the company. Will manage this kind of backends :
 
 * AWS EC2
 * VMWare (VSphere)
