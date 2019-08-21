@@ -76,7 +76,14 @@ render() {
             <select id="image" name="image">
               {
                 this.state.images.map((item, key) =>
-                <option key={key} value={item._id}>{item.name} ({item.description})</option>
+                <optgroup key={key} label={item.name}>
+                {
+                  item.images.map((image, key2) =>
+                  <option key={key2} value={image._id}>{image.name} ({image.description})</option>
+                )
+                }
+
+                </optgroup>
               )
               }
             </select>

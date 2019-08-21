@@ -48,6 +48,12 @@ And then check on http://localhost:3000 for the frontend. The backend is on http
 
 Using [Dokku](https://github.com/dokku/dokku)
 
+Currently I just need to push on my dokku remote :
+
+```
+git push dokku
+```
+
 ## Populate Data in MongDB
 
 Go to http://localhost:5000/mongo (admin/pass) for the Mongo administrative interface.

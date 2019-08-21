@@ -1,4 +1,5 @@
 const Image = require('../models/image.model');
+const Backend = require('../models/backend.model');
 const aws = require('../services/aws.service');
 
 exports.add = function (req, res, next) {
@@ -20,12 +21,24 @@ exports.add = function (req, res, next) {
 };
 
 exports.list = function (req, res, next) {
-  Image.find()
-    .sort('name')
-    .select()
-    .exec(function (err, images) {
-    if (err) return next(err);
-    res.send(images);
+  Backend.find()
+    .select('-content')
+    .lean() // to return real json object instead of mongoose documents
+    .exec(function (err, backends) {
+      if (err) return next(err);
+      let images = backends.map(e => {
+        const promise = new Promise(function(resolve, reject) {
+          Image.find({backend: e._id}).lean().exec((err, images) => {
+            if (err) reject(err)
+            e.images = images
+            resolve(e)
+          })
+        });
+        return promise;
+      })
+      Promise.all(images).then(values => {
+        res.send(values);
+      })
   })
 };
 
