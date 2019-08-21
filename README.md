@@ -6,8 +6,7 @@ A tool tolist and manage virtual machines all around the company. Will manage th
 
 * AWS EC2
 * VMWare (VSphere)
-* Xen (custom WS)
-
+* Xen ([custom WS](https://github.com/gbandsmith/xenrestapi))
 
 
 ## How to run the tool locally ?
@@ -66,6 +65,8 @@ Go to the database test if you work on local or the database name choosen if any
 - Create the collection ``backends`` if it doesn't exist.
 - For each backend create a document. Here is 3 examples for the 3 actual supported backend kind.
 
+### AWS
+
 ```
 {
     "_id": ObjectID(),
@@ -79,13 +80,35 @@ Go to the database test if you work on local or the database name choosen if any
 }
 ```
 
-```
-TODO VMWARE
-```
+### VMWARE
 
 ```
-TODO XEN
+{
+    "_id": ObjectID(),
+    "name": "my-vsphere-server",
+    "type": "vmware",
+    "content": {
+        "host": "vsphere-host:443",
+        "user": "myuser",
+        "password": "mypass"
+    }
+}
 ```
+
+### XEN
+
+```
+{
+    "_id": ObjectID(),
+    "name": "my-xen-server",
+    "type": "xen",
+    "content": {
+        "url": "http://xenserverurl:3001/api"
+    }
+}
+```
+
+For Xen support you must setup on the Xen server the custom webservice that you can find [here](https://github.com/gbandsmith/xenrestapi)
 
 Once a backend is added, the vmlist tool will try to grab the list of virtual machines for each backend. Take note of the *\_id* identifer for the backend created, it will be used for images.
 
@@ -141,3 +164,23 @@ Images are needed if you want to allow the creation of AWS instances from existi
 The ``content`` key is the exact value waited by the AWS API (the function ``ec2.runInstances``).
 
 Tags ``name`` and ``description`` will be set direcly during launch time (based on user input)
+
+
+### Google authentication
+
+We have added a auth system on top of the system to make it usable only by a specific google suite group. To use it, you must create a new project on https://console.developers.google.com,  and generate Client ID for webapplication. Then :
+
+* create an `.env` file at the root level of the project with the following content:
+
+```
+GOOGLE_CLIENT_ID=your-client-id
+GOOGLE_CLIENT_SECRET=your-secret
+SESSION_SECRET=a-secret
+```
+
+* create under `/client` folder an `.env` file that contains:
+
+```
+REACT_APP_GOOGLE_CLIENT_ID=your-client-id
+
+```
