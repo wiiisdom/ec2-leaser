@@ -24,7 +24,7 @@ class BackendList extends Component {
           <Media key={item._id} className={item.err !== undefined ? 'error' : ''}>
             <Media.Item>
               <Content>
-                {item.name} {item.type} <strong>{item.err}</strong>
+                <strong>{item.name}</strong> [{item.type}] <strong>{item.err}</strong> <i>({item.count} instances)</i>
               </Content>
             </Media.Item>
           </Media>

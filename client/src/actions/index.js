@@ -18,6 +18,7 @@ export const loadBackends = () => {
       let backends = res.data
       backends.forEach(function(backend) {
         dispatch(loadVms(backend))
+        backend.count = '?'
       })
       dispatch({type:'LOAD_BACKENDS', payload: backends})
     }).catch((err) => {
@@ -40,7 +41,11 @@ export const loadVms = (backend) => {
       vms.forEach((item) => {
         item.backend = backend.name
       })
+      // add vm count on backend
+      backend.count = vms.length
+
       dispatch({type:'LOAD_VMS', payload: vms})
+      dispatch({type:'UPDATE_BACKEND', payload: backend})
     }).catch((err) => {
       console.log(err)
       backend.err = err.message
