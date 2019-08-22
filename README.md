@@ -182,5 +182,10 @@ SESSION_SECRET=a-secret
 
 ```
 REACT_APP_GOOGLE_CLIENT_ID=your-client-id
-
 ```
+
+When you deploy your app in prod environement don't forget to define the same environment variables to make it work.
+
+`dokku config:set myapp GOOGLE_CLIENT_ID=your-client-id`
+
+and so...
