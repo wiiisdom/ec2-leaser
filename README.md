@@ -53,7 +53,7 @@ Currently I just need to push on my dokku remote :
 git push dokku
 ```
 
-## Populate Data in MongDB
+## Populate Data in MongoDB
 
 Go to http://localhost:5000/mongo (admin/pass) for the Mongo administrative interface.
 It allow to CRUD backends, and images.
