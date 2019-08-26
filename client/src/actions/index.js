@@ -29,6 +29,14 @@ export const loadBackends = () => {
   }
 }
 
+export const updateBackend = (backend) => {
+  console.log(backend)
+  return {
+    type: 'UPDATE_BACKEND',
+    payload: backend
+  }
+}
+
 export const loadVms = (backend) => {
   return (dispatch) => {
     axios.get(`${url}backend/${backend._id}`, {

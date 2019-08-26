@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Media from 'react-bulma-components/lib/components/media'
-import Content from 'react-bulma-components/lib/components/content'
 import {connect} from 'react-redux';
 import {loadBackends} from '../actions'
+import Backend from './backend-item'
 
 class BackendList extends Component {
 
@@ -20,14 +19,7 @@ class BackendList extends Component {
       {
         this.props.backends &&
         this.props.backends.map((item, key) =>
-          // eslint-disable-next-line
-          <Media key={item._id} className={item.err !== undefined ? 'error' : ''}>
-            <Media.Item>
-              <Content>
-                <strong>{item.name}</strong> [{item.type}] <strong>{item.err}</strong> <i>({item.count} instances)</i>
-              </Content>
-            </Media.Item>
-          </Media>
+          <Backend key={item._id} backend={item}/>
       )
       }
     </div>

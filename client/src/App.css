@@ -33,3 +33,17 @@
   #fadbd8 10px,
   #fadbd8 20px
 );}
+
+.active {
+  background: repeating-linear-gradient(
+  45deg,
+  #d5f5e3,
+  #d5f5e3 10px,
+  #eafaf1 10px,
+  #eafaf1 20px
+);}
+
+.disabled {
+  font-style: italic;
+  color: grey;
+}

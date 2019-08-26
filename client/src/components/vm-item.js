@@ -40,7 +40,7 @@ class Vm extends Component {
         </Card.Content>
         <Card.Footer>
           <Card.Footer.Item renderAs="p" href="#">
-            {this.props.vm.state=='running'?'Stop':'Start'}
+            {this.props.vm.state === 'running'?'Stop':'Start'}
           </Card.Footer.Item>
         </Card.Footer>
       </Card>
