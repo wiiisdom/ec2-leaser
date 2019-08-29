@@ -1,14 +1,6 @@
 import axios from 'axios'
 import { url, authHeader } from '../helpers';
 
-
-// export const addBackendLoadVms = (backend) => {
-//   return (dispatch) => {
-//     dispatch(addBackend(backend));
-//     dispatch(loadVms(backend));
-//   }
-// }
-
 export const loadBackends = () => {
   return (dispatch) => {
     axios.get(`${url}backend`, {
@@ -17,8 +9,9 @@ export const loadBackends = () => {
     .then((res) => {
       let backends = res.data
       backends.forEach(function(backend) {
-        dispatch(loadVms(backend))
         backend.count = '?'
+        backend.active = true
+        dispatch(loadVms(backend))
       })
       dispatch({type:'LOAD_BACKENDS', payload: backends})
     }).catch((err) => {
@@ -31,11 +24,12 @@ export const loadBackends = () => {
   }
 }
 
-export const updateBackend = (backend) => {
-  console.log(backend)
-  return {
-    type: 'UPDATE_BACKEND',
-    payload: backend
+export const switchBackend = (backend) => {
+  return (dispatch) => {
+    // switch active flag
+    backend.active = !backend.active
+    dispatch({type:'UPDATE_BACKEND', payload: backend})
+    dispatch({type:'UPDATE_VMS', payload: backend})
   }
 }
 
@@ -50,6 +44,7 @@ export const loadVms = (backend) => {
       // add backend name on vm
       vms.forEach((item) => {
         item.backend = backend.name
+        item.active = true
       })
       // add vm count on backend
       backend.count = vms.length
@@ -62,25 +57,4 @@ export const loadVms = (backend) => {
       dispatch({type:'UPDATE_BACKEND', payload: backend})
     })
   }
-}
-//
-// export const addBackend = (backend) => {
-//   return {
-//     type: 'ADD_BACKEND',
-//     payload: backend
-//   }
-// }
-//
-// export const deleteBackend = (backend) => {
-//   return {
-//     type: 'DELETE_BACKEND',
-//     payload: backend
-//   }
-// }
-
-  export const deleteVms = (backend) => {
-    return {
-      type: 'DELETE_VMS',
-      payload: backend
-    }
 }

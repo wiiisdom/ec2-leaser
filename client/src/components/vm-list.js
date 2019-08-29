@@ -40,12 +40,18 @@ class VmList extends Component {
 
   createListItems() {
     return this.props.vms
+      // filter backend active
+      .filter(vm => {
+        return vm.active
+      })
+      // filter search field
       .filter(vm => {
         if (vm.name) {
           return vm.name.includes(this.state.search)
         }
         else return true
       })
+      // filter state field
       .filter(vm => {
         return this.state.buttons.filter(item => item.state).map(item => item.id).includes(vm.state)
       })
