@@ -24,6 +24,8 @@ export const loadBackends = () => {
     }).catch((err) => {
       // if error we remove local storaqge to force user to re-auth
       localStorage.removeItem('user')
+      // then reload page to present right screen
+      window.location.reload()
       console.log(err)
     })
   }

@@ -71,7 +71,7 @@ exports.start = function (res, next, instance, userid) {
     })
     item.Tags.push({
       Key: "vmlist_days",
-      Value: "3"
+      Value: process.env.VMLIST_DAYS || "4"
     })
   })
 
