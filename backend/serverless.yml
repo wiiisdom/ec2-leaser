@@ -1,0 +1,66 @@
+service: vmlist-backend
+useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  profile: dev
+  memorySize: 128
+  apiGateway:
+    shouldStartNameWithService: true
+  environment:
+    GOOGLE_CLIENT_ID: ${env:GOOGLE_CLIENT_ID}
+    GOOGLE_CLIENT_SECRET: ${env:GOOGLE_CLIENT_SECRET}
+    SESSION_SECRET: dkljpoeripdlfdsajkfghlf
+
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - dynamodb:*
+    Resource: 
+      - { "Fn::GetAtt": ["backendTable", "Arn"] }
+      - { "Fn::GetAtt": ["userTable", "Arn"] }
+
+functions:
+  app:
+    handler: app.handler
+    events: 
+      - http: 
+          path: /
+          method: ANY
+      - http: 
+          path: /{proxy+}
+          method: ANY
+
+resources: # CloudFormation template syntax from here on.
+  Resources:
+    backendTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: vmlistBackendsTable
+        AttributeDefinitions:
+          - AttributeName: name
+            AttributeType: S
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+    userTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: vmlistUsersTable
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+plugins:
+  - serverless-offline
