@@ -1,5 +1,0 @@
-WAIT=30
-TIMEOUT=30
-ATTEMPTS=5
-
-/api/check OK

@@ -1,22 +1,23 @@
 {
-  "name": "vmlist",
-  "version": "1.0.0",
+  "name": "ec2-leaser",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "server": "nodemon ./bin/www",
-    "start": "node ./bin/www"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "~4.16.0",
-    "jsonwebtoken": "^8.5.1",
-    "passport": "^0.4.0",
-    "passport-google-token": "^0.1.2",
-    "passport-jwt": "^4.0.0",
-    "serverless-http": "^2.7.0"
+    "test": "sst test",
+    "start": "sst start",
+    "build": "sst build",
+    "deploy": "sst deploy",
+    "remove": "sst remove"
   },
   "devDependencies": {
-    "aws-sdk": "^2.901.0",
-    "serverless-offline": "^7.0.0"
+    "@aws-cdk/assert": "1.98.0",
+    "@types/aws-lambda": "^8.10.70",
+    "@types/node": "^15.3.0",
+    "aws-sdk": "^2.907.0"
+  },
+  "dependencies": {
+    "@aws-cdk/core": "1.98.0",
+    "@serverless-stack/cli": "0.18.0",
+    "@serverless-stack/resources": "0.18.0"
   }
 }
