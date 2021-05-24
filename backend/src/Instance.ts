@@ -9,19 +9,19 @@ export const start: APIGatewayProxyHandlerV2 = async (
     return {
       statusCode: 500,
       headers: { "Content-Type": "text/plain" },
-      body: "Missing parameters",
+      body: JSON.stringify({ message: "Missing parameters" }),
     };
   }
   const request = JSON.parse(event.body);
 
   const launchTemplateId = request.instanceId;
-  const name = "bla";
-  const user = "toto";
+  const name = request.title;
+  const user = request.user;
 
   const tags: EC2.TagList = [
     {
       Key: "Name",
-      Value: `Ec2Leaser-${name}`,
+      Value: name,
     },
     {
       Key: "Ec2LeaserCreator",
@@ -56,18 +56,19 @@ export const start: APIGatewayProxyHandlerV2 = async (
     if (!data || !data.Instances) {
       throw new Error("Wrong result from the EC2 API");
     }
-    const instance = data.Instances[0].InstanceId;
 
     return {
       statusCode: 200,
       headers: { "Content-Type": "text/plain" },
-      body: `instance started under id ${instance}.`,
+      body: JSON.stringify({
+        instanceId: data.Instances[0].InstanceId,
+      }),
     };
   } catch (error) {
     return {
       statusCode: 500,
       headers: { "Content-Type": "text/plain" },
-      body: `${error}`,
+      body: JSON.stringify(error),
     };
   }
 };

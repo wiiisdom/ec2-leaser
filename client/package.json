@@ -1,5 +1,5 @@
 {
-  "name": "client-light",
+  "name": "ec2leaser-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,6 +16,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "react-svg-spinner": "^1.0.4",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "scripts": {

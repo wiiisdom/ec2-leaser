@@ -16,8 +16,12 @@
     "aws-sdk": "^2.907.0"
   },
   "dependencies": {
+    "@aws-cdk/aws-cloudfront-origins": "1.98.0",
+    "@aws-cdk/aws-s3-deployment": "1.98.0",
     "@aws-cdk/core": "1.98.0",
     "@serverless-stack/cli": "0.18.0",
-    "@serverless-stack/resources": "0.18.0"
+    "@serverless-stack/resources": "0.18.0",
+    "@types/fs-extra": "^9.0.11",
+    "fs-extra": "^10.0.0"
   }
 }

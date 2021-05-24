@@ -180,6 +180,18 @@
     "@aws-cdk/cx-api" "1.98.0"
     constructs "^3.3.69"
 
+"@aws-cdk/aws-cloudfront-origins@1.98.0":
+  version "1.98.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudfront-origins/-/aws-cloudfront-origins-1.98.0.tgz#4fc410d51684991799a3055838331eb3a2ac4f29"
+  integrity sha512-t0Gwn9oyXIY7HtSyslo1IWkJ2lixPsVxB7e+Hr1Oam2qum88dRPWUSGRC4tiwB+7kD1dC51ybUp0XV9IuB6Shg==
+  dependencies:
+    "@aws-cdk/aws-cloudfront" "1.98.0"
+    "@aws-cdk/aws-elasticloadbalancingv2" "1.98.0"
+    "@aws-cdk/aws-iam" "1.98.0"
+    "@aws-cdk/aws-s3" "1.98.0"
+    "@aws-cdk/core" "1.98.0"
+    constructs "^3.3.69"
+
 "@aws-cdk/aws-cloudfront@1.98.0":
   version "1.98.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudfront/-/aws-cloudfront-1.98.0.tgz#24441d2d41d01faab6519a4745fc17db06c0a966"
@@ -616,6 +628,21 @@
     "@aws-cdk/cx-api" "1.98.0"
     constructs "^3.3.69"
 
+"@aws-cdk/aws-s3-deployment@1.98.0":
+  version "1.98.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-s3-deployment/-/aws-s3-deployment-1.98.0.tgz#b0ad014afcfc4e66b1771099ae6fd9a26809f128"
+  integrity sha512-Tt1X4UCjWp1VCNjoBLBTaM9XMfAp0GBqpRK/4fnRdqoxBrpPNxmJdVzNs5VteJH3CQWQ7aeGHL+b9PdVKfaqrA==
+  dependencies:
+    "@aws-cdk/aws-cloudfront" "1.98.0"
+    "@aws-cdk/aws-ec2" "1.98.0"
+    "@aws-cdk/aws-iam" "1.98.0"
+    "@aws-cdk/aws-lambda" "1.98.0"
+    "@aws-cdk/aws-s3" "1.98.0"
+    "@aws-cdk/aws-s3-assets" "1.98.0"
+    "@aws-cdk/core" "1.98.0"
+    "@aws-cdk/lambda-layer-awscli" "1.98.0"
+    constructs "^3.3.69"
+
 "@aws-cdk/aws-s3-notifications@1.98.0":
   version "1.98.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-s3-notifications/-/aws-s3-notifications-1.98.0.tgz#783f67ec843ec8fd7e157b4af1db40cbf4643fe6"
@@ -804,6 +831,15 @@
   dependencies:
     "@aws-cdk/cloud-assembly-schema" "1.98.0"
     semver "^7.3.5"
+
+"@aws-cdk/lambda-layer-awscli@1.98.0":
+  version "1.98.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/lambda-layer-awscli/-/lambda-layer-awscli-1.98.0.tgz#1bd29756fe68176a8abd7ec87172f4fe5bfe58d1"
+  integrity sha512-CAiQlVPbp7dKONa/JrPtBX4DrfIbrrGeNg1w+xxhmhL9HHHSbOjcpBqTAEfIFIeJfa8XGRo2fM5Dr7xv6W/r0g==
+  dependencies:
+    "@aws-cdk/aws-lambda" "1.98.0"
+    "@aws-cdk/core" "1.98.0"
+    constructs "^3.3.69"
 
 "@aws-cdk/region-info@1.98.0":
   version "1.98.0"
@@ -2110,6 +2146,13 @@
   integrity sha512-Vs0hm0vPahPMYi9tDjtP66llufgO3ST16WXaSTtDGEl9cewAl3AibmxWw6TINOqHPT9z0uABKAYjT9jNSg4npw==
   dependencies:
     "@babel/types" "^7.3.0"
+
+"@types/fs-extra@^9.0.11":
+  version "9.0.11"
+  resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-9.0.11.tgz#8cc99e103499eab9f347dbc6ca4e99fb8d2c2b87"
+  integrity sha512-mZsifGG4QeQ7hlkhO56u7zt/ycBgGxSVsFI/6lGTU34VtwkiqrrSDgw0+ygs8kFGWcXnFQWMrzF2h7TtDFNixA==
+  dependencies:
+    "@types/node" "*"
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
@@ -3937,6 +3980,15 @@ fs-constants@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs-constants/-/fs-constants-1.0.0.tgz#6be0de9be998ce16af8afc24497b9ee9b7ccd9ad"
   integrity sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==
+
+fs-extra@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.0.0.tgz#9ff61b655dde53fb34a82df84bb214ce802e17c1"
+  integrity sha512-C5owb14u9eJwizKGdchcDUQeFtlSHHthBk8pbX9Vc1PFZrLombudjDnNns88aYslCyF6IY5SUw3Roz6xShcEIQ==
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^2.0.0"
 
 fs-extra@^8.1.0:
   version "8.1.0"
