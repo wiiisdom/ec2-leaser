@@ -2,7 +2,7 @@ var AWS = require("aws-sdk");
 
 const fs = require("fs");
 
-const REGION = "us-east-1";
+const REGION = "eu-central-1";
 const BACKEND_ID = "5bee2f8fa038cc00cec86132";
 const ec2 = new AWS.EC2({ region: REGION });
 
@@ -10,7 +10,7 @@ let rawdata = fs.readFileSync("images.json");
 let images = JSON.parse(rawdata);
 
 images.map(async (image) => {
-  if (BACKEND_ID === image.backend.$oid && image.name !== "sapbi422-win") {
+  if (BACKEND_ID === image.backend.$oid) {
     console.log(`Name: ${image.name}`);
     delete image.content.MaxCount;
     delete image.content.MinCount;

@@ -1,8 +1,11 @@
 import * as sst from "@serverless-stack/resources";
 import { ApiAuthorizationType, Auth, Cron } from "@serverless-stack/resources";
 
+interface BackendStackProps extends sst.StackProps {
+  readonly googleClientId: string;
+}
 export default class BackendStack extends sst.Stack {
-  constructor(scope: sst.App, id: string, props?: sst.StackProps) {
+  constructor(scope: sst.App, id: string, props: BackendStackProps) {
     super(scope, id, props);
 
     // Create the HTTP API
@@ -35,8 +38,7 @@ export default class BackendStack extends sst.Stack {
     // Create an Auth via Google Identity
     const auth = new Auth(this, "Auth", {
       google: {
-        clientId:
-          "912868966610-17ml6d14mikkcovoao16qbebef984lqq.apps.googleusercontent.com",
+        clientId: props.googleClientId,
       },
     });
 
@@ -45,8 +47,14 @@ export default class BackendStack extends sst.Stack {
 
     // Show API endpoint in output
     this.addOutputs({
-      ApiEndpoint: api.url,
-      IdentityPoolId: auth.cognitoCfnIdentityPool.ref,
+      ApiEndpoint: {
+        value: api.url,
+        exportName: `${scope.stage}-${scope.name}-api`,
+      },
+      IdentityPoolId: {
+        value: auth.cognitoCfnIdentityPool.ref,
+        exportName: `${scope.stage}-${scope.name}-poolid`,
+      },
     });
   }
 }

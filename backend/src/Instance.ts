@@ -29,7 +29,7 @@ export const start: APIGatewayProxyHandlerV2 = async (
     },
     {
       Key: "Ec2LeaserDuration",
-      Value: "4",
+      Value: "6",
     },
   ];
 
