@@ -49,6 +49,7 @@ Then push the frontend to S3 and invalidate cloudfront distribution
 cd build/
 aws s3 sync . s3://<bucket name>
 aws cloudfront create-invalidation --paths "/*" --distribution-id <cloudfront distribution>
+```
 
 ### Google authentication
 
