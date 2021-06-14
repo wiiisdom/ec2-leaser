@@ -14,9 +14,31 @@ const SelectLaunchTemplate = ({
 
   // grab launch templates from API
   useEffect(() => {
-    API.get('main', '/list')
-      .then(data => setLaunchTemplates(data))
-      .catch(err => console.error(err));
+    try {
+    async function fetchData() {
+      const initialList = await API.get('main', '/list')
+      const templatesList = await Promise.allSettled(
+        initialList.map((template) => {
+          return API.post('main', '/description', {
+            body: {
+              instanceId: template.id
+            }
+          })
+        })
+      );
+    
+      for (let i = 0; i < initialList.length; i++) {
+        initialList[i].description =
+          templatesList[i].status === 'fulfilled'
+            ? templatesList[i].value.description
+            : 'no description available.';
+      }
+      setLaunchTemplates(initialList);
+    }
+    fetchData()
+    } catch(err) {
+      console.error(err)
+    }
   }, []);
 
   const templates = (

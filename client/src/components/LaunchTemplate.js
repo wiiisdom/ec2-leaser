@@ -1,27 +1,8 @@
-import { useEffect, useState } from 'react';
-
-import { API } from 'aws-amplify';
-
 const LaunchTemplate = ({
   launchTemplate,
   selectedLaunchTemplate,
   setLaunchTemplate
 }) => {
-  const [description, setDescription] = useState('Loading...');
-
-  useEffect(() => {
-    API.post('main', '/description', {
-      body: {
-        instanceId: launchTemplate.id
-      }
-    })
-      .then(data => {
-        setDescription(data.description);
-      })
-      .catch(err => {
-        setDescription('no description available.');
-      });
-  });
   if (
     selectedLaunchTemplate &&
     selectedLaunchTemplate.id === launchTemplate.id
@@ -34,7 +15,7 @@ const LaunchTemplate = ({
         <div className="p-4 bg-yellow-500 border border-gray-200 rounded-lg">
           <LaunchTemplateContent
             launchTemplate={launchTemplate}
-            description={description}
+            description={launchTemplate.description}
           />
         </div>
       </div>
@@ -48,7 +29,7 @@ const LaunchTemplate = ({
         <div className="p-4 border border-gray-200 rounded-lg">
           <LaunchTemplateContent
             launchTemplate={launchTemplate}
-            description={description}
+            description={launchTemplate.description}
           />
         </div>
       </div>
