@@ -17,6 +17,7 @@ export const start: APIGatewayProxyHandlerV2 = async (
   const launchTemplateId = request.instanceId;
   const name = request.title;
   const user = request.user;
+  const spotInstance = request.spotInstance ? true : undefined;
 
   const tags: EC2.TagList = [
     {
@@ -49,7 +50,15 @@ export const start: APIGatewayProxyHandlerV2 = async (
         Tags: tags,
       },
     ],
+    InstanceMarketOptions: spotInstance && {
+      MarketType: "spot",
+      SpotOptions: {
+        InstanceInterruptionBehavior: "stop",
+        SpotInstanceType: "persistent",
+      },
+    },
   };
+
   try {
     const data = await ec2.runInstances(params).promise();
 

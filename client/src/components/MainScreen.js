@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Header from './Header';
 
+import SelectSpotInstance from './SelectSpotInstance';
 import SelectLaunchTemplate from './SelectLaunchTemplate';
 import SelectTitle from './SelectTitle';
 
@@ -13,6 +14,7 @@ const MainScreen = ({ user }) => {
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState(null);
   const [instanceId, setInstanceId] = useState(null);
+  const [spotInstance, setSpotInstance] = useState(true);
 
   const handleSetLaunchTemplate = launchTemplate => {
     if (launchTemplate) {
@@ -34,7 +36,8 @@ const MainScreen = ({ user }) => {
       body: {
         instanceId: selectedLaunchTemplate.id,
         title,
-        user: user
+        user,
+        spotInstance
       }
     })
       .then(data => {
@@ -55,6 +58,10 @@ const MainScreen = ({ user }) => {
       <SelectLaunchTemplate
         selectedLaunchTemplate={selectedLaunchTemplate}
         handleSetLaunchTemplate={handleSetLaunchTemplate}
+      />
+      <SelectSpotInstance
+        spotInstance={spotInstance}
+        setSpotInstance={setSpotInstance}
       />
       <SelectTitle
         setTitle={setTitle}
