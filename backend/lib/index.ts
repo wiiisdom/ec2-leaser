@@ -10,14 +10,13 @@ export default function main(app: sst.App): void {
 
   // check environment variables
   if (!process.env.GOOGLE_CLIENT_ID || !process.env.DOMAIN) {
-    throw new Error(
-      "GOOGLE_CLIENT_ID and/or DOMAIN environment variable are not set"
-    );
+    throw new Error("GOOGLE_CLIENT_ID and/or DOMAIN environment variable are not set");
   }
 
   new BackendStack(app, "backend-stack", {
     tags: {
-      costcenter: "360lab",
+      costcenter: "lab",
+      project: "ec2-leaser",
       owner: "360lab@360suite.io",
     },
     googleClientId: process.env.GOOGLE_CLIENT_ID,
@@ -25,7 +24,8 @@ export default function main(app: sst.App): void {
 
   new FrontendStack(app, "frontend-stack", {
     tags: {
-      costcenter: "360lab",
+      costcenter: "lab",
+      project: "ec2-leaser",
       owner: "360lab@360suite.io",
     },
     //googleClientId: process.env.GOOGLE_CLIENT_ID,

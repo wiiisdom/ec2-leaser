@@ -20,6 +20,7 @@ export default class FrontendStack extends sst.Stack {
 
     // create a S3 bucket to host static asset for the frontend
     const frontendBucket = new Bucket(this, "FrontendBucket", {
+      autoDeleteObjects: true,
       websiteIndexDocument: "index.html",
       websiteErrorDocument: "index.html",
       publicReadAccess: true,
@@ -35,50 +36,40 @@ export default class FrontendStack extends sst.Stack {
     const siteDomain = props.subDomain + "." + props.domain;
 
     // TLS certificate
-    const certificate = new acm.DnsValidatedCertificate(
-      this,
-      "SiteCertificate",
-      {
-        domainName: siteDomain,
-        hostedZone: zone,
-        region: "us-east-1", // Cloudfront only checks this region for certificates.
-      }
-    );
+    const certificate = new acm.DnsValidatedCertificate(this, "SiteCertificate", {
+      domainName: siteDomain,
+      hostedZone: zone,
+      region: "us-east-1", // Cloudfront only checks this region for certificates.
+    });
 
     // create CloudFront distribution to serve the content
-    const frontendDistribution = new cloudfront.Distribution(
-      this,
-      "frontendDistribution",
-      {
-        defaultBehavior: {
-          origin: new origins.S3Origin(frontendBucket),
-          viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    const frontendDistribution = new cloudfront.Distribution(this, "frontendDistribution", {
+      defaultBehavior: {
+        origin: new origins.S3Origin(frontendBucket),
+        viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      },
+      defaultRootObject: "index.html",
+      errorResponses: [
+        {
+          httpStatus: 404,
+          responseHttpStatus: 200,
+          responsePagePath: "/index.html",
         },
-        defaultRootObject: "index.html",
-        errorResponses: [
-          {
-            httpStatus: 404,
-            responseHttpStatus: 200,
-            responsePagePath: "/index.html",
-          },
-          {
-            httpStatus: 403,
-            responseHttpStatus: 200,
-            responsePagePath: "/index.html",
-          },
-        ],
-        domainNames: [siteDomain],
-        certificate: certificate,
-        priceClass: PriceClass.PRICE_CLASS_100,
-      }
-    );
+        {
+          httpStatus: 403,
+          responseHttpStatus: 200,
+          responsePagePath: "/index.html",
+        },
+      ],
+      domainNames: [siteDomain],
+      certificate: certificate,
+      priceClass: PriceClass.PRICE_CLASS_100,
+    });
 
     new route53.ARecord(this, "ARecord", {
       zone: zone,
       recordName: props.subDomain,
-      target: route53.RecordTarget.fromAlias(
-        new targets.CloudFrontTarget(frontendDistribution)
-      ),
+      target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(frontendDistribution)),
     });
 
     // add content in our S3 bucket from the frontend/build directory
