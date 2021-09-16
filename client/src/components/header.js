@@ -3,7 +3,7 @@ import { Auth } from 'aws-amplify';
 const Header = () => {
   return (
     <header className="body-font text-gray-600">
-      <div className="container flex flex-col flex-wrap items-center mx-auto p-5 md:flex-row">
+      <div className="container flex flex-col flex-wrap items-center mx-auto p-5 md:flex-row md:justify-between">
         <a
           className="title-font flex items-center mb-4 text-gray-900 font-medium md:mb-0"
           href="/"
@@ -23,12 +23,6 @@ const Header = () => {
 
           <span className="ml-3 text-xl">EC2 Leaser</span>
         </a>
-        <nav className="flex flex-wrap items-center justify-center text-base md:ml-auto">
-          {/* <a className="mr-5 hover:text-gray-900">First Link</a>
-          <a className="mr-5 hover:text-gray-900">Second Link</a>
-          <a className="mr-5 hover:text-gray-900">Third Link</a>
-          <a className="mr-5 hover:text-gray-900">Fourth Link</a> */}
-        </nav>
         <button
           className="inline-flex items-center mt-4 px-3 py-1 text-base bg-gray-100 hover:bg-gray-200 border-0 rounded focus:outline-none md:mt-0"
           onClick={() => Auth.signOut()}

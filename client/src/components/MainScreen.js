@@ -7,6 +7,7 @@ import SelectTitle from './SelectTitle';
 
 import { API } from 'aws-amplify';
 import Spinner from 'react-svg-spinner';
+import SelectConstCenter from './SelectConstCenter';
 
 const MainScreen = ({ user }) => {
   const [selectedLaunchTemplate, setLaunchTemplate] = useState(null);
@@ -63,6 +64,7 @@ const MainScreen = ({ user }) => {
         spotInstance={spotInstance}
         setSpotInstance={setSpotInstance}
       />
+      <SelectConstCenter />
       <SelectTitle
         setTitle={setTitle}
         title={title}
