@@ -1,15 +1,25 @@
 import * as sst from "@serverless-stack/resources";
 import { ApiAuthorizationType, Auth, Cron } from "@serverless-stack/resources";
-
 interface BackendStackProps extends sst.StackProps {
   readonly googleClientId: string;
+  readonly table: sst.Table;
 }
+
 export default class BackendStack extends sst.Stack {
+  public api: sst.Api;
+
   constructor(scope: sst.App, id: string, props: BackendStackProps) {
     super(scope, id, props);
 
+    const { table } = props;
+
     // Create the HTTP API
-    const api = new sst.Api(this, "Api", {
+    this.api = new sst.Api(this, "Api", {
+      defaultFunctionProps: {
+        environment: {
+          TABLE_NAME: table.dynamodbTable.tableName,
+        },
+      },
       defaultAuthorizationType: ApiAuthorizationType.AWS_IAM,
       routes: {
         "GET /list": "src/LaunchTemplate.list",
@@ -20,7 +30,7 @@ export default class BackendStack extends sst.Stack {
     });
 
     // API permission
-    api.attachPermissions([
+    this.api.attachPermissions([
       "ec2:DescribeLaunchTemplates",
       "ec2:DescribeLaunchTemplateVersions",
       "ec2:RunInstances",
@@ -45,12 +55,12 @@ export default class BackendStack extends sst.Stack {
     });
 
     // Allow user to use API
-    auth.attachPermissionsForAuthUsers([api]);
+    auth.attachPermissionsForAuthUsers([this.api]);
 
     // Show API endpoint in output
     this.addOutputs({
       ApiEndpoint: {
-        value: api.url,
+        value: this.api.url,
         exportName: `${scope.stage}-${scope.name}-api`,
       },
       IdentityPoolId: {
