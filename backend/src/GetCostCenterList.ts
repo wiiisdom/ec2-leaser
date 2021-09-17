@@ -17,7 +17,7 @@ const CONST_CENTER_LIST = {
 const TABLE_ARN = "arn:aws:dynamodb:us-east-1:126096613559:table/cost_center_list";
 const TABLE_NAME = "cost_center_list";
 
-export const start: APIGatewayProxyHandlerV2 = async () => {
+export const list: APIGatewayProxyHandlerV2 = async () => {
   try {
     const documentClient = new AWS.DynamoDB.DocumentClient({ region: "us-east-1" });
     const data = await documentClient.scan({ TableName: TABLE_NAME, Select: "ALL_ATTRIBUTES" }).promise();

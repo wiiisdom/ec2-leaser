@@ -15,6 +15,7 @@ export default class BackendStack extends sst.Stack {
         "GET /list": "src/LaunchTemplate.list",
         "POST /description": "src/LaunchTemplate.description",
         "POST /start": "src/Instance.start",
+        "GET /costcenters": "src/GetCostCenterList.list",
       },
     });
 
@@ -24,6 +25,7 @@ export default class BackendStack extends sst.Stack {
       "ec2:DescribeLaunchTemplateVersions",
       "ec2:RunInstances",
       "ec2:CreateTags",
+      "dynamoDB:Scan",
     ]);
 
     // Create the Cron task to destroy old ressources
