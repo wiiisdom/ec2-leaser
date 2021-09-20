@@ -30,11 +30,11 @@ const SelectConstCenter = ({ costCenter, setCostCenter }) => {
       <div className="container mx-auto pb-8 pt-4 px-5">
         <div className="flex flex-col flex-wrap mb-4 w-full">
           <h1 className="title-font mb-2 text-gray-900 text-2xl font-medium sm:text-3xl">
-            Select CostCenter
+            Select Cost Center
           </h1>
           <p className="w-full text-gray-500 leading-relaxed">
-            Select the tag to apply to the EC2 instance on AWS.This should be
-            set based on the project related to the instance.
+            Select the tag to apply to the EC2 instance on AWS. This should be
+            set based on the project the instance is used for.
           </p>
           {costCenters.length ? (
             <select

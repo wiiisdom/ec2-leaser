@@ -1,9 +1,7 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
 import EC2 from "aws-sdk/clients/ec2";
 
-export const start: APIGatewayProxyHandlerV2 = async (
-  event: APIGatewayProxyEventV2
-) => {
+export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEventV2) => {
   const ec2 = new EC2();
   if (event.body == undefined) {
     return {
@@ -18,6 +16,7 @@ export const start: APIGatewayProxyHandlerV2 = async (
   const name = request.title;
   const user = request.user;
   const spotInstance = request.spotInstance ? true : undefined;
+  const costCenter = request.costCenter;
 
   const tags: EC2.TagList = [
     {
@@ -31,6 +30,10 @@ export const start: APIGatewayProxyHandlerV2 = async (
     {
       Key: "Ec2LeaserDuration",
       Value: "6",
+    },
+    {
+      Key: "costcenter",
+      Value: costCenter,
     },
   ];
 
