@@ -1,12 +1,22 @@
 import * as sst from "@serverless-stack/resources";
 import { ApiAuthorizationType, Auth, Cron } from "@serverless-stack/resources";
-
 interface BackendStackProps extends sst.StackProps {
   readonly googleClientId: string;
 }
+
 export default class BackendStack extends sst.Stack {
   constructor(scope: sst.App, id: string, props: BackendStackProps) {
     super(scope, id, props);
+
+    // Create a table for the cost center list
+    const table = new sst.Table(this, `cost-center-list`, {
+      fields: {
+        id: sst.TableFieldType.NUMBER,
+        name: sst.TableFieldType.STRING,
+        description: sst.TableFieldType.STRING,
+      },
+      primaryIndex: { partitionKey: "id" },
+    });
 
     // Create the HTTP API
     const api = new sst.Api(this, "Api", {
@@ -15,6 +25,16 @@ export default class BackendStack extends sst.Stack {
         "GET /list": "src/LaunchTemplate.list",
         "POST /description": "src/LaunchTemplate.description",
         "POST /start": "src/Instance.start",
+        "GET /costcenters": {
+          function: {
+            srcPath: "./",
+            handler: "src/GetCostCenterList.list",
+            environment: {
+              TABLE_NAME: table.dynamodbTable.tableName,
+            },
+            permissions: [table],
+          },
+        },
       },
     });
 
@@ -24,6 +44,7 @@ export default class BackendStack extends sst.Stack {
       "ec2:DescribeLaunchTemplateVersions",
       "ec2:RunInstances",
       "ec2:CreateTags",
+      "dynamoDB:Scan",
     ]);
 
     // Create the Cron task to destroy old ressources

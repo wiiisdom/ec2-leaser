@@ -20,7 +20,6 @@ export default class FrontendStack extends sst.Stack {
 
     // create a S3 bucket to host static asset for the frontend
     const frontendBucket = new Bucket(this, "FrontendBucket", {
-      autoDeleteObjects: true,
       websiteIndexDocument: "index.html",
       websiteErrorDocument: "index.html",
       publicReadAccess: true,
