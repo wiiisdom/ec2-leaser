@@ -4,7 +4,7 @@ A tiny tool to allow google user to start EC2 instances from a list of Launch Te
 
 ## Architecture
 
-The backend is managed serverlessly via [SST](https://docs.serverless-stack.com/). 
+The backend is managed serverlessly via [SST](https://docs.serverless-stack.com/).
 The frontend is a React application. It's design to be deployed on AWS.
 
 ## How to run the application locally ?
@@ -53,4 +53,12 @@ aws cloudfront create-invalidation --paths "/*" --distribution-id <cloudfront di
 
 ### Google authentication
 
-We have added a auth system on top of the system to make it usable only by a specific google suite group. To use it, you must create a new project on https://console.developers.google.com,  and generate Client ID for webapplication.
+We have added a auth system on top of the system to make it usable only by a specific google suite group. To use it, you must create a new project on https://console.developers.google.com, and generate Client ID for webapplication.
+
+### Cost center data content
+
+To add cost center list so that the frontend can make use of it, add items directly from the AWS GUI:
+visit [DynamoDB section](https://console.aws.amazon.com/dynamodbv2/home)
+search for `{stage}-ec2-leaser-cost-center-list`
+grab data in backend/data
+add items (needs to be done 1 by 1)

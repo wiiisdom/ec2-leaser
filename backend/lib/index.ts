@@ -28,7 +28,6 @@ export default function main(app: sst.App): void {
       project: "ec2-leaser",
       owner: "360lab@360suite.io",
     },
-    //googleClientId: process.env.GOOGLE_CLIENT_ID,
     domain: process.env.DOMAIN,
     subDomain: app.name,
   });
