@@ -9,7 +9,7 @@ const SelectConstCenter = ({ costCenter, setCostCenter }) => {
     try {
       async function fetchCostCenters() {
         const data = await API.get('main', '/costcenters');
-        setCostCenters(data.Items);
+        setCostCenters(data.Items.sort((a, b) => a.name.localeCompare(b.name)));
       }
       fetchCostCenters();
     } catch (error) {

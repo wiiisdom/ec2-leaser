@@ -7,6 +7,7 @@ import * as origins from "@aws-cdk/aws-cloudfront-origins";
 import * as route53 from "@aws-cdk/aws-route53";
 import * as targets from "@aws-cdk/aws-route53-targets";
 import * as acm from "@aws-cdk/aws-certificatemanager";
+import * as s3deploy from "@aws-cdk/aws-s3-deployment";
 import { PriceClass, ViewerProtocolPolicy } from "@aws-cdk/aws-cloudfront";
 
 interface FrontendStackProps extends sst.StackProps {
@@ -72,35 +73,12 @@ export default class FrontendStack extends sst.Stack {
     });
 
     // add content in our S3 bucket from the frontend/build directory
-    // not working because can't import correctly the env var
-    // new s3deploy.BucketDeployment(this, "DeployFrontend", {
-    //   sources: [
-    //     s3deploy.Source.asset("../client", {
-    //       bundling: {
-    //         image: DockerImage.fromRegistry("node:lts"),
-    //         environment: {
-    //           REACT_APP_COGNITO_REGION: scope.region,
-    //           REACT_APP_COGNITO_IDENTITY_POOL_ID: Fn.importValue(
-    //             `${scope.stage}-${scope.name}-poolid`
-    //           ),
-    //           REACT_APP_GOOGLE_CLIENT_ID: props.googleClientId,
-    //           REACT_APP_API: Fn.importValue(`${scope.stage}-${scope.name}-api`),
-    //         },
-    //         command: [
-    //           "bash",
-    //           "-c",
-    //           [
-    //             "yarn",
-    //             "yarn build",
-    //             "cp -r /asset-input/build/* /asset-output/",
-    //           ].join(" && "),
-    //         ],
-    //       },
-    //     }),
-    //   ],
-    //   destinationBucket: frontendBucket,
-    //   distribution: frontendDistribution,
-    // });
+    // it will also invalidate the CF distribution (passing distribution)
+    new s3deploy.BucketDeployment(this, "DeployFrontend", {
+      sources: [s3deploy.Source.asset("../client/build")],
+      destinationBucket: frontendBucket,
+      distribution: frontendDistribution,
+    });
 
     // Show API endpoint in output
     this.addOutputs({

@@ -27,28 +27,20 @@ yarn start
 
 ## How to deploy the application
 
-First deploy the infrastructure with SST (front and back stack)
-
-```
-cd backend/
-yarn sst deploy --stage dev
-yarn sst deploy --stage prod --region eu-central-1
-
-```
-
-Then build the frontend, take time to set the correct values in `.env.local`
+First build the frontend, take time to set the correct values in `.env.local`
 
 ```
 cd client/
 yarn build
 ```
 
-Then push the frontend to S3 and invalidate cloudfront distribution
+Then deploy the infrastructure with SST (front and back stack)
+(it push the frontend to S3 and invalidate cloudfront distribution)
 
 ```
-cd build/
-aws s3 sync . s3://<bucket name>
-aws cloudfront create-invalidation --paths "/*" --distribution-id <cloudfront distribution>
+cd backend/
+yarn sst deploy --stage dev
+yarn sst deploy --stage prod --region eu-central-1
 ```
 
 ### Google authentication
