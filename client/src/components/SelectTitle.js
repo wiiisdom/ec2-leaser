@@ -4,6 +4,7 @@ const SelectTitle = ({
   title,
   setTitle,
   selectedLaunchTemplate,
+  costCenter,
   handleStart
 }) => {
   const setCleanTitle = value => {
@@ -38,8 +39,7 @@ const SelectTitle = ({
             />
           </div>
           <SelectStart
-            selectedLaunchTemplate={selectedLaunchTemplate}
-            title={title}
+            disabled={!selectedLaunchTemplate || title === '' || !costCenter}
             handleStart={handleStart}
           />
         </div>

@@ -75,6 +75,7 @@ const MainScreen = ({ user }) => {
         setTitle={setTitle}
         title={title}
         selectedLaunchTemplate={selectedLaunchTemplate}
+        costCenter={costCenter}
         handleStart={handleStart}
       />
       <section className="body-font text-gray-600">
