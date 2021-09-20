@@ -3,7 +3,7 @@ import AWS from "aws-sdk";
 
 export const list: APIGatewayProxyHandlerV2 = async () => {
   try {
-    const documentClient = new AWS.DynamoDB.DocumentClient({ region: "us-east-1" });
+    const documentClient = new AWS.DynamoDB.DocumentClient({ region: process.env.REGION as string });
     const data = await documentClient
       .scan({ TableName: process.env.TABLE_NAME as string, Select: "ALL_ATTRIBUTES" })
       .promise();
