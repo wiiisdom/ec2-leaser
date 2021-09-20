@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Header from './Header';
+import Header from './HeaderComponent';
 
 import SelectSpotInstance from './SelectSpotInstance';
 import SelectLaunchTemplate from './SelectLaunchTemplate';
@@ -11,6 +11,7 @@ import SelectConstCenter from './SelectConstCenter';
 
 const MainScreen = ({ user }) => {
   const [selectedLaunchTemplate, setLaunchTemplate] = useState(null);
+  const [costCenter, setCostCenter] = useState(null);
   const [title, setTitle] = useState('');
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState(null);
@@ -33,14 +34,16 @@ const MainScreen = ({ user }) => {
     setError();
     // show spinner
     setStarting(true);
-    API.post('main', '/start', {
-      body: {
-        instanceId: selectedLaunchTemplate.id,
-        title,
-        user,
-        spotInstance
-      }
-    })
+
+    const body = {
+      instanceId: selectedLaunchTemplate.id,
+      title,
+      user,
+      spotInstance,
+      costCenter
+    };
+
+    API.post('main', '/start', { body })
       .then(data => {
         setStarting(false);
         setInstanceId(data.instanceId);
@@ -64,7 +67,10 @@ const MainScreen = ({ user }) => {
         spotInstance={spotInstance}
         setSpotInstance={setSpotInstance}
       />
-      <SelectConstCenter />
+      <SelectConstCenter
+        setCostCenter={setCostCenter}
+        costCenter={costCenter}
+      />
       <SelectTitle
         setTitle={setTitle}
         title={title}
