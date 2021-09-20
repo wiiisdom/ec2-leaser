@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Header from './Header';
+import Header from './HeaderComponent';
 
 import SelectSpotInstance from './SelectSpotInstance';
 import SelectLaunchTemplate from './SelectLaunchTemplate';
@@ -7,9 +7,11 @@ import SelectTitle from './SelectTitle';
 
 import { API } from 'aws-amplify';
 import Spinner from 'react-svg-spinner';
+import SelectCostCenter from './SelectCostCenter';
 
 const MainScreen = ({ user }) => {
   const [selectedLaunchTemplate, setLaunchTemplate] = useState(null);
+  const [costCenter, setCostCenter] = useState(null);
   const [title, setTitle] = useState('');
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState(null);
@@ -32,14 +34,16 @@ const MainScreen = ({ user }) => {
     setError();
     // show spinner
     setStarting(true);
-    API.post('main', '/start', {
-      body: {
-        instanceId: selectedLaunchTemplate.id,
-        title,
-        user,
-        spotInstance
-      }
-    })
+
+    const body = {
+      instanceId: selectedLaunchTemplate.id,
+      title,
+      user,
+      spotInstance,
+      costCenter
+    };
+
+    API.post('main', '/start', { body })
       .then(data => {
         setStarting(false);
         setInstanceId(data.instanceId);
@@ -63,10 +67,12 @@ const MainScreen = ({ user }) => {
         spotInstance={spotInstance}
         setSpotInstance={setSpotInstance}
       />
+      <SelectCostCenter setCostCenter={setCostCenter} costCenter={costCenter} />
       <SelectTitle
         setTitle={setTitle}
         title={title}
         selectedLaunchTemplate={selectedLaunchTemplate}
+        costCenter={costCenter}
         handleStart={handleStart}
       />
       <section className="body-font text-gray-600">
