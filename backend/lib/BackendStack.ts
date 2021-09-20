@@ -31,6 +31,7 @@ export default class BackendStack extends sst.Stack {
             handler: "src/GetCostCenterList.list",
             environment: {
               TABLE_NAME: table.dynamodbTable.tableName,
+              REGION: this.region,
             },
             permissions: [table],
           },
@@ -44,7 +45,6 @@ export default class BackendStack extends sst.Stack {
       "ec2:DescribeLaunchTemplateVersions",
       "ec2:RunInstances",
       "ec2:CreateTags",
-      "dynamoDB:Scan",
     ]);
 
     // Create the Cron task to destroy old ressources
