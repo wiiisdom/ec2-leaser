@@ -2,35 +2,44 @@ import * as sst from "@serverless-stack/resources";
 import { ApiAuthorizationType, Auth, Cron } from "@serverless-stack/resources";
 interface BackendStackProps extends sst.StackProps {
   readonly googleClientId: string;
-  readonly table: sst.Table;
 }
 
 export default class BackendStack extends sst.Stack {
-  public api: sst.Api;
-
   constructor(scope: sst.App, id: string, props: BackendStackProps) {
     super(scope, id, props);
 
-    const { table } = props;
+    // Create a table for the cost center list
+    const table = new sst.Table(this, `cost-center-list`, {
+      fields: {
+        id: sst.TableFieldType.NUMBER,
+        name: sst.TableFieldType.STRING,
+        description: sst.TableFieldType.STRING,
+      },
+      primaryIndex: { partitionKey: "id" },
+    });
 
     // Create the HTTP API
-    this.api = new sst.Api(this, "Api", {
-      defaultFunctionProps: {
-        environment: {
-          TABLE_NAME: table.dynamodbTable.tableName,
-        },
-      },
+    const api = new sst.Api(this, "Api", {
       defaultAuthorizationType: ApiAuthorizationType.AWS_IAM,
       routes: {
         "GET /list": "src/LaunchTemplate.list",
         "POST /description": "src/LaunchTemplate.description",
         "POST /start": "src/Instance.start",
-        "GET /costcenters": "src/GetCostCenterList.list",
+        "GET /costcenters": {
+          function: {
+            srcPath: "./",
+            handler: "src/GetCostCenterList.list",
+            environment: {
+              TABLE_NAME: table.dynamodbTable.tableName,
+            },
+            permissions: [table],
+          },
+        },
       },
     });
 
     // API permission
-    this.api.attachPermissions([
+    api.attachPermissions([
       "ec2:DescribeLaunchTemplates",
       "ec2:DescribeLaunchTemplateVersions",
       "ec2:RunInstances",
@@ -55,12 +64,12 @@ export default class BackendStack extends sst.Stack {
     });
 
     // Allow user to use API
-    auth.attachPermissionsForAuthUsers([this.api]);
+    auth.attachPermissionsForAuthUsers([api]);
 
     // Show API endpoint in output
     this.addOutputs({
       ApiEndpoint: {
-        value: this.api.url,
+        value: api.url,
         exportName: `${scope.stage}-${scope.name}-api`,
       },
       IdentityPoolId: {
