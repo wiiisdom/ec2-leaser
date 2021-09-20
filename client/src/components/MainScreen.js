@@ -7,7 +7,7 @@ import SelectTitle from './SelectTitle';
 
 import { API } from 'aws-amplify';
 import Spinner from 'react-svg-spinner';
-import SelectConstCenter from './SelectConstCenter';
+import SelectCostCenter from './SelectCostCenter';
 
 const MainScreen = ({ user }) => {
   const [selectedLaunchTemplate, setLaunchTemplate] = useState(null);
@@ -67,10 +67,7 @@ const MainScreen = ({ user }) => {
         spotInstance={spotInstance}
         setSpotInstance={setSpotInstance}
       />
-      <SelectConstCenter
-        setCostCenter={setCostCenter}
-        costCenter={costCenter}
-      />
+      <SelectCostCenter setCostCenter={setCostCenter} costCenter={costCenter} />
       <SelectTitle
         setTitle={setTitle}
         title={title}
