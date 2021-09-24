@@ -1,59 +1,32 @@
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
 import Spinner from 'react-svg-spinner';
 import { API } from 'aws-amplify';
-
 import LaunchTemplate from './LaunchTemplate';
+import { useQuery } from 'react-query';
+
+const fetchList = () => API.get('main', '/list');
 
 const SelectLaunchTemplate = ({
   selectedLaunchTemplate,
   handleSetLaunchTemplate
 }) => {
-  const [launchTemplates, setLaunchTemplates] = useState(null);
   const [search, setSearch] = useState('');
-
-  // grab launch templates from API
-  useEffect(() => {
-    try {
-      async function fetchData() {
-        const initialList = await API.get('main', '/list');
-        const templatesList = await Promise.allSettled(
-          initialList.map(template => {
-            return API.post('main', '/description', {
-              body: {
-                instanceId: template.id
-              }
-            });
-          })
-        );
-
-        for (let i = 0; i < initialList.length; i++) {
-          initialList[i].description =
-            templatesList[i].status === 'fulfilled'
-              ? templatesList[i].value.description
-              : 'No description available';
-        }
-        setLaunchTemplates(initialList);
-      }
-      fetchData();
-    } catch (err) {
-      console.error(err);
-    }
-  }, []);
+  const { data, isLoading } = useQuery('launchTemplates', fetchList);
 
   const templates = (
     <div className="flex flex-wrap -m-4">
-      {launchTemplates &&
-        launchTemplates
+      {data &&
+        data
           .filter(
             lt =>
               lt.name.toLowerCase().includes(search.toLowerCase()) ||
               lt === selectedLaunchTemplate
           )
-          .map((launchTemplate, key) => (
+          .map(launchTemplate => (
             <LaunchTemplate
-              key={key}
-              launchTemplate={launchTemplate}
+              key={launchTemplate.id}
+              id={launchTemplate.id}
+              name={launchTemplate.name}
               selectedLaunchTemplate={selectedLaunchTemplate}
               setLaunchTemplate={handleSetLaunchTemplate}
             />
@@ -82,13 +55,12 @@ const SelectLaunchTemplate = ({
             />
           </div>
         </div>
-        {launchTemplates ? (
-          templates
-        ) : (
+        {isLoading && (
           <div className="flex items-center justify-center">
             <Spinner size="48" color="lightgrey" />
           </div>
         )}
+        {data && templates}
       </div>
     </section>
   );
