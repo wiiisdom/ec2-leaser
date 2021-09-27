@@ -1,65 +1,21 @@
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
 import Spinner from 'react-svg-spinner';
-import { API } from 'aws-amplify';
-
 import LaunchTemplate from './LaunchTemplate';
+import { useQuery } from 'react-query';
+import { fetchList, fetchPolicy } from '../API';
 
 const SelectLaunchTemplate = ({
-  selectedLaunchTemplate,
-  handleSetLaunchTemplate
+  selectedLaunchTemplateId,
+  setLaunchTemplate
 }) => {
-  const [launchTemplates, setLaunchTemplates] = useState(null);
   const [search, setSearch] = useState('');
-
-  // grab launch templates from API
-  useEffect(() => {
-    try {
-      async function fetchData() {
-        const initialList = await API.get('main', '/list');
-        const templatesList = await Promise.allSettled(
-          initialList.map(template => {
-            return API.post('main', '/description', {
-              body: {
-                instanceId: template.id
-              }
-            });
-          })
-        );
-
-        for (let i = 0; i < initialList.length; i++) {
-          initialList[i].description =
-            templatesList[i].status === 'fulfilled'
-              ? templatesList[i].value.description
-              : 'No description available';
-        }
-        setLaunchTemplates(initialList);
-      }
-      fetchData();
-    } catch (err) {
-      console.error(err);
-    }
-  }, []);
-
-  const templates = (
-    <div className="flex flex-wrap -m-4">
-      {launchTemplates &&
-        launchTemplates
-          .filter(
-            lt =>
-              lt.name.toLowerCase().includes(search.toLowerCase()) ||
-              lt === selectedLaunchTemplate
-          )
-          .map((launchTemplate, key) => (
-            <LaunchTemplate
-              key={key}
-              launchTemplate={launchTemplate}
-              selectedLaunchTemplate={selectedLaunchTemplate}
-              setLaunchTemplate={handleSetLaunchTemplate}
-            />
-          ))}
-    </div>
+  const { data, isLoading, error } = useQuery(
+    'launchTemplates',
+    fetchList,
+    fetchPolicy
   );
+
+  if (error) console.log(error);
 
   return (
     <section className="body-font text-gray-600">
@@ -82,13 +38,32 @@ const SelectLaunchTemplate = ({
             />
           </div>
         </div>
-        {launchTemplates ? (
-          templates
-        ) : (
+        {isLoading && (
           <div className="flex items-center justify-center">
             <Spinner size="48" color="lightgrey" />
           </div>
         )}
+        <div className="flex flex-wrap -m-4">
+          {data &&
+            data
+              .filter(
+                lt =>
+                  lt.name.toLowerCase().includes(search.toLowerCase()) ||
+                  lt === selectedLaunchTemplateId
+              )
+              .map(({ id, name }) => {
+                const selected = selectedLaunchTemplateId === id;
+                return (
+                  <LaunchTemplate
+                    key={id}
+                    id={id}
+                    name={name}
+                    selected={selected}
+                    setLaunchTemplate={setLaunchTemplate}
+                  />
+                );
+              })}
+        </div>
       </div>
     </section>
   );

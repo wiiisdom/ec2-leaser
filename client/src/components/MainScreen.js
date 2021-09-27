@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './HeaderComponent';
 
 import SelectSpotInstance from './SelectSpotInstance';
@@ -14,24 +14,25 @@ const MainScreen = ({ user }) => {
   const [costCenter, setCostCenter] = useState(null);
   const [title, setTitle] = useState('');
   const [starting, setStarting] = useState(false);
-  const [error, setError] = useState(null);
-  const [instanceId, setInstanceId] = useState(null);
+  const [error, setError] = useState('');
+  const [instanceId, setInstanceId] = useState('');
   const [spotInstance, setSpotInstance] = useState(true);
 
-  const handleSetLaunchTemplate = launchTemplate => {
-    if (launchTemplate) {
-      const orignalName = `ec2-leaser-${launchTemplate.name}-${user}`;
+  useEffect(() => {
+    if (selectedLaunchTemplate?.name) {
+      const orignalName = `ec2-leaser-${selectedLaunchTemplate.name}-${user}`;
       const cleanName = orignalName
         .toLowerCase()
         .replace(/[^a-zA-Z0-9]+/g, '-');
-      setTitle(launchTemplate ? cleanName : '');
+      setTitle(selectedLaunchTemplate.name ? cleanName : '');
+    } else {
+      setTitle('');
     }
-    setLaunchTemplate(launchTemplate);
-  };
+  }, [selectedLaunchTemplate?.name, user]);
 
   const handleStart = () => {
-    setInstanceId();
-    setError();
+    setInstanceId('');
+    setError('');
     // show spinner
     setStarting(true);
 
@@ -47,7 +48,7 @@ const MainScreen = ({ user }) => {
       .then(data => {
         setStarting(false);
         setInstanceId(data.instanceId);
-        handleSetLaunchTemplate(null);
+        setLaunchTemplate(null);
         setTitle(null);
       })
       .catch(err => {
@@ -60,8 +61,8 @@ const MainScreen = ({ user }) => {
     <>
       <Header />
       <SelectLaunchTemplate
-        selectedLaunchTemplate={selectedLaunchTemplate}
-        handleSetLaunchTemplate={handleSetLaunchTemplate}
+        selectedLaunchTemplateId={selectedLaunchTemplate?.id ?? null}
+        setLaunchTemplate={setLaunchTemplate}
       />
       <SelectSpotInstance
         spotInstance={spotInstance}
@@ -71,8 +72,7 @@ const MainScreen = ({ user }) => {
       <SelectTitle
         setTitle={setTitle}
         title={title}
-        selectedLaunchTemplate={selectedLaunchTemplate}
-        costCenter={costCenter}
+        disabled={!selectedLaunchTemplate || title === '' || !costCenter}
         handleStart={handleStart}
       />
       <section className="body-font text-gray-600">

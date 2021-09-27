@@ -2,6 +2,9 @@ import { Auth, Hub } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 import LoginScreen from './LoginScreen';
 import MainScreen from './MainScreen';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const App = () => {
   const [user, setUser] = useState();
@@ -24,11 +27,11 @@ const App = () => {
       .then(user => setUser(user.name))
       .catch(() => console.log('Not signed in'));
   });
-  if (!user) {
-    return <LoginScreen />;
-  } else {
-    return <MainScreen user={user} />;
-  }
+  return (
+    <QueryClientProvider client={queryClient}>
+      {!user ? <LoginScreen /> : <MainScreen user={user} />}
+    </QueryClientProvider>
+  );
 };
 
 export default App;
