@@ -1,12 +1,6 @@
 import SelectStart from './SelectStart';
 
-const SelectTitle = ({
-  title,
-  setTitle,
-  selectedLaunchTemplate,
-  costCenter,
-  handleStart
-}) => {
+const SelectTitle = ({ title, setTitle, handleStart, disabled }) => {
   const setCleanTitle = value => {
     if (value) {
       setTitle(value.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-'));
@@ -38,10 +32,7 @@ const SelectTitle = ({
               className="px-3 py-1 w-full text-gray-700 text-base leading-8 bg-gray-100 focus:bg-transparent bg-opacity-50 border border-gray-300 focus:border-yellow-500 rounded outline-none transition-colors duration-200 ease-in-out focus:ring-yellow-200 focus:ring-2"
             />
           </div>
-          <SelectStart
-            disabled={!selectedLaunchTemplate || title === '' || !costCenter}
-            handleStart={handleStart}
-          />
+          <SelectStart disabled={disabled} handleStart={handleStart} />
         </div>
       </div>
     </section>

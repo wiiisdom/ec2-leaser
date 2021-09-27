@@ -1,38 +1,21 @@
 import { useState } from 'react';
 import Spinner from 'react-svg-spinner';
-import { API } from 'aws-amplify';
 import LaunchTemplate from './LaunchTemplate';
 import { useQuery } from 'react-query';
-
-const fetchList = () => API.get('main', '/list');
+import { fetchList, fetchPolicy } from '../API';
 
 const SelectLaunchTemplate = ({
-  selectedLaunchTemplate,
-  handleSetLaunchTemplate
+  selectedLaunchTemplateId,
+  setLaunchTemplate
 }) => {
   const [search, setSearch] = useState('');
-  const { data, isLoading } = useQuery('launchTemplates', fetchList);
-
-  const templates = (
-    <div className="flex flex-wrap -m-4">
-      {data &&
-        data
-          .filter(
-            lt =>
-              lt.name.toLowerCase().includes(search.toLowerCase()) ||
-              lt === selectedLaunchTemplate
-          )
-          .map(launchTemplate => (
-            <LaunchTemplate
-              key={launchTemplate.id}
-              id={launchTemplate.id}
-              name={launchTemplate.name}
-              selectedLaunchTemplate={selectedLaunchTemplate}
-              setLaunchTemplate={handleSetLaunchTemplate}
-            />
-          ))}
-    </div>
+  const { data, isLoading, error } = useQuery(
+    'launchTemplates',
+    fetchList,
+    fetchPolicy
   );
+
+  if (error) console.log(error);
 
   return (
     <section className="body-font text-gray-600">
@@ -60,7 +43,27 @@ const SelectLaunchTemplate = ({
             <Spinner size="48" color="lightgrey" />
           </div>
         )}
-        {data && templates}
+        <div className="flex flex-wrap -m-4">
+          {data &&
+            data
+              .filter(
+                lt =>
+                  lt.name.toLowerCase().includes(search.toLowerCase()) ||
+                  lt === selectedLaunchTemplateId
+              )
+              .map(({ id, name }) => {
+                const selected = selectedLaunchTemplateId === id;
+                return (
+                  <LaunchTemplate
+                    key={id}
+                    id={id}
+                    name={name}
+                    selected={selected}
+                    setLaunchTemplate={setLaunchTemplate}
+                  />
+                );
+              })}
+        </div>
       </div>
     </section>
   );
