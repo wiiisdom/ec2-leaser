@@ -18,12 +18,12 @@ yarn sst start backend-stack
 
 Start the frontend:
 
-Populate the `client/.env.local` based on `client/.env.local.default` and the backend output.
-
 ```
-cd client/
+cd frontend/
 yarn start
 ```
+
+no need to provide environment variables, are these are made available to the frontend via the @serverless-stack/static-site-env package.
 
 ## How to deploy the application
 
