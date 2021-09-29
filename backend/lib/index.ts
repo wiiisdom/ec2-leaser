@@ -1,6 +1,6 @@
 import BackendStack from "./BackendStack";
 import * as sst from "@serverless-stack/resources";
-import FrontendStack from "./FrontendStack";
+import ReactFrontendStack from "./FrontendStack";
 
 export default function main(app: sst.App): void {
   // Set default runtime for all functions
@@ -13,7 +13,8 @@ export default function main(app: sst.App): void {
     throw new Error("GOOGLE_CLIENT_ID and/or DOMAIN environment variable are not set");
   }
 
-  new BackendStack(app, "backend-stack", {
+  // create backend as variable so after its properties can be referenced.
+  const backend = new BackendStack(app, "backend-stack", {
     tags: {
       costcenter: "lab",
       project: "ec2-leaser",
@@ -22,13 +23,12 @@ export default function main(app: sst.App): void {
     googleClientId: process.env.GOOGLE_CLIENT_ID,
   });
 
-  new FrontendStack(app, "frontend-stack", {
-    tags: {
-      costcenter: "lab",
-      project: "ec2-leaser",
-      owner: "360lab@360suite.io",
-    },
+  // create a React stack that makes use of api and auth resources created in the backend stack.
+  new ReactFrontendStack(app, "frontend-stack", {
+    api: backend.api,
+    auth: backend.auth,
     domain: process.env.DOMAIN,
-    subDomain: app.name,
+    googleClientId: process.env.GOOGLE_CLIENT_ID,
+    tags: { costcenter: "lab", project: "ec2-leaser", owner: "360labs@360suite.io" },
   });
 }

@@ -21,7 +21,7 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "sst-env -- craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
@@ -43,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@serverless-stack/static-site-env": "^0.43.8"
   }
 }

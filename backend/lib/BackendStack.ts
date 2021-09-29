@@ -5,6 +5,10 @@ interface BackendStackProps extends sst.StackProps {
 }
 
 export default class BackendStack extends sst.Stack {
+  // Make these two properties public so they can be accessed when an object is declared via this class.
+  api;
+  auth;
+
   constructor(scope: sst.App, id: string, props: BackendStackProps) {
     super(scope, id, props);
 
@@ -19,7 +23,7 @@ export default class BackendStack extends sst.Stack {
     });
 
     // Create the HTTP API
-    const api = new sst.Api(this, "Api", {
+    this.api = new sst.Api(this, "Api", {
       defaultAuthorizationType: ApiAuthorizationType.AWS_IAM,
       routes: {
         "GET /list": "src/LaunchTemplate.list",
@@ -40,7 +44,7 @@ export default class BackendStack extends sst.Stack {
     });
 
     // API permission
-    api.attachPermissions([
+    this.api.attachPermissions([
       "ec2:DescribeLaunchTemplates",
       "ec2:DescribeLaunchTemplateVersions",
       "ec2:RunInstances",
@@ -57,23 +61,23 @@ export default class BackendStack extends sst.Stack {
     cron.attachPermissions(["ec2:DescribeInstances", "ec2:TerminateInstances"]);
 
     // Create an Auth via Google Identity
-    const auth = new Auth(this, "Auth", {
+    this.auth = new Auth(this, "Auth", {
       google: {
         clientId: props.googleClientId,
       },
     });
 
     // Allow user to use API
-    auth.attachPermissionsForAuthUsers([api]);
+    this.auth.attachPermissionsForAuthUsers([this.api]);
 
     // Show API endpoint in output
     this.addOutputs({
       ApiEndpoint: {
-        value: api.url,
+        value: this.api.url,
         exportName: `${scope.stage}-${scope.name}-api`,
       },
       IdentityPoolId: {
-        value: auth.cognitoCfnIdentityPool.ref,
+        value: this.auth.cognitoCfnIdentityPool.ref,
         exportName: `${scope.stage}-${scope.name}-poolid`,
       },
     });
