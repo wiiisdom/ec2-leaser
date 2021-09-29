@@ -21,8 +21,8 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "scripts": {
-    "start": "sst-env -- craco start",
-    "build": "craco build",
+    "start": "SKIP_PREFLIGHT_CHECK=true sst-env -- craco start",
+    "build": "SKIP_PREFLIGHT_CHECK=true craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "format": "prettier --write \"./src/**/*.{js,jsx}\""

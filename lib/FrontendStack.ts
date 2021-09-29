@@ -18,7 +18,7 @@ export default class ReactFrontendStack extends sst.Stack {
 
     // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
     const site = new sst.ReactStaticSite(this, "ReactStaticSite", {
-      path: "../client",
+      path: "frontend",
       environment: {
         REACT_APP_API: api.url,
         REACT_APP_COGNITO_REGION: scope.region,
