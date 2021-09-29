@@ -12,7 +12,7 @@ The frontend is a React application. It's design to be deployed on AWS.
 Run the backend only (you need only that to use a local frontend):
 
 ```
-cd backend/
+yarn
 yarn sst start backend-stack
 ```
 
@@ -31,7 +31,6 @@ Deploy the infrastructure with SST (front and back stack)
 (it push the frontend to S3 and invalidate cloudfront distribution)
 
 ```
-cd backend/
 yarn sst deploy --stage dev
 yarn sst deploy --stage prod --region eu-central-1
 ```
