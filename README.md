@@ -12,33 +12,25 @@ The frontend is a React application. It's design to be deployed on AWS.
 Run the backend only (you need only that to use a local frontend):
 
 ```
-cd backend/
+yarn
 yarn sst start backend-stack
 ```
 
 Start the frontend:
 
-Populate the `client/.env.local` based on `client/.env.local.default` and the backend output.
-
 ```
-cd client/
+cd frontend/
 yarn start
 ```
 
+no need to provide environment variables, are these are made available to the frontend via the @serverless-stack/static-site-env package.
+
 ## How to deploy the application
 
-First build the frontend, take time to set the correct values in `.env.local`
-
-```
-cd client/
-yarn build
-```
-
-Then deploy the infrastructure with SST (front and back stack)
+Deploy the infrastructure with SST (front and back stack)
 (it push the frontend to S3 and invalidate cloudfront distribution)
 
 ```
-cd backend/
 yarn sst deploy --stage dev
 yarn sst deploy --stage prod --region eu-central-1
 ```
