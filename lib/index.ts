@@ -8,27 +8,25 @@ export default function main(app: sst.App): void {
     runtime: "nodejs14.x",
   });
 
-  // check environment variables
-  if (!process.env.GOOGLE_CLIENT_ID || !process.env.DOMAIN) {
-    throw new Error("GOOGLE_CLIENT_ID and/or DOMAIN environment variable are not set");
-  }
+  const googleClientId = "912868966610-17ml6d14mikkcovoao16qbebef984lqq.apps.googleusercontent.com";
+
+  const tags = {
+    costcenter: "lab",
+    project: "ec2-leaser",
+    owner: "lab@wiiisdom.com",
+  };
 
   // create backend as variable so after its properties can be referenced.
   const backend = new BackendStack(app, "backend-stack", {
-    tags: {
-      costcenter: "lab",
-      project: "ec2-leaser",
-      owner: "360lab@360suite.io",
-    },
-    googleClientId: process.env.GOOGLE_CLIENT_ID,
+    tags,
+    googleClientId,
   });
 
   // create a React stack that makes use of api and auth resources created in the backend stack.
   new ReactFrontendStack(app, "frontend-stack", {
     api: backend.api,
     auth: backend.auth,
-    domain: process.env.DOMAIN,
-    googleClientId: process.env.GOOGLE_CLIENT_ID,
-    tags: { costcenter: "lab", project: "ec2-leaser", owner: "360labs@360suite.io" },
+    googleClientId,
+    tags,
   });
 }
