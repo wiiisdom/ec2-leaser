@@ -11,6 +11,7 @@
 
 # typescript
 *.js
+!frontend/**/*.js
 *.d.ts
 
 # misc
