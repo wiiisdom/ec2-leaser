@@ -4,15 +4,20 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import Amplify from 'aws-amplify';
 import { amplifyConfig } from './utils';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 // tailwindcss
 import './index.css';
 
 Amplify.configure(amplifyConfig);
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

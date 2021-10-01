@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SelectSpotInstance = ({ spotInstance, setSpotInstance }) => {
+const SelectSpotInstance = ({ isSpotInstance, setIsSpotInstance }) => {
   return (
     <section className="body-font text-gray-600">
       <div className="container mx-auto pb-8 pt-4 px-5">
@@ -21,13 +21,13 @@ const SelectSpotInstance = ({ spotInstance, setSpotInstance }) => {
               id="spotInstance"
               name="spotInstance"
               className="ml-4 mt-4"
-              defaultChecked={spotInstance}
-              onChange={() => setSpotInstance(prev => !prev)}
+              defaultChecked={isSpotInstance}
+              onChange={() => setIsSpotInstance(prev => !prev)}
             />
             <label htmlFor="spotInstance" className="ml-2 text-gray-500">
               Spot instance
             </label>
-            {spotInstance && <WarningBanner />}
+            {isSpotInstance && <WarningBanner />}
           </div>
         </div>
       </div>

@@ -9,26 +9,26 @@ import { API } from 'aws-amplify';
 import Spinner from 'react-svg-spinner';
 import SelectCostCenter from './SelectCostCenter';
 
-const MainScreen = ({ user }) => {
+const MainScreen = ({ userEmail, userName }) => {
   const [selectedLaunchTemplate, setLaunchTemplate] = useState(null);
   const [costCenter, setCostCenter] = useState(null);
   const [title, setTitle] = useState('');
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState('');
   const [instanceId, setInstanceId] = useState('');
-  const [spotInstance, setSpotInstance] = useState(true);
+  const [isSpotInstance, setIsSpotInstance] = useState(true);
 
   useEffect(() => {
     if (selectedLaunchTemplate?.name) {
-      const orignalName = `ec2-leaser-${selectedLaunchTemplate.name}-${user}`;
+      const orignalName = `ec2-leaser-${selectedLaunchTemplate.name}-${userName}`;
       const cleanName = orignalName
         .toLowerCase()
         .replace(/[^a-zA-Z0-9]+/g, '-');
-      setTitle(selectedLaunchTemplate.name ? cleanName : '');
+      setTitle(selectedLaunchTemplate?.name ? cleanName : '');
     } else {
       setTitle('');
     }
-  }, [selectedLaunchTemplate?.name, user]);
+  }, [selectedLaunchTemplate?.name, userName]);
 
   const handleStart = () => {
     setInstanceId('');
@@ -39,8 +39,8 @@ const MainScreen = ({ user }) => {
     const body = {
       instanceId: selectedLaunchTemplate.id,
       title,
-      user,
-      spotInstance,
+      owner: userEmail,
+      isSpotInstance,
       costCenter
     };
 
@@ -65,8 +65,8 @@ const MainScreen = ({ user }) => {
         setLaunchTemplate={setLaunchTemplate}
       />
       <SelectSpotInstance
-        spotInstance={spotInstance}
-        setSpotInstance={setSpotInstance}
+        isSpotInstance={isSpotInstance}
+        setIsSpotInstance={setIsSpotInstance}
       />
       <SelectCostCenter setCostCenter={setCostCenter} costCenter={costCenter} />
       <SelectTitle
