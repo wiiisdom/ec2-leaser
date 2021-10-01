@@ -2,12 +2,9 @@ import { Auth, Hub } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 import LoginScreen from './LoginScreen';
 import MainScreen from './MainScreen';
-import { QueryClient, QueryClientProvider } from 'react-query';
-
-const queryClient = new QueryClient();
 
 const App = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   useEffect(() => {
     Hub.listen('auth', ({ payload: { event, data } }) => {
       // data contains {id, email, name, token}
@@ -24,14 +21,11 @@ const App = () => {
     });
 
     Auth.currentAuthenticatedUser()
-      .then(user => setUser(user.name))
+      .then(user => setUser({ userName: user.name, userEmail: user.email }))
       .catch(() => console.log('Not signed in'));
-  });
-  return (
-    <QueryClientProvider client={queryClient}>
-      {!user ? <LoginScreen /> : <MainScreen user={user} />}
-    </QueryClientProvider>
-  );
+  }, []);
+
+  return !user ? <LoginScreen /> : <MainScreen {...user} />;
 };
 
 export default App;

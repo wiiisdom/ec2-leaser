@@ -14,8 +14,8 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
 
   const launchTemplateId = request.instanceId;
   const name = request.title;
-  const user = request.user;
-  const spotInstance = request.spotInstance ? true : undefined;
+  const owner = request.owner;
+  const spotInstance = request.isSpotInstance || undefined;
   const costCenter = request.costCenter;
 
   const tags: EC2.TagList = [
@@ -24,16 +24,16 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
       Value: name,
     },
     {
-      Key: "Ec2LeaserCreator",
-      Value: user,
-    },
-    {
       Key: "Ec2LeaserDuration",
       Value: "6",
     },
     {
       Key: "costcenter",
       Value: costCenter,
+    },
+    {
+      Key: "owner",
+      Value: owner,
     },
   ];
 
