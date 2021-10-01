@@ -11,7 +11,7 @@ export default function main(app: sst.App): void {
   const googleClientId = "912868966610-17ml6d14mikkcovoao16qbebef984lqq.apps.googleusercontent.com";
 
   const tags = {
-    costcenter: "lab",
+    costcenter: "eng:lab",
     project: "ec2-leaser",
     owner: "lab@wiiisdom.com",
   };
