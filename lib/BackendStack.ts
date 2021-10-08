@@ -26,6 +26,7 @@ export default class BackendStack extends sst.Stack {
     this.api = new sst.Api(this, "Api", {
       defaultAuthorizationType: ApiAuthorizationType.AWS_IAM,
       routes: {
+        "GET /requests": "src/TerminateSpotRequest.handler",
         "GET /list": "src/LaunchTemplate.list",
         "POST /description": "src/LaunchTemplate.description",
         "POST /start": "src/Instance.start",
@@ -51,14 +52,25 @@ export default class BackendStack extends sst.Stack {
       "ec2:CreateTags",
     ]);
 
-    // Create the Cron task to destroy old ressources
-    const cron = new Cron(this, "DestroyEc2", {
+    // Create the Cron tasks to destroy old resources
+    const destroyEc2Cron = new Cron(this, "DestroyEc2", {
       schedule: "rate(20 minutes)",
       job: "src/TerminateInstance.handler",
     });
 
+    const cancelSpotRequestsCron = new Cron(this, "CanceSpotRequests", {
+      schedule: "rate(20 minutes)",
+      job: "src/TerminateSpotRequest.handler",
+    });
+
     // Cron permissions
-    cron.attachPermissions(["ec2:DescribeInstances", "ec2:TerminateInstances"]);
+    destroyEc2Cron.attachPermissions(["ec2:DescribeInstances", "ec2:TerminateInstances"]);
+    cancelSpotRequestsCron.attachPermissions([
+      "ec2:DescribeSpotInstanceRequests",
+      "ec2:DescribeInstances",
+      "ec2:CancelSpotInstanceRequests",
+      "ec2:TerminateInstances",
+    ]);
 
     // Create an Auth via Google Identity
     this.auth = new Auth(this, "Auth", {
