@@ -19,8 +19,13 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
 
   const getInstance = async (request: EC2.SpotInstanceRequest) => {
     if (!request.InstanceId) return;
-    const instance = await ec2.describeInstances({ InstanceIds: [request.InstanceId] }).promise();
-    return instance?.Reservations?.[0];
+    try {
+      const instance = await ec2.describeInstances({ InstanceIds: [request.InstanceId] }).promise();
+      return instance?.Reservations?.[0];
+    } catch (err) {
+      console.log(`\t[${request.SpotInstanceRequestId}]: instance not existing anymore`);
+      return;
+    }
   };
 
   try {
@@ -31,38 +36,47 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
     const cancellationArray = await Promise.allSettled(
       SpotInstanceRequests.map(async (request) => {
         const spotInstanceRequestId = request?.SpotInstanceRequestId;
-        // check if there is a SpotInstanceRequestId
-        if (!spotInstanceRequestId) {
-          console.log(`\t[${spotInstanceRequestId}]: No spotInstanceRequestId so exiting`);
+        try {
+          // check if there is a SpotInstanceRequestId
+          if (!spotInstanceRequestId) {
+            console.log(`\t[${spotInstanceRequestId}]: No spotInstanceRequestId so exiting`);
+            return 0;
+          }
+
+          // check if the request is already cancelled
+          if (request.State == "cancelled") {
+            console.log(`\t[${spotInstanceRequestId}]: already cancelled so exiting`);
+            return 0;
+          }
+
+          const instanceCreatedByRequest = await getInstance(request);
+          const instanceTags = instanceCreatedByRequest?.Instances?.[0]?.Tags;
+
+          // check if attached instance have a Name tag (keep it!)
+          if (instanceTags?.find((tag) => tag.Key === "Name")) {
+            console.log(`\t[${spotInstanceRequestId}]: Attached instance have a Name tag so exiting`);
+            return 0;
+          }
+
+          // else destroy the spot request (and instance if existing)
+          const instanceId = instanceCreatedByRequest?.Instances?.[0]?.InstanceId;
+          console.log(
+            `\tCancel spot request [${spotInstanceRequestId}] and terminate linked instance ${instanceId}`
+          );
+
+          await ec2.cancelSpotInstanceRequests({ SpotInstanceRequestIds: [spotInstanceRequestId] }).promise();
+          if (instanceId) {
+            try {
+              await ec2.terminateInstances({ InstanceIds: [instanceId] }).promise();
+            } catch (err) {
+              console.log(`\tCannot terminate instance [${spotInstanceRequestId}]: ${err}`);
+            }
+          }
+          return 1;
+        } catch (err) {
+          console.log(`\tError on [${spotInstanceRequestId}]: ${err}`);
           return 0;
         }
-
-        // check if the request is already cancelled
-        if (request.State == "cancelled") {
-          console.log(`\t[${spotInstanceRequestId}]: already cancelled so exiting`);
-          return 0;
-        }
-
-        const instanceCreatedByRequest = await getInstance(request);
-        const instanceTags = instanceCreatedByRequest?.Instances?.[0]?.Tags;
-
-        // check if attached instance have a Name tag (keep it!)
-        if (instanceTags?.find((tag) => tag.Key === "Name")) {
-          console.log(`\t[${spotInstanceRequestId}]: Attached instance have a Name tag so exiting`);
-          return 0;
-        }
-
-        // else destroy the spot request (and instance if existing)
-        const instanceId = instanceCreatedByRequest?.Instances?.[0]?.InstanceId;
-        console.log(
-          `\tCancel spot request [${spotInstanceRequestId}] and terminate linked instance ${instanceId}`
-        );
-
-        await ec2.cancelSpotInstanceRequests({ SpotInstanceRequestIds: [spotInstanceRequestId] }).promise();
-        if (instanceId) {
-          await ec2.terminateInstances({ InstanceIds: [instanceId] }).promise();
-        }
-        return 1;
       })
     );
 
