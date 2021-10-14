@@ -1,11 +1,13 @@
 import BackendStack from "./BackendStack";
 import * as sst from "@serverless-stack/resources";
 import ReactFrontendStack from "./FrontendStack";
+import { RetentionDays } from "@aws-cdk/aws-logs";
 
 export default function main(app: sst.App): void {
   // Set default runtime for all functions
   app.setDefaultFunctionProps({
     runtime: "nodejs14.x",
+    logRetention: RetentionDays.THREE_MONTHS,
   });
 
   const googleClientId = "912868966610-17ml6d14mikkcovoao16qbebef984lqq.apps.googleusercontent.com";

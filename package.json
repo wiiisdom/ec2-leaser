@@ -18,6 +18,7 @@
   "dependencies": {
     "@aws-cdk/aws-certificatemanager": "1.114.0",
     "@aws-cdk/aws-cloudfront-origins": "1.114.0",
+    "@aws-cdk/aws-logs": "1.114.0",
     "@aws-cdk/aws-route53": "1.114.0",
     "@aws-cdk/aws-route53-targets": "1.114.0",
     "@aws-cdk/aws-s3-deployment": "1.114.0",
