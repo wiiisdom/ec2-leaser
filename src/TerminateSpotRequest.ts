@@ -31,17 +31,37 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
     const cancellationArray = await Promise.allSettled(
       SpotInstanceRequests.map(async (request) => {
         const spotInstanceRequestId = request?.SpotInstanceRequestId;
-        if (!spotInstanceRequestId) return 0;
+        // check if there is a SpotInstanceRequestId
+        if (!spotInstanceRequestId) {
+          console.log(`\t[${spotInstanceRequestId}]: No spotInstanceRequestId so exiting`);
+          return 0;
+        }
+
+        // check if the request is already cancelled
+        if (request.State == "cancelled") {
+          console.log(`\t[${spotInstanceRequestId}]: already cancelled so exiting`);
+          return 0;
+        }
+
         const instanceCreatedByRequest = await getInstance(request);
         const instanceTags = instanceCreatedByRequest?.Instances?.[0]?.Tags;
 
-        if (instanceTags?.find((tag) => tag.Key === "Name")) return 0;
+        // check if attached instance have a Name tag (keep it!)
+        if (instanceTags?.find((tag) => tag.Key === "Name")) {
+          console.log(`\t[${spotInstanceRequestId}]: Attached instance have a Name tag so exiting`);
+          return 0;
+        }
 
+        // else destroy the spot request (and instance if existing)
         const instanceId = instanceCreatedByRequest?.Instances?.[0]?.InstanceId;
-        if (!instanceId) return 0;
+        console.log(
+          `\tCancel spot request [${spotInstanceRequestId}] and terminate linked instance ${instanceId}`
+        );
 
-        await ec2.terminateInstances({ InstanceIds: [instanceId] }).promise();
         await ec2.cancelSpotInstanceRequests({ SpotInstanceRequestIds: [spotInstanceRequestId] }).promise();
+        if (instanceId) {
+          await ec2.terminateInstances({ InstanceIds: [instanceId] }).promise();
+        }
         return 1;
       })
     );
@@ -52,8 +72,10 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
       .map((c) => c.value);
 
     const total = totalRequestsCancelled.reduce((prev, curr) => prev + curr);
+    const result = `${total} spot request${total ? "" : "s"} cancelled.`;
+    console.log(result);
 
-    return RESPONSES.SUCCESS(JSON.stringify(`${total} spot request${total ? "" : "s"} cancelled.`));
+    return RESPONSES.SUCCESS(JSON.stringify(result));
   } catch (error) {
     return RESPONSES.FAILURE(error);
   }
