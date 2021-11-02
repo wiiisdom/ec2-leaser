@@ -8,6 +8,7 @@ import SelectTitle from './SelectTitle';
 import { API } from 'aws-amplify';
 import Spinner from 'react-svg-spinner';
 import SelectCostCenter from './SelectCostCenter';
+import SelectSchedule from './SelectSchedule';
 
 const MainScreen = ({ userEmail, userName }) => {
   const [selectedLaunchTemplate, setLaunchTemplate] = useState(null);
@@ -17,6 +18,7 @@ const MainScreen = ({ userEmail, userName }) => {
   const [error, setError] = useState('');
   const [instanceId, setInstanceId] = useState('');
   const [isSpotInstance, setIsSpotInstance] = useState(true);
+  const [schedule, setSchedule] = useState('');
 
   useEffect(() => {
     if (selectedLaunchTemplate?.name) {
@@ -41,7 +43,8 @@ const MainScreen = ({ userEmail, userName }) => {
       title,
       owner: userEmail,
       isSpotInstance,
-      costCenter
+      costCenter,
+      schedule
     };
 
     API.post('main', '/start', { body })
@@ -69,6 +72,7 @@ const MainScreen = ({ userEmail, userName }) => {
         setIsSpotInstance={setIsSpotInstance}
       />
       <SelectCostCenter setCostCenter={setCostCenter} costCenter={costCenter} />
+      <SelectSchedule setSchedule={setSchedule} schedule={schedule} />
       <SelectTitle
         setTitle={setTitle}
         title={title}

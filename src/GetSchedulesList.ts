@@ -8,7 +8,7 @@ export const list: APIGatewayProxyHandlerV2 = async () => {
       .query({
         TableName: process.env.TABLE_NAME as string,
         KeyConditionExpression: "PK = :PK",
-        ExpressionAttributeValues: { ":PK": "costcenters" },
+        ExpressionAttributeValues: { ":PK": "schedules" },
       })
       .promise();
 

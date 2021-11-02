@@ -46,3 +46,20 @@ visit [DynamoDB section](https://console.aws.amazon.com/dynamodbv2/home)
 search for `{stage}-ec2-leaser-cost-center-list`
 grab data in backend/data
 add items (needs to be done 1 by 1)
+
+See below for an example on how to enter the items in the table.
+
+### Cost centers list
+
+| PK          | SK          | description                          |
+| ----------- | ----------- | ------------------------------------ |
+| costcenters | eng:360Eyes | Usage for Engineering 360Eyes        |
+| costcenters | eng:360WP   | Usage for Engineering 360WebPlatform |
+| costcenters | eng:lab     | Generic Lab usage                    |
+
+### Schedules list
+
+| PK        | SK                   | description                                           |
+| --------- | -------------------- | ----------------------------------------------------- |
+| schedules | lille-office-stop    | Stop automatically the instance at 7pm (CET timezone) |
+| schedules | montreal-office-stop | Stop automatically the instance at 7pm (EST timezone) |

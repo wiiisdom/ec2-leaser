@@ -1,3 +1,4 @@
+import { RemovalPolicy } from "@aws-cdk/core";
 import * as sst from "@serverless-stack/resources";
 import { ApiAuthorizationType, Auth, Cron } from "@serverless-stack/resources";
 interface BackendStackProps extends sst.StackProps {
@@ -15,11 +16,13 @@ export default class BackendStack extends sst.Stack {
     // Create a table for the cost center list
     const table = new sst.Table(this, `cost-center-list`, {
       fields: {
-        id: sst.TableFieldType.NUMBER,
-        name: sst.TableFieldType.STRING,
-        description: sst.TableFieldType.STRING,
+        PK: sst.TableFieldType.STRING,
+        SK: sst.TableFieldType.STRING,
       },
-      primaryIndex: { partitionKey: "id" },
+      primaryIndex: { partitionKey: "PK", sortKey: "SK" },
+      dynamodbTable: {
+        removalPolicy: RemovalPolicy.DESTROY,
+      },
     });
 
     // Create the HTTP API
@@ -34,6 +37,17 @@ export default class BackendStack extends sst.Stack {
           function: {
             srcPath: "./",
             handler: "src/GetCostCenterList.list",
+            environment: {
+              TABLE_NAME: table.dynamodbTable.tableName,
+              REGION: this.region,
+            },
+            permissions: [table],
+          },
+        },
+        "GET /schedules": {
+          function: {
+            srcPath: "./",
+            handler: "src/GetSchedulesList.list",
             environment: {
               TABLE_NAME: table.dynamodbTable.tableName,
               REGION: this.region,

@@ -82,6 +82,7 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
 
     const totalRequestsCancelled = cancellationArray
       .filter(({ status }) => status === "fulfilled")
+      // eslint-disable-next-line
       .map((c) => <PromiseFulfilledResult<any>>c)
       .map((c) => c.value);
 
