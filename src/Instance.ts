@@ -17,6 +17,7 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
   const owner = request.owner;
   const spotInstance = request.isSpotInstance || undefined;
   const costCenter = request.costCenter;
+  const schedule = request.schedule;
 
   const tags: EC2.TagList = [
     {
@@ -34,6 +35,10 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
     {
       Key: "owner",
       Value: owner,
+    },
+    {
+      Key: "schedule",
+      Value: schedule,
     },
   ];
 

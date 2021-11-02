@@ -1,0 +1,12 @@
+[
+  {
+    "PK": "schedules",
+    "SK": "lille-office-stop",
+    "description": "Stop automatically the instance at 7pm (CET timezone)"
+  },
+  {
+    "PK": "schedules",
+    "SK": "montreal-office-stop",
+    "description": "Stop automatically the instance at 7pm (EST timezone)"
+  }
+]
