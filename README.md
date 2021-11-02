@@ -53,13 +53,13 @@ See below for an example on how to enter the items in the table.
 
 | PK          | SK          | description                          |
 | ----------- | ----------- | ------------------------------------ |
-| COSTCENTERS | eng:360Eyes | Usage for Engineering 360Eyes        |
-| COSTCENTERS | eng:360WP   | Usage for Engineering 360WebPlatform |
-| COSTCENTERS | eng:lab     | Generic Lab usage                    |
+| costcenters | eng:360Eyes | Usage for Engineering 360Eyes        |
+| costcenters | eng:360WP   | Usage for Engineering 360WebPlatform |
+| costcenters | eng:lab     | Generic Lab usage                    |
 
 ### Schedules list
 
 | PK        | SK                   | description                                           |
 | --------- | -------------------- | ----------------------------------------------------- |
-| SCHEDULES | lille-office-stop    | Stop automatically the instance at 7pm (CET timezone) |
-| SCHEDULES | montreal-office-stop | Stop automatically the instance at 7pm (EST timezone) |
+| schedules | lille-office-stop    | Stop automatically the instance at 7pm (CET timezone) |
+| schedules | montreal-office-stop | Stop automatically the instance at 7pm (EST timezone) |
