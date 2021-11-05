@@ -14,7 +14,7 @@ export default class BackendStack extends sst.Stack {
     super(scope, id, props);
 
     // Create a table for the cost center list
-    const table = new sst.Table(this, `cost-center-list`, {
+    const table = new sst.Table(this, `config`, {
       fields: {
         PK: sst.TableFieldType.STRING,
         SK: sst.TableFieldType.STRING,

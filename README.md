@@ -43,9 +43,9 @@ We have added a auth system on top of the system to make it usable only by a spe
 
 To add cost center list so that the frontend can make use of it, add items directly from the AWS GUI:
 visit [DynamoDB section](https://console.aws.amazon.com/dynamodbv2/home)
-search for `{stage}-ec2-leaser-cost-center-list`
+search for `{stage}-ec2-leaser-config`
 grab data in backend/data
-add items (needs to be done 1 by 1)
+add items (needs to be done 1 by 1)s
 
 See below for an example on how to enter the items in the table.
 
