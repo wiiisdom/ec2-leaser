@@ -1,7 +1,7 @@
+// add your custom configurations
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/*.html'],
+  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
@@ -11,7 +11,10 @@ module.exports = {
       animation: {
         'spin-slow': 'spin 20s linear infinite'
       }
-    },
+    }
   },
-  plugins: [],
-}
+  variants: {
+    extend: {}
+  },
+  plugins: []
+};

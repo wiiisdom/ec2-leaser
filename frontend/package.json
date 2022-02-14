@@ -3,22 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.x",
     "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^12.1.2",
+    "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.1.9",
+    "autoprefixer": "^9",
     "aws-amplify": "^4.0.2",
     "cross-env": "7.x",
+    "postcss": "^7",
     "prettier": "^2.x",
     "prettier-plugin-tailwind": "^2.x",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.24.4",
-    "react-scripts": "5.0.0",
-    "react-svg-spinner": "^1.0.4"
+    "react-scripts": "4.0.3",
+    "react-svg-spinner": "^1.0.4",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true sst-env -- react-scripts start",
-    "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
+    "start": "SKIP_PREFLIGHT_CHECK=true sst-env -- craco start",
+    "build": "SKIP_PREFLIGHT_CHECK=true craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject",
     "format": "prettier --write \"./src/**/*.{js,jsx}\""
   },
   "eslintConfig": {
@@ -39,9 +45,6 @@
     ]
   },
   "devDependencies": {
-    "@serverless-stack/static-site-env": "^0.43.8",
-    "autoprefixer": "^10.4.2",
-    "postcss": "^8.4.6",
-    "tailwindcss": "^3.0.22"
+    "@serverless-stack/static-site-env": "^0.43.8"
   }
 }
