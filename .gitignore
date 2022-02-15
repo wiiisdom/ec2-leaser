@@ -19,6 +19,7 @@
 
 # sst build output
 .build
+.sst
 cdk.context.json
 
 npm-debug.log*
