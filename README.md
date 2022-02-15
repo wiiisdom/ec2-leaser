@@ -13,7 +13,7 @@ Run the backend only (you need only that to use a local frontend):
 
 ```
 yarn
-yarn sst start backend-stack
+yarn sst start
 ```
 
 Start the frontend:

@@ -15,7 +15,7 @@ const SelectTitle = ({ title, setTitle, handleStart, disabled }) => {
             Add a title
           </h1>
           <p className="text-base leading-relaxed lg:w-2/3">
-            Customise the name of the instance that will be started
+            Customize the name of the instance that will be started
           </p>
         </div>
         <div className="flex flex-col items-end mx-auto px-8 w-full space-y-4 sm:flex-row sm:px-0 sm:space-x-4 sm:space-y-0 lg:w-2/3">
