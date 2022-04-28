@@ -1,7 +1,7 @@
 import SignInWithGoogle from './SignInWithGoogle';
 import logo from '../medias/peak.jpeg';
 
-const LoginScreen = () => {
+const LoginScreen = ({setUser}) => {
   return (
     <section className="body-font text-gray-600">
       <div className="container flex flex-col items-center mx-auto px-5 py-24 md:flex-row">
@@ -23,7 +23,7 @@ const LoginScreen = () => {
             Start by providing your corporate google account.
           </p>
           <div className="flex justify-center">
-            <SignInWithGoogle />
+            <SignInWithGoogle {...setUser}/>
           </div>
         </div>
       </div>

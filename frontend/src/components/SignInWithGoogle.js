@@ -6,7 +6,7 @@ import { Auth } from 'aws-amplify';
  * To federated sign in from Google
  * @returns
  */
-const SignInWithGoogle = () => {
+const SignInWithGoogle = ({setUser}) => {
   useEffect(() => {
     const ga =
       window.gapi && window.gapi.auth2

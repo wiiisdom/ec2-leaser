@@ -10,7 +10,7 @@ const App = () => {
       // data contains {id, email, name, token}
       switch (event) {
         case 'signIn':
-          setUser(data.name);
+          setUser(data);
           break;
         case 'signOut':
           setUser(null);
@@ -21,11 +21,12 @@ const App = () => {
     });
 
     Auth.currentAuthenticatedUser()
-      .then(user => setUser({ userName: user.name, userEmail: user.email }))
+      .then(data => setUser(data))
       .catch(() => console.log('Not signed in'));
   }, []);
+  console.log(user)
 
-  return !user ? <LoginScreen /> : <MainScreen {...user} />;
+  return !user ? <LoginScreen /> : <MainScreen user={user} />;
 };
 
 export default App;

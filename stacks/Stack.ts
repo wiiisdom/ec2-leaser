@@ -1,15 +1,12 @@
-import { RemovalPolicy } from "@aws-cdk/core";
 import * as sst from "@serverless-stack/resources";
 import { ApiAuthorizationType, Auth, Cron } from "@serverless-stack/resources";
+import { RemovalPolicy } from "aws-cdk-lib";
+
 interface BackendStackProps extends sst.StackProps {
   readonly googleClientId: string;
 }
 
 export default class BackendStack extends sst.Stack {
-  // Make these two properties public so they can be accessed when an object is declared via this class.
-  api;
-  auth;
-
   constructor(scope: sst.App, id: string, props: BackendStackProps) {
     super(scope, id, props);
 
@@ -26,7 +23,7 @@ export default class BackendStack extends sst.Stack {
     });
 
     // Create the HTTP API
-    this.api = new sst.Api(this, "Api", {
+    const api = new sst.Api(this, "Api", {
       defaultAuthorizationType: ApiAuthorizationType.AWS_IAM,
       routes: {
         "GET /requests": "src/TerminateSpotRequest.handler",
@@ -59,7 +56,7 @@ export default class BackendStack extends sst.Stack {
     });
 
     // API permission
-    this.api.attachPermissions([
+    api.attachPermissions([
       "ec2:DescribeLaunchTemplates",
       "ec2:DescribeLaunchTemplateVersions",
       "ec2:RunInstances",
@@ -78,7 +75,10 @@ export default class BackendStack extends sst.Stack {
     });
 
     // Cron permissions
-    destroyEc2Cron.attachPermissions(["ec2:DescribeInstances", "ec2:TerminateInstances"]);
+    destroyEc2Cron.attachPermissions([
+      "ec2:DescribeInstances",
+      "ec2:TerminateInstances",
+    ]);
     cancelSpotRequestsCron.attachPermissions([
       "ec2:DescribeSpotInstanceRequests",
       "ec2:DescribeInstances",
@@ -87,23 +87,46 @@ export default class BackendStack extends sst.Stack {
     ]);
 
     // Create an Auth via Google Identity
-    this.auth = new Auth(this, "Auth", {
+    const auth = new Auth(this, "Auth", {
       google: {
         clientId: props.googleClientId,
       },
     });
 
     // Allow user to use API
-    this.auth.attachPermissionsForAuthUsers([this.api]);
+    auth.attachPermissionsForAuthUsers([api]);
 
-    // Show API endpoint in output
+    const domain =
+      scope.stage === "prod" ? "wiiisdom.com" : `${scope.stage}.wiiisdom.com`;
+
+    // Creates the full address to use as URL
+    const siteDomain = scope.name + "." + domain;
+
+    // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
+    const site = new sst.ReactStaticSite(this, "ReactStaticSite", {
+      path: "frontend",
+      buildCommand: "yarn && yarn build",
+      environment: {
+        REACT_APP_API: api.url,
+        REACT_APP_COGNITO_REGION: scope.region,
+        REACT_APP_GOOGLE_CLIENT_ID: props.googleClientId,
+        REACT_APP_COGNITO_IDENTITY_POOL_ID: auth.cognitoCfnIdentityPool.ref,
+      },
+      customDomain: {
+        domainName: siteDomain,
+        hostedZone: domain,
+      },
+    });
+
+    // Show API endpoint  and site url in output
     this.addOutputs({
+      SiteUrl: site.customDomainUrl || site.url,
       ApiEndpoint: {
-        value: this.api.url,
+        value: api.url,
         exportName: `${scope.stage}-${scope.name}-api`,
       },
       IdentityPoolId: {
-        value: this.auth.cognitoCfnIdentityPool.ref,
+        value: auth.cognitoCfnIdentityPool.ref,
         exportName: `${scope.stage}-${scope.name}-poolid`,
       },
     });
