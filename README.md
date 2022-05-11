@@ -13,7 +13,7 @@ Run the backend only (you need only that to use a local frontend):
 
 ```
 yarn
-yarn sst start
+yarn start
 ```
 
 Start the frontend:
@@ -31,8 +31,8 @@ Deploy the infrastructure with SST (front and back stack)
 (it push the frontend to S3 and invalidate cloudfront distribution)
 
 ```
-yarn sst deploy --stage dev
-yarn sst deploy --stage prod --region eu-central-1
+yarn deploy --stage dev
+yarn deploy --stage prod --region eu-central-1
 ```
 
 ### Google authentication

@@ -10,7 +10,7 @@ import Spinner from 'react-svg-spinner';
 import SelectCostCenter from './SelectCostCenter';
 import SelectSchedule from './SelectSchedule';
 
-const MainScreen = ({ userEmail, userName }) => {
+const MainScreen = ({ user }) => {
   const [selectedLaunchTemplate, setLaunchTemplate] = useState(null);
   const [costCenter, setCostCenter] = useState(null);
   const [title, setTitle] = useState('');
@@ -22,15 +22,15 @@ const MainScreen = ({ userEmail, userName }) => {
 
   useEffect(() => {
     if (selectedLaunchTemplate?.name) {
-      const orignalName = `ec2-leaser-${selectedLaunchTemplate.name}-${userName}`;
-      const cleanName = orignalName
+      const originalName = `ec2-leaser-${selectedLaunchTemplate.name}-${user.name}`;
+      const cleanName = originalName
         .toLowerCase()
         .replace(/[^a-zA-Z0-9]+/g, '-');
       setTitle(selectedLaunchTemplate?.name ? cleanName : '');
     } else {
       setTitle('');
     }
-  }, [selectedLaunchTemplate?.name, userName]);
+  }, [selectedLaunchTemplate?.name, user]);
 
   const handleStart = () => {
     setInstanceId('');
@@ -41,7 +41,7 @@ const MainScreen = ({ userEmail, userName }) => {
     const body = {
       instanceId: selectedLaunchTemplate.id,
       title,
-      owner: userEmail,
+      owner: user.email,
       isSpotInstance,
       costCenter,
       schedule
