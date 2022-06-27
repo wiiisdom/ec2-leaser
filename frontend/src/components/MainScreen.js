@@ -17,7 +17,7 @@ const MainScreen = ({ user }) => {
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState('');
   const [instanceId, setInstanceId] = useState('');
-  const [isSpotInstance, setIsSpotInstance] = useState(true);
+  const [isSpotInstance, setIsSpotInstance] = useState(process.env.REACT_APP_DEFAULT_SPOT === "1");
   const [schedule, setSchedule] = useState('');
 
   useEffect(() => {

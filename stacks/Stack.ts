@@ -59,6 +59,7 @@ export default class BackendStack extends sst.Stack {
     api.attachPermissions([
       "ec2:DescribeLaunchTemplates",
       "ec2:DescribeLaunchTemplateVersions",
+      "iam:CreateServiceLinkedRole",
       "ec2:RunInstances",
       "ec2:CreateTags",
     ]);
@@ -107,6 +108,7 @@ export default class BackendStack extends sst.Stack {
       path: "frontend",
       buildCommand: "yarn && yarn build",
       environment: {
+        REACT_APP_DEFAULT_SPOT: "0",
         REACT_APP_API: api.url,
         REACT_APP_COGNITO_REGION: scope.region,
         REACT_APP_GOOGLE_CLIENT_ID: props.googleClientId,
