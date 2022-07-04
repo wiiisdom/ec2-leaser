@@ -33,6 +33,8 @@ Deploy the infrastructure with SST (front and back stack)
 ```
 yarn deploy --stage dev
 yarn deploy --stage prod --region eu-central-1
+yarn deploy --stage demo --region us-east-1
+
 ```
 
 ### Google authentication

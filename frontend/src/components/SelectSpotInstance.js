@@ -10,10 +10,7 @@ const SelectSpotInstance = ({ isSpotInstance, setIsSpotInstance }) => {
           </h1>
           <p className="w-full text-gray-500 leading-relaxed">
             Choose if you want your instance to be a spot instance or to have
-            standard priority.{' '}
-            <span className="text-yellow-600">
-              <i>By default, the instance type is set to "Spot".</i>
-            </span>
+            standard priority.
           </p>
           <div className="relative flex-grow w-full">
             <input
