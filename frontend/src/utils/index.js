@@ -17,14 +17,9 @@ export const amplifyConfig = {
   },
   oauth: {
     domain: process.env.REACT_APP_COGNITO_DOMAIN,
-    scope: ['email'],
-    // if an environment variable is passed, the redirect url are set to it. otherwise, it defaults to http://localhost:3000
-    redirectSignIn: process.env.REACT_APP_PUBLIC_DOMAIN
-      ? `https://${process.env.REACT_APP_PUBLIC_DOMAIN}`
-      : 'http://localhost:3000',
-    redirectSignOut: process.env.REACT_APP_PUBLIC_DOMAIN
-      ? `https://${process.env.REACT_APP_PUBLIC_DOMAIN}`
-      : 'http://localhost:3000',
+    scope: ['email', 'openid', 'profile'],
+    redirectSignIn: process.env.REACT_APP_PUBLIC_DOMAIN,
+    redirectSignOut: process.env.REACT_APP_PUBLIC_DOMAIN,
     responseType: 'code',
   },
 };

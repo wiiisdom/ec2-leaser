@@ -10,21 +10,20 @@ const App = () => {
       // data contains {id, email, name, token}
       switch (event) {
         case 'signIn':
-          setUser(data);
+          setUser(data.signInUserSession.idToken.payload);
           break;
         case 'signOut':
           setUser(null);
           break;
         default:
-          console.log(event);
+          console.log('EVENT: ', event);
       }
     });
 
     Auth.currentAuthenticatedUser()
-      .then(data => setUser(data))
+      .then(data => setUser(data.signInUserSession.idToken.payload))
       .catch(() => console.log('Not signed in'));
   }, []);
-  console.log(user)
 
   return !user ? <LoginScreen /> : <MainScreen user={user} />;
 };

@@ -4,7 +4,8 @@ import { RemovalPolicy } from 'aws-cdk-lib';
 import {
   UserPoolClientIdentityProvider,
   UserPoolIdentityProviderGoogle,
-  OAuthScope
+  OAuthScope,
+  ProviderAttribute
 } from 'aws-cdk-lib/aws-cognito';
 
 interface BackendStackProps extends sst.StackProps {
@@ -108,11 +109,10 @@ export default class BackendStack extends sst.Stack {
         userPoolClient: {
           authFlows: {
             custom: true,
-            userSrp: true,
-            userPassword: true
+            userSrp: true
           },
           oAuth: {
-            scopes: [OAuthScope.EMAIL],
+            scopes: [OAuthScope.EMAIL, OAuthScope.OPENID, OAuthScope.PROFILE],
             callbackUrls: ['http://localhost:3000', `https://${siteDomain}`],
             logoutUrls: ['http://localhost:3000', `https://${siteDomain}`],
             flows: {
@@ -127,7 +127,12 @@ export default class BackendStack extends sst.Stack {
     new UserPoolIdentityProviderGoogle(this, 'GoogleIdP', {
       clientId: props.googleClientId,
       clientSecret: 'rFqoqGJP42-yjcPfl0QNdzVp',
-      userPool: auth.cdk.userPool
+      userPool: auth.cdk.userPool,
+      attributeMapping: {
+        email: ProviderAttribute.GOOGLE_EMAIL,
+        fullname: ProviderAttribute.GOOGLE_NAME
+      },
+      scopes: ['email', 'openid', 'profile']
     });
 
     const domainPrefix = `${scope.stage}-${scope.name}`;
