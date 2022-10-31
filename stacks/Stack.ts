@@ -1,12 +1,12 @@
-import * as sst from '@serverless-stack/resources';
-import { Cognito, Cron } from '@serverless-stack/resources';
-import { RemovalPolicy } from 'aws-cdk-lib';
+import * as sst from "@serverless-stack/resources";
+import { Cognito, Cron } from "@serverless-stack/resources";
+import { RemovalPolicy } from "aws-cdk-lib";
 import {
   UserPoolClientIdentityProvider,
   UserPoolIdentityProviderGoogle,
   OAuthScope,
   ProviderAttribute
-} from 'aws-cdk-lib/aws-cognito';
+} from "aws-cdk-lib/aws-cognito";
 
 interface BackendStackProps extends sst.StackProps {
   readonly googleClientId: string;
@@ -19,10 +19,10 @@ export default class BackendStack extends sst.Stack {
     // Create a table for the cost center list
     const table = new sst.Table(this, `config`, {
       fields: {
-        PK: 'string',
-        SK: 'string'
+        PK: "string",
+        SK: "string"
       },
-      primaryIndex: { partitionKey: 'PK', sortKey: 'SK' },
+      primaryIndex: { partitionKey: "PK", sortKey: "SK" },
       cdk: {
         table: {
           removalPolicy: RemovalPolicy.DESTROY
@@ -31,19 +31,19 @@ export default class BackendStack extends sst.Stack {
     });
 
     // Create the HTTP API
-    const api = new sst.Api(this, 'Api', {
+    const api = new sst.Api(this, "Api", {
       defaults: {
-        authorizer: 'iam'
+        authorizer: "iam"
       },
       routes: {
-        'GET /requests': 'src/TerminateSpotRequest.handler',
-        'GET /list': 'src/LaunchTemplate.list',
-        'POST /description': 'src/LaunchTemplate.description',
-        'POST /start': 'src/Instance.start',
-        'GET /costcenters': {
+        "GET /requests": "src/TerminateSpotRequest.handler",
+        "GET /list": "src/LaunchTemplate.list",
+        "POST /description": "src/LaunchTemplate.description",
+        "POST /start": "src/Instance.start",
+        "GET /costcenters": {
           function: {
-            srcPath: './',
-            handler: 'src/GetCostCenterList.list',
+            srcPath: "./",
+            handler: "src/GetCostCenterList.list",
             environment: {
               TABLE_NAME: table.cdk.table.tableName,
               REGION: this.region
@@ -51,10 +51,10 @@ export default class BackendStack extends sst.Stack {
             permissions: [table]
           }
         },
-        'GET /schedules': {
+        "GET /schedules": {
           function: {
-            srcPath: './',
-            handler: 'src/GetSchedulesList.list',
+            srcPath: "./",
+            handler: "src/GetSchedulesList.list",
             environment: {
               TABLE_NAME: table.cdk.table.tableName,
               REGION: this.region
@@ -67,44 +67,44 @@ export default class BackendStack extends sst.Stack {
 
     // API permission
     api.attachPermissions([
-      'ec2:DescribeLaunchTemplates',
-      'ec2:DescribeLaunchTemplateVersions',
-      'iam:CreateServiceLinkedRole',
-      'ec2:RunInstances',
-      'ec2:CreateTags'
+      "ec2:DescribeLaunchTemplates",
+      "ec2:DescribeLaunchTemplateVersions",
+      "iam:CreateServiceLinkedRole",
+      "ec2:RunInstances",
+      "ec2:CreateTags"
     ]);
 
     // Create the Cron tasks to destroy old resources
-    const destroyEc2Cron = new Cron(this, 'DestroyEc2', {
-      schedule: 'rate(20 minutes)',
-      job: 'src/TerminateInstance.handler'
+    const destroyEc2Cron = new Cron(this, "DestroyEc2", {
+      schedule: "rate(20 minutes)",
+      job: "src/TerminateInstance.handler"
     });
 
-    const cancelSpotRequestsCron = new Cron(this, 'CanceSpotRequests', {
-      schedule: 'rate(20 minutes)',
-      job: 'src/TerminateSpotRequest.handler'
+    const cancelSpotRequestsCron = new Cron(this, "CanceSpotRequests", {
+      schedule: "rate(20 minutes)",
+      job: "src/TerminateSpotRequest.handler"
     });
 
     // Cron permissions
     destroyEc2Cron.attachPermissions([
-      'ec2:DescribeInstances',
-      'ec2:TerminateInstances'
+      "ec2:DescribeInstances",
+      "ec2:TerminateInstances"
     ]);
     cancelSpotRequestsCron.attachPermissions([
-      'ec2:DescribeSpotInstanceRequests',
-      'ec2:DescribeInstances',
-      'ec2:CancelSpotInstanceRequests',
-      'ec2:TerminateInstances'
+      "ec2:DescribeSpotInstanceRequests",
+      "ec2:DescribeInstances",
+      "ec2:CancelSpotInstanceRequests",
+      "ec2:TerminateInstances"
     ]);
 
     const domain =
-      scope.stage === 'prod' ? 'wiiisdom.com' : `${scope.stage}.wiiisdom.com`;
+      scope.stage === "prod" ? "wiiisdom.com" : `${scope.stage}.wiiisdom.com`;
 
     // Creates the full address to use as URL
-    const siteDomain = scope.name + '.' + domain;
+    const siteDomain = scope.name + "." + domain;
 
     // Create an Auth via Google Identity
-    const auth = new Cognito(this, 'Auth', {
+    const auth = new Cognito(this, "Auth", {
       cdk: {
         userPoolClient: {
           authFlows: {
@@ -113,8 +113,8 @@ export default class BackendStack extends sst.Stack {
           },
           oAuth: {
             scopes: [OAuthScope.EMAIL, OAuthScope.OPENID, OAuthScope.PROFILE],
-            callbackUrls: ['http://localhost:3000', `https://${siteDomain}`],
-            logoutUrls: ['http://localhost:3000', `https://${siteDomain}`],
+            callbackUrls: ["http://localhost:3000", `https://${siteDomain}`],
+            logoutUrls: ["http://localhost:3000", `https://${siteDomain}`],
             flows: {
               authorizationCodeGrant: true
             }
@@ -124,19 +124,19 @@ export default class BackendStack extends sst.Stack {
       }
     });
 
-    new UserPoolIdentityProviderGoogle(this, 'GoogleIdP', {
+    new UserPoolIdentityProviderGoogle(this, "GoogleIdP", {
       clientId: props.googleClientId,
-      clientSecret: 'rFqoqGJP42-yjcPfl0QNdzVp',
+      clientSecret: "rFqoqGJP42-yjcPfl0QNdzVp",
       userPool: auth.cdk.userPool,
       attributeMapping: {
         email: ProviderAttribute.GOOGLE_EMAIL,
         fullname: ProviderAttribute.GOOGLE_NAME
       },
-      scopes: ['email', 'openid', 'profile']
+      scopes: ["email", "openid", "profile"]
     });
 
     const domainPrefix = `${scope.stage}-${scope.name}`;
-    auth.cdk.userPool.addDomain('default', {
+    auth.cdk.userPool.addDomain("default", {
       cognitoDomain: {
         domainPrefix
       }
@@ -146,11 +146,11 @@ export default class BackendStack extends sst.Stack {
     auth.attachPermissionsForAuthUsers(this, [api]);
 
     // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
-    const site = new sst.ReactStaticSite(this, 'ReactStaticSite', {
-      path: 'frontend',
-      buildCommand: 'yarn && yarn build',
+    const site = new sst.ReactStaticSite(this, "ReactStaticSite", {
+      path: "frontend",
+      buildCommand: "yarn && yarn build",
       environment: {
-        REACT_APP_DEFAULT_SPOT: '0',
+        REACT_APP_DEFAULT_SPOT: "0",
         REACT_APP_API: api.url,
         REACT_APP_COGNITO_REGION: scope.region,
         REACT_APP_GOOGLE_CLIENT_ID: props.googleClientId,
@@ -161,7 +161,7 @@ export default class BackendStack extends sst.Stack {
           auth.cognitoIdentityPoolId as string,
         REACT_APP_COGNITO_DOMAIN: `${domainPrefix}.auth.${scope.region}.amazoncognito.com`,
         REACT_APP_PUBLIC_DOMAIN: scope.local
-          ? 'http://localhost:3000'
+          ? "http://localhost:3000"
           : `https://${siteDomain}`
       },
       customDomain: {
