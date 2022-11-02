@@ -2,11 +2,11 @@ export const amplifyConfig = {
   Auth: {
     mandatorySignIn: true,
     region: process.env.REACT_APP_COGNITO_REGION,
-    userPoolId: 'XX-XXXX-X_abcd1234',
-    userPoolWebClientId: 'none',
+    userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
+    userPoolWebClientId: process.env.REACT_APP_COGNITO_USER_POOL_CLIENT_ID,
     identityPoolId: process.env.REACT_APP_COGNITO_IDENTITY_POOL_ID
   },
-  API: {
+  API: { 
     endpoints: [
       {
         name: 'main',
@@ -14,5 +14,12 @@ export const amplifyConfig = {
         region: process.env.REACT_APP_COGNITO_REGION
       }
     ]
-  }
+  },
+  oauth: {
+    domain: process.env.REACT_APP_COGNITO_DOMAIN,
+    scope: ['email', 'openid', 'profile'],
+    redirectSignIn: process.env.REACT_APP_PUBLIC_DOMAIN,
+    redirectSignOut: process.env.REACT_APP_PUBLIC_DOMAIN,
+    responseType: 'code',
+  },
 };

@@ -5,8 +5,8 @@ import { RetentionDays } from "aws-cdk-lib/aws-logs";
 export default function main(app: sst.App): void {
   // Set default runtime for all functions
   app.setDefaultFunctionProps({
-    runtime: "nodejs14.x",
-    logRetention: RetentionDays.THREE_MONTHS,
+    runtime: "nodejs16.x",
+    logRetention: "three_months"
   });
 
   const googleClientId =
@@ -15,11 +15,11 @@ export default function main(app: sst.App): void {
   const tags = {
     costcenter: "eng:lab",
     project: "ec2-leaser",
-    owner: "lab@wiiisdom.com",
+    owner: "lab@wiiisdom.com"
   };
 
   new Stack(app, "backend-stack", {
     tags,
-    googleClientId,
+    googleClientId
   });
 }
