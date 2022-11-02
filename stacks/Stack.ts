@@ -8,12 +8,8 @@ import {
   ProviderAttribute
 } from "aws-cdk-lib/aws-cognito";
 
-interface BackendStackProps extends sst.StackProps {
-  readonly googleClientId: string;
-}
-
 export default class BackendStack extends sst.Stack {
-  constructor(scope: sst.App, id: string, props: BackendStackProps) {
+  constructor(scope: sst.App, id: string, props: sst.StackProps) {
     super(scope, id, props);
 
     // Create a table for the cost center list
@@ -124,9 +120,9 @@ export default class BackendStack extends sst.Stack {
       }
     });
 
-    new UserPoolIdentityProviderGoogle(this, "GoogleIdP", {
-      clientId: props.googleClientId,
-      clientSecret: "rFqoqGJP42-yjcPfl0QNdzVp",
+    const googleIdp = new UserPoolIdentityProviderGoogle(this, "GoogleIdP", {
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       userPool: auth.cdk.userPool,
       attributeMapping: {
         email: ProviderAttribute.GOOGLE_EMAIL,
@@ -134,6 +130,8 @@ export default class BackendStack extends sst.Stack {
       },
       scopes: ["email", "openid", "profile"]
     });
+
+    auth.cdk.userPoolClient.node.addDependency(googleIdp);
 
     const domainPrefix = `${scope.stage}-${scope.name}`;
     auth.cdk.userPool.addDomain("default", {
@@ -153,7 +151,6 @@ export default class BackendStack extends sst.Stack {
         REACT_APP_DEFAULT_SPOT: "0",
         REACT_APP_API: api.url,
         REACT_APP_COGNITO_REGION: scope.region,
-        REACT_APP_GOOGLE_CLIENT_ID: props.googleClientId,
         REACT_APP_COGNITO_USER_POOL_ID: auth.cdk.userPool.userPoolId,
         REACT_APP_COGNITO_USER_POOL_CLIENT_ID:
           auth.cdk.userPoolClient.userPoolClientId,

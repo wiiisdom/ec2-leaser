@@ -9,9 +9,6 @@ export default function main(app: sst.App): void {
     logRetention: "three_months"
   });
 
-  const googleClientId =
-    "912868966610-17ml6d14mikkcovoao16qbebef984lqq.apps.googleusercontent.com";
-
   const tags = {
     costcenter: "eng:lab",
     project: "ec2-leaser",
@@ -19,7 +16,6 @@ export default function main(app: sst.App): void {
   };
 
   new Stack(app, "backend-stack", {
-    tags,
-    googleClientId
+    tags
   });
 }
