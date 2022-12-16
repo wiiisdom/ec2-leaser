@@ -16,14 +16,16 @@ definitions:
         script:
           - cd frontend/
           - yarn
-          - yarn sonar
+          - yarn test
+          # - yarn sonar
     - step: &backend-sonar
         name: sonar backend (sst)
         caches:
           - node
         script:
           - yarn 
-          - yarn sonar
+          - yarn test
+          # - yarn sonar
 
 pipelines:
   default:
