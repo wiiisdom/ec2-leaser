@@ -16,7 +16,6 @@ definitions:
         script:
           - cd frontend/
           - yarn
-          - yarn test
           # - yarn sonar
     - step: &backend-sonar
         name: sonar backend (sst)
