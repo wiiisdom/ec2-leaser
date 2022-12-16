@@ -1,0 +1,31 @@
+image: node:18
+
+clone:
+  depth: full
+
+definitions:
+  caches:
+    sonar: ~/.sonar/cache
+    frontend: frontend/node_module
+
+  steps:
+    - step: &frontend-sonar
+        name: sonar frontend
+        caches:
+          - frontend
+        script:
+          - cd frontend/
+          - yarn
+          - yarn sonar
+    - step: &backend-sonar
+        name: sonar backend (sst)
+        caches:
+          - node
+        script:
+          - yarn 
+          - yarn sonar
+
+pipelines:
+  default:
+    - step: *backend-sonar
+    - step: *frontend-sonar
