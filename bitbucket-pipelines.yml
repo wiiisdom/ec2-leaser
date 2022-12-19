@@ -27,6 +27,7 @@ definitions:
           - yarn sonar
 
 pipelines:
-  default && pull-requests:
-    - step: *backend-sonar
-    - step: *frontend-sonar
+  default && pull-requests: 
+    '**':
+      - step: *backend-sonar
+      - step: *frontend-sonar
