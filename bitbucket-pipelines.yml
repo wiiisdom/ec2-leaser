@@ -28,10 +28,12 @@ definitions:
 
 pipelines:
   default:
+    name: default
     - step: *backend-sonar
     - step: *frontend-sonar
 
   pull-requests:
+    name: pull-requests
     '**':
       - step: *backend-sonar
       - step: *frontend-sonar
