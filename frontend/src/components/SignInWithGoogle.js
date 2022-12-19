@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Auth } from 'aws-amplify';
 
 /**
@@ -14,7 +14,7 @@ const SignInWithGoogle = () => {
       provider: 'Google',
       customState: 'redirect = /'
     })}catch (e){
-      console.log(e)
+      throw new Error(e)
     };
   };
   

@@ -17,7 +17,7 @@ const SelectSchedule = ({ schedule, setSchedule }) => {
       }
       fetchSchedules();
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   }, [setSchedule]);
 

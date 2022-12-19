@@ -12,7 +12,7 @@ const LaunchTemplate = memo(({ id, name, selected, setLaunchTemplate }) => {
   const onClick = () =>
     selected ? setLaunchTemplate(null) : setLaunchTemplate({ id, name });
 
-  if (error) console.log(error);
+  if (error) throw new Error(error);
 
   return (
     <LaunchTemplateContent
