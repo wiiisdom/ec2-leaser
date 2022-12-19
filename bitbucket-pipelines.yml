@@ -16,7 +16,7 @@ definitions:
         script:
           - cd frontend/
           - yarn
-          # - yarn sonar
+          - yarn sonar
     - step: &backend-sonar
         name: sonar backend (sst)
         caches:
@@ -24,7 +24,7 @@ definitions:
         script:
           - yarn 
           - yarn test
-          # - yarn sonar
+          - yarn sonar
 
 pipelines:
   default:

@@ -16,11 +16,10 @@ sonarqubeScanner(
 function buildOptions() {
   const options = {};
   options["sonar.organization"] = "gbandsmith";
-  options["sonar.projectKey"] = "ec2-leaser-backend";
-  options["sonar.projectName"] = "ec2-leaser-backend";
+  options["sonar.projectKey"] = "ec2-leaser-frontend";
+  options["sonar.projectName"] = "ec2-leaser-frontend";
   options["sonar.qualitygate.wait"] = "false";
-  options["sonar.sources"] = "src,stacks";
-  options["sonar.tests"] = "test";
+  options["sonar.sources"] = "src";
   if (process.env.BITBUCKET_PR_ID) {
     options["sonar.pullrequest.key"] = process.env.BITBUCKET_PR_ID;
     options["sonar.pullrequest.branch"] = process.env.BITBUCKET_BRANCH;
