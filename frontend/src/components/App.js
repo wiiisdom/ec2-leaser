@@ -22,7 +22,6 @@ const App = () => {
 
     Auth.currentAuthenticatedUser()
       .then(data => setUser(data.signInUserSession.idToken.payload))
-      .catch(() => {throw new Error('Not signed in')});
   }, []);
 
   return !user ? <LoginScreen /> : <MainScreen user={user} />;
