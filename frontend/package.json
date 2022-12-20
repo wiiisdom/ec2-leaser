@@ -19,7 +19,8 @@
   "scripts": {
     "start": "SKIP_PREFLIGHT_CHECK=true sst-env -- react-scripts start",
     "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
-    "format": "prettier --write \"./src/**/*.{js,jsx}\""
+    "format": "prettier --write \"./src/**/*.{js,jsx}\"",
+    "sonar": "node sonar.js"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +43,7 @@
     "@serverless-stack/static-site-env": "^0.43.8",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.6",
+    "sonarqube-scanner": "^2.9.1",
     "tailwindcss": "^3.0.22"
   }
 }

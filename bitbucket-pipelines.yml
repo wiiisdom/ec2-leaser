@@ -23,9 +23,16 @@ definitions:
           - node
         script:
           - yarn 
+          - yarn test
           - yarn sonar
 
 pipelines:
   default:
     - step: *backend-sonar
     - step: *frontend-sonar
+
+  pull-requests:
+    '**':
+      - step: *backend-sonar
+      - step: *frontend-sonar
+# add more steps eventually with tests, build, deploy, etc.

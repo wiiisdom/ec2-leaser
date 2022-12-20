@@ -29,3 +29,6 @@ yarn-error.log*
 # .env
 .env.local
 .env.local.dev
+
+#Sonar
+!sonar.js

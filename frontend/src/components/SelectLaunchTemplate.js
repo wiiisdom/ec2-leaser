@@ -15,7 +15,7 @@ const SelectLaunchTemplate = ({
     fetchPolicy
   );
 
-  if (error) console.log(error);
+  if (error) throw new Error(error);
 
   return (
     <section className="body-font text-gray-600">

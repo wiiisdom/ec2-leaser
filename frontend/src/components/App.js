@@ -16,13 +16,12 @@ const App = () => {
           setUser(null);
           break;
         default:
-          console.log('EVENT: ', event);
+          return null;
       }
     });
 
     Auth.currentAuthenticatedUser()
       .then(data => setUser(data.signInUserSession.idToken.payload))
-      .catch(() => console.log('Not signed in'));
   }, []);
 
   return !user ? <LoginScreen /> : <MainScreen user={user} />;
