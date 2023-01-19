@@ -3,6 +3,7 @@ import Spinner from 'react-svg-spinner';
 import LaunchTemplate from './LaunchTemplate';
 import { useQuery } from 'react-query';
 import { fetchList, fetchPolicy } from '../API';
+import LaunchTemplateContainer from './LaunchTemplateContainer';
 
 const SelectLaunchTemplate = ({
   selectedLaunchTemplateId,
@@ -46,27 +47,7 @@ const SelectLaunchTemplate = ({
             <Spinner size="48" color="lightgrey" />
           </div>
         )}
-        <div className="flex flex-wrap -m-4">
-          {data &&
-            data
-              .filter(
-                lt =>
-                  lt.name.toLowerCase().includes(search.toLowerCase()) ||
-                  lt === selectedLaunchTemplateId
-              )
-              .map(({ id, name }) => {
-                const selected = selectedLaunchTemplateId === id;
-                return (
-                  <LaunchTemplate
-                    key={id}
-                    id={id}
-                    name={name}
-                    selected={selected}
-                    setLaunchTemplate={setLaunchTemplate}
-                  />
-                );
-              })}
-        </div>
+        <LaunchTemplateContainer data={data} search={search} selectedLaunchTemplateId={selectedLaunchTemplateId} setLaunchTemplate={setLaunchTemplate}/>
       </div>
     </section>
   );
