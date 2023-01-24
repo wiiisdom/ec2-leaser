@@ -20,7 +20,7 @@ describe('LaunchTemplateContainer', () => {
         selectedLaunchTemplateId={selectedLaunchTemplateId} 
         setLaunchTemplate={setLaunchTemplate} />
   );
-    let tree = component.toJSON();
+    const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
     expect(data).toEqual(expect.arrayContaining(data.sort((a, b) => a.name.localeCompare(b.name))));
   });
