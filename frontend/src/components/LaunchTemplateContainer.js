@@ -6,7 +6,6 @@ const LaunchTemplateContainer = ({
     selectedLaunchTemplateId,
     setLaunchTemplate
 }) => {
-console.log(data);
   return (
         <div className="flex flex-wrap -m-4">
           {data &&

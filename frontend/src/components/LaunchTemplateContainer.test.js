@@ -14,11 +14,15 @@ describe('LaunchTemplateContainer', () => {
     const selectedLaunchTemplateId = 3;
     const setLaunchTemplate = jest.fn();
     const component = renderer.create(
-      <LaunchTemplateContainer data={data} search={search} selectedLaunchTemplateId={selectedLaunchTemplateId} setLaunchTemplate={setLaunchTemplate} />
+      <LaunchTemplateContainer 
+        data={data} 
+        search={search} 
+        selectedLaunchTemplateId={selectedLaunchTemplateId} 
+        setLaunchTemplate={setLaunchTemplate} />
   );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
-    expect(tree.props.data).toEqual(expect.arrayContaining(data.sort((a, b) => a.name.localeCompare(b.name))));
+    expect(data).toEqual(expect.arrayContaining(data.sort((a, b) => a.name.localeCompare(b.name))));
   });
 });
 
