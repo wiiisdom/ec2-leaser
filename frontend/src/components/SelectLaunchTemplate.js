@@ -47,7 +47,7 @@ const SelectLaunchTemplate = ({
             <Spinner size="48" color="lightgrey" />
           </div>
         )}
-        <LaunchTemplateContainer data={data} search={search} selectedLaunchTemplateId={selectedLaunchTemplateId} setLaunchTemplate={setLaunchTemplate}/>
+        {data && <LaunchTemplateContainer data={data} search={search} selectedLaunchTemplateId={selectedLaunchTemplateId} setLaunchTemplate={setLaunchTemplate}/> }
       </div>
     </section>
   );

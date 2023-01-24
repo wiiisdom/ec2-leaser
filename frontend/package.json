@@ -19,6 +19,7 @@
   "scripts": {
     "start": "sst-env -- react-scripts start",
     "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "format": "prettier --write \"./src/**/*.{js,jsx}\"",
     "sonar": "node sonar.js"
   },
@@ -43,6 +44,7 @@
     "@serverless-stack/static-site-env": "^0.43.8",
     "autoprefixer": "^10.4.2",
     "postcss": "^8.4.6",
+    "react-test-renderer": "^17",
     "sonarqube-scanner": "^2.9.1",
     "tailwindcss": "^3.0.22"
   }
