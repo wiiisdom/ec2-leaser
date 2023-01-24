@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Spinner from 'react-svg-spinner';
-import LaunchTemplate from './LaunchTemplate';
 import { useQuery } from 'react-query';
 import { fetchList, fetchPolicy } from '../API';
 import LaunchTemplateContainer from './LaunchTemplateContainer';
@@ -15,7 +14,6 @@ const SelectLaunchTemplate = ({
     fetchList,
     fetchPolicy
   );
-  
   // sort template data
   data && data.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1 );
 
