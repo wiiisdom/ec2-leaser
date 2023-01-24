@@ -2,17 +2,15 @@ import LaunchTemplateContainer from './LaunchTemplateContainer';
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-// const MockData = {};
 jest.mock('react-query', () => ({
-  useQuery: jest.fn().mockReturnValue(({ data: {description: "mocked desc"}, isLoading: false ,error:{} }))
+  useQuery: () => ({ data: {description: "mocked desc"}, isLoading: false, error: undefined })
 }));
-
 
 describe('LaunchTemplateContainer', () => {
   it('should render with sorted data', () => {
     const data = [{id: 2, name: 'John', version: 1}, {id: 1, name: 'Mary', version: 3}, {id: 3, name: 'Mike', version: 2}];
     
-    const search = 'Mike';
+    const search = '';
     const selectedLaunchTemplateId = 3;
     const setLaunchTemplate = jest.fn();
     const component = renderer.create(

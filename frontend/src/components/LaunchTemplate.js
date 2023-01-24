@@ -8,7 +8,6 @@ const LaunchTemplate = memo(({ id, name, selected, setLaunchTemplate }) => {
     () => fetchDescription(id),
     fetchPolicy
   );
-
   const onClick = () =>
     selected ? setLaunchTemplate(null) : setLaunchTemplate({ id, name });
 
