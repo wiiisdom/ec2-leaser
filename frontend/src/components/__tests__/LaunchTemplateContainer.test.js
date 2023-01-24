@@ -21,6 +21,7 @@ describe('LaunchTemplateContainer', () => {
   );
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
-    expect(data).toEqual(expect.arrayContaining(data.sort((a, b) => a.name.localeCompare(b.name))));
+    const sortedData = data.sort((a, b) => a.name.localeCompare(b.name))
+    expect(data).toEqual(expect.arrayContaining(sortedData));
   });
 });
