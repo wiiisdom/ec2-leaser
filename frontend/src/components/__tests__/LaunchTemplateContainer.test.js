@@ -1,4 +1,4 @@
-import LaunchTemplateContainer from './LaunchTemplateContainer';
+import LaunchTemplateContainer from '../LaunchTemplateContainer';
 import React from 'react';
 import renderer from 'react-test-renderer';
 
