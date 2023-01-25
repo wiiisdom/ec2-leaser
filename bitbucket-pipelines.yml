@@ -13,6 +13,7 @@ definitions:
         name: sonar frontend
         caches:
           - frontend
+          - sonar
         script:
           - yarn
           - cd frontend/
@@ -22,6 +23,7 @@ definitions:
         name: sonar backend (sst)
         caches:
           - node
+          - sonar
         script:
           - yarn
           - yarn test
