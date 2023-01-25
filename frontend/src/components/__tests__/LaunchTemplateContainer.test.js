@@ -15,7 +15,7 @@ describe('LaunchTemplateContainer', () => {
     const setLaunchTemplate = jest.fn();
     const component = renderer.create(
       <LaunchTemplateContainer
-        data={data}
+        data={sortedData}
         search={search}
         selectedLaunchTemplateId={selectedLaunchTemplateId}
         setLaunchTemplate={setLaunchTemplate} />
