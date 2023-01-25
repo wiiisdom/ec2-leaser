@@ -19,7 +19,8 @@
   "scripts": {
     "start": "sst-env -- react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom ",
+    "test:ci": "react-scripts test --env=jsdom --coverage",
     "format": "prettier --write \"./src/**/*.{js,jsx}\"",
     "sonar": "node sonar.js"
   },

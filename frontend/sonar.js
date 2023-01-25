@@ -19,6 +19,7 @@ function buildOptions() {
     "sonar.sources": "src",
     "sonar.tests": "src/__tests__",
     "sonar.exclusions": "src/__tests__/**",
+    "sonar.javascript.lcov.reportPaths": "coverage/lcov.info",
     "sonar.projectKey": "ec2-leaser-frontend",
     "sonar.projectName": "ec2-leaser-frontend",
     "sonar.qualitygate.wait": "false",
