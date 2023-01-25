@@ -33,3 +33,9 @@ pipelines:
       - parallel:
           - step: *backend-sonar
           - step: *frontend-sonar
+
+  branches:
+    main:
+      - parallel:
+          - step: *backend-sonar
+          - step: *frontend-sonar
