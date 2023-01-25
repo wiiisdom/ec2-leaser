@@ -17,7 +17,8 @@ function buildOptions() {
   const options = {
     "sonar.organization": "gbandsmith",
     "sonar.sources": "src",
-    "sonar.tests": "src/__tests__",
+    "sonar.tests": "src",
+    "sonar.test.inclusions": "**/*.test.js",
     "sonar.projectKey": "ec2-leaser-frontend",
     "sonar.projectName": "ec2-leaser-frontend",
     "sonar.qualitygate.wait": "false",
