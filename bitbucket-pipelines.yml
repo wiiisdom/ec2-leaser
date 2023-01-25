@@ -14,8 +14,8 @@ definitions:
         caches:
           - frontend
         script:
-          - cd frontend/
           - yarn
+          - cd frontend/
           - yarn test:ci
           - yarn sonar
     - step: &backend-sonar

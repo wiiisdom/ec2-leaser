@@ -29,5 +29,8 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1123.0"
-  }
+  },
+  "workspaces": [
+    "frontend"
+  ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "ec2leaser-client",
+  "name": "@ec2-leaser/frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
