@@ -14,12 +14,14 @@ sonarqubeScanner(
  * @return {{}} return a json object representing options
  */
 function buildOptions() {
-  const options = {};
-  options["sonar.organization"] = "gbandsmith";
-  options["sonar.projectKey"] = "ec2-leaser-frontend";
-  options["sonar.projectName"] = "ec2-leaser-frontend";
-  options["sonar.qualitygate.wait"] = "false";
-  options["sonar.sources"] = "src";
+  const options = {
+    "sonar.organization": "gbandsmith",
+    "sonar.sources": "src",
+    "sonar.tests": "src/__tests__",
+    "sonar.projectKey": "ec2-leaser-frontend",
+    "sonar.projectName": "ec2-leaser-frontend",
+    "sonar.qualitygate.wait": "false",
+  };
   if (process.env.BITBUCKET_PR_ID) {
     options["sonar.pullrequest.key"] = process.env.BITBUCKET_PR_ID;
     options["sonar.pullrequest.branch"] = process.env.BITBUCKET_BRANCH;
