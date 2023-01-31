@@ -63,7 +63,7 @@ describe('LaunchTemplateContainer', () => {
     it('should call setLaunchTemplate when a template is clicked', () => {
         const { getByText } = component;
         fireEvent.click(getByText('Template B'));
-        expect(setLaunchTemplate).toHaveBeenCalledWith({"id": 2, "name": "Template B"});
+        expect(setLaunchTemplate).toHaveBeenCalledWith({'id': 2, 'name': 'Template B'});
     });
 
     it('should render with sorted data', () => {
