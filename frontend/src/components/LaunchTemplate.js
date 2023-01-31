@@ -37,7 +37,7 @@ const LaunchTemplateContent = ({ name, description, onClick, selected }) => {
         onClick={onClick}
       >
         <div className="h-24">
-          <h2 className="title-font mb-2 text-gray-900 text-lg font-medium">
+          <h2 data-testid="template-name" className="title-font mb-2 text-gray-900 text-lg font-medium">
             {name}
           </h2>
           <p className="text-base leading-relaxed">{description}</p>
