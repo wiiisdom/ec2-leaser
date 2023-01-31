@@ -1,5 +1,5 @@
 {
-  "name": "ec2leaser-client",
+  "name": "@ec2-leaser/frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,10 +17,20 @@
     "react-svg-spinner": "^1.0.4"
   },
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true sst-env -- react-scripts start",
-    "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
+    "start": "sst-env -- react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom ",
+    "test:ci": "react-scripts test --env=jsdom --coverage --reporters 'default' --reporters 'jest-junit' --testResultsProcessor 'jest-sonar-reporter'",
     "format": "prettier --write \"./src/**/*.{js,jsx}\"",
     "sonar": "node sonar.js"
+  },
+  "jest-junit": {
+    "outputDirectory": "test-reports"
+  },
+  "jestSonar": {
+    "reportPath": "test-reports",
+    "reportFile": "test-report.xml",
+    "indent": 4
   },
   "eslintConfig": {
     "extends": [
@@ -42,7 +52,10 @@
   "devDependencies": {
     "@serverless-stack/static-site-env": "^0.43.8",
     "autoprefixer": "^10.4.2",
+    "jest-junit": "^15.0.0",
+    "jest-sonar-reporter": "^2.0.0",
     "postcss": "^8.4.6",
+    "react-test-renderer": "^17",
     "sonarqube-scanner": "^2.9.1",
     "tailwindcss": "^3.0.22"
   }

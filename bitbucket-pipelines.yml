@@ -13,26 +13,31 @@ definitions:
         name: sonar frontend
         caches:
           - frontend
+          - sonar
         script:
-          - cd frontend/
           - yarn
+          - cd frontend/
+          - yarn test:ci
           - yarn sonar
     - step: &backend-sonar
         name: sonar backend (sst)
         caches:
           - node
+          - sonar
         script:
-          - yarn 
+          - yarn
           - yarn test
           - yarn sonar
 
 pipelines:
-  default:
-    - step: *backend-sonar
-    - step: *frontend-sonar
-
   pull-requests:
-    '**':
-      - step: *backend-sonar
-      - step: *frontend-sonar
-# add more steps eventually with tests, build, deploy, etc.
+    "**":
+      - parallel:
+          - step: *backend-sonar
+          - step: *frontend-sonar
+
+  branches:
+    main:
+      - parallel:
+          - step: *backend-sonar
+          - step: *frontend-sonar
