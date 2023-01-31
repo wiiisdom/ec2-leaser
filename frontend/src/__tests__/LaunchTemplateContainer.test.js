@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, cleanup } from '@testing-library/react';
-import LaunchTemplateContainer from '../LaunchTemplateContainer';
+import LaunchTemplateContainer from '../components/LaunchTemplateContainer';
 
 jest.mock('react-query', () => ({
   useQuery: () => ({ data: {description: 'mocked desc'}, isLoading: false, error: undefined })
