@@ -28,6 +28,25 @@ definitions:
           - yarn
           - yarn test
           - yarn sonar
+    - step: &dependency-track-backend
+        name: Generate and upload BOM file for backend
+        script:
+          - yarn
+          - npm install -g @cyclonedx/bom@3.10.6
+          - cyclonedx-node -l -o bom.json
+          - 'curl -f -X POST "${DTRACK_URL}/v1/bom" -H "X-Api-Key: ${DTRACK_API_KEY}" -H "Content-Type: multipart/form-data" -F "project=${DTRACK_BACKEND_ID}" -F "bom=@bom.json"'
+        artifacts:
+          - bom.json
+    - step: &dependency-track-frontend
+        name: Generate and upload BOM file for frontend
+        script:
+          - cd frontend/
+          - yarn
+          - npm install -g @cyclonedx/bom@3.10.6
+          - cyclonedx-node -l -o bom.json
+          - 'curl -f -X POST "${DTRACK_URL}/v1/bom" -H "X-Api-Key: ${DTRACK_API_KEY}" -H "Content-Type: multipart/form-data" -F "project=${DTRACK_FRONTEND_ID}" -F "bom=@bom.json"'
+        artifacts:
+          - bom.json
 
 pipelines:
   pull-requests:
@@ -41,3 +60,9 @@ pipelines:
       - parallel:
           - step: *backend-sonar
           - step: *frontend-sonar
+
+  custom:
+    dependency-track:
+      - parallel:
+          - step: *dependency-track-backend
+          - step: *dependency-track-frontend
