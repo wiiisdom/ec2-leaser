@@ -41,7 +41,7 @@ definitions:
         name: Generate and upload BOM file for frontend
         script:
           - yarn
-          - rm -rf frontend/node-modules && mv node-modules/ frontend/
+          - rm -rf frontend/node_modules && mv node_modules/ frontend/
           - npm install -g @cyclonedx/bom@3.10.6
           - cd frontend/
           - cyclonedx-node -l -o bom.json
