@@ -47,7 +47,7 @@ definitions:
           - cyclonedx-node -l -o bom.json
           - 'curl -f -X POST "${DTRACK_URL}/v1/bom" -H "X-Api-Key: ${DTRACK_API_KEY}" -H "Content-Type: multipart/form-data" -F "project=${DTRACK_FRONTEND_ID}" -F "bom=@bom.json"'
         artifacts:
-          - bom.json
+          - frontend/bom.json
 
 pipelines:
   pull-requests:
