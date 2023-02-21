@@ -136,7 +136,7 @@ export default class BackendStack extends sst.Stack {
     auth.attachPermissionsForAuthUsers(this, [api]);
 
     // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
-    const site = new sst.StaticSite(this, "ReactStaticSite", {
+    const site = new sst.StaticSite(this, "Site", {
       path: "frontend",
       buildCommand: "yarn && yarn build",
       environment: {
