@@ -40,22 +40,14 @@ export default class BackendStack extends sst.Stack {
           function: {
             srcPath: "./",
             handler: "src/GetCostCenterList.list",
-            environment: {
-              TABLE_NAME: table.cdk.table.tableName,
-              REGION: this.region
-            },
-            permissions: [table]
+            bind: [table]
           }
         },
         "GET /schedules": {
           function: {
             srcPath: "./",
             handler: "src/GetSchedulesList.list",
-            environment: {
-              TABLE_NAME: table.cdk.table.tableName,
-              REGION: this.region
-            },
-            permissions: [table]
+            bind: [table]
           }
         }
       }
@@ -144,7 +136,7 @@ export default class BackendStack extends sst.Stack {
     auth.attachPermissionsForAuthUsers(this, [api]);
 
     // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
-    const site = new sst.ReactStaticSite(this, "ReactStaticSite", {
+    const site = new sst.StaticSite(this, "ReactStaticSite", {
       path: "frontend",
       buildCommand: "yarn && yarn build",
       environment: {
