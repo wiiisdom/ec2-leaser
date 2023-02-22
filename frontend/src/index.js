@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-import Amplify from 'aws-amplify';
+import {Amplify} from 'aws-amplify';
 import { amplifyConfig } from './utils';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
