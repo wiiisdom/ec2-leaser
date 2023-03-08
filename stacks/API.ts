@@ -42,21 +42,13 @@ export function API({ stack, app }: StackContext) {
       "GET /costcenters": {
         function: {
           handler: "packages/functions/src/GetCostCenterList.list",
-          environment: {
-            TABLE_NAME: table.cdk.table.tableName,
-            REGION: stack.region
-          },
-          permissions: [table]
+          bind: [table]
         }
       },
       "GET /schedules": {
         function: {
           handler: "packages/functions/src/GetSchedulesList.list",
-          environment: {
-            TABLE_NAME: table.cdk.table.tableName,
-            REGION: stack.region
-          },
-          permissions: [table]
+          bind: [table]
         }
       }
     }
@@ -145,7 +137,7 @@ export function API({ stack, app }: StackContext) {
   auth.attachPermissionsForAuthUsers(stack, [api]);
 
   // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
-  const site = new StaticSite(stack, "ReactStaticSite", {
+  const site = new StaticSite(stack, "Site", {
     path: "packages/web",
     buildCommand: "yarn && yarn build",
     environment: {

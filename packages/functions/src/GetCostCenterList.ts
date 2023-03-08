@@ -1,12 +1,13 @@
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
+import { Table } from "@serverless-stack/node/table";
 import AWS from "aws-sdk";
 
 export const list: APIGatewayProxyHandlerV2 = async () => {
   try {
-    const documentClient = new AWS.DynamoDB.DocumentClient({ region: process.env.REGION as string });
+    const documentClient = new AWS.DynamoDB.DocumentClient();
     const { Items } = await documentClient
       .query({
-        TableName: process.env.TABLE_NAME as string,
+        TableName: Table.config.tableName,
         KeyConditionExpression: "PK = :PK",
         ExpressionAttributeValues: { ":PK": "costcenters" },
       })
