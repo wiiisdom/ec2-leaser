@@ -10,7 +10,7 @@ definitions:
     - step: &frontend-sonar
         name: sonar frontend
         caches:
-          - frontend
+          - node
           - sonar
         script:
           - yarn
