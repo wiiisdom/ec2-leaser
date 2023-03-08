@@ -24,6 +24,9 @@ definitions:
           - sonar
         script:
           - yarn
+          - cd packages/functions/
+          - yarn test
+          - cd ../..
           - yarn sonar
     - step: &dependency-track-backend
         name: Generate and upload BOM file for backend
