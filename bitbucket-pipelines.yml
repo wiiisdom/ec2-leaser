@@ -6,8 +6,6 @@ clone:
 definitions:
   caches:
     sonar: ~/.sonar/cache
-    frontend: frontend/node_module
-
   steps:
     - step: &frontend-sonar
         name: sonar frontend
@@ -16,7 +14,7 @@ definitions:
           - sonar
         script:
           - yarn
-          - cd frontend/
+          - cd packages/web/
           - yarn test:ci
           - yarn sonar
     - step: &backend-sonar
@@ -26,7 +24,6 @@ definitions:
           - sonar
         script:
           - yarn
-          - yarn test
           - yarn sonar
     - step: &dependency-track-backend
         name: Generate and upload BOM file for backend
@@ -41,13 +38,13 @@ definitions:
         name: Generate and upload BOM file for frontend
         script:
           - yarn
-          - rm -rf frontend/node_modules && mv node_modules/ frontend/
+          - rm -rf packages/web/node_modules && mv node_modules/ packages/web/
           - npm install -g @cyclonedx/bom@3.10.6
-          - cd frontend/
+          - cd packages/web/
           - cyclonedx-node -l -o bom.json
           - 'curl -f -X POST "${DTRACK_URL}/v1/bom" -H "X-Api-Key: ${DTRACK_API_KEY}" -H "Content-Type: multipart/form-data" -F "project=${DTRACK_FRONTEND_ID}" -F "bom=@bom.json"'
         artifacts:
-          - frontend/bom.json
+          - packages/web/bom.json
 
 pipelines:
   pull-requests:

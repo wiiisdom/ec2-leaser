@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="4" failures="0" errors="0" time="19.068">
+  <testsuite name="LaunchTemplateContainer" errors="0" failures="0" skipped="0" timestamp="2023-02-21T21:48:24" time="14.917" tests="4">
+    <testcase classname="LaunchTemplateContainer should render all launch templates" name="LaunchTemplateContainer should render all launch templates" time="0.038">
+    </testcase>
+    <testcase classname="LaunchTemplateContainer should filter launch templates by search" name="LaunchTemplateContainer should filter launch templates by search" time="0.007">
+    </testcase>
+    <testcase classname="LaunchTemplateContainer should call setLaunchTemplate when a template is clicked" name="LaunchTemplateContainer should call setLaunchTemplate when a template is clicked" time="0.008">
+    </testcase>
+    <testcase classname="LaunchTemplateContainer should render with sorted data" name="LaunchTemplateContainer should render with sorted data" time="0.006">
+    </testcase>
+  </testsuite>
+</testsuites>
