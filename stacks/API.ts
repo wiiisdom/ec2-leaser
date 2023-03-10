@@ -66,7 +66,7 @@ export function API({ stack, app }: StackContext) {
   // Create the Cron tasks to destroy old resources
   const destroyEc2Cron = new Cron(stack, "DestroyEc2", {
     schedule: "rate(20 minutes)",
-    job: "src/TerminateInstance.handler"
+    job: "packages/functions/src/TerminateInstance.handler"
   });
 
   const cancelSpotRequestsCron = new Cron(stack, "CanceSpotRequests", {
@@ -139,7 +139,8 @@ export function API({ stack, app }: StackContext) {
   // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
   const site = new StaticSite(stack, "Site", {
     path: "packages/web",
-    buildCommand: "yarn && yarn build",
+    buildOutput: "build",
+    buildCommand: "yarn build",
     environment: {
       REACT_APP_DEFAULT_SPOT: "0",
       REACT_APP_API: api.url,

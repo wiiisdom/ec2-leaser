@@ -1,5 +1,5 @@
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { Table } from "@serverless-stack/node/table";
+import { Table } from "sst/node/table";
 import AWS from "aws-sdk";
 
 export const list: APIGatewayProxyHandlerV2 = async () => {
@@ -9,20 +9,22 @@ export const list: APIGatewayProxyHandlerV2 = async () => {
       .query({
         TableName: Table.config.tableName,
         KeyConditionExpression: "PK = :PK",
-        ExpressionAttributeValues: { ":PK": "costcenters" },
+        ExpressionAttributeValues: { ":PK": "costcenters" }
       })
       .promise();
 
     return {
       statusCode: 200,
       headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify(Items?.map((item) => ({ name: item.SK, description: item.description }))),
+      body: JSON.stringify(
+        Items?.map(item => ({ name: item.SK, description: item.description }))
+      )
     };
   } catch (error) {
     return {
       statusCode: 500,
       headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify(error),
+      body: JSON.stringify(error)
     };
   }
 };
