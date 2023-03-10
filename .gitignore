@@ -1,35 +1,13 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
-/node_modules
+node_modules
 
-# testing
-/coverage
-test-reports
-
-# production
-/build
-
-# typescript
-*.js
-!frontend/**/*.js
-*.d.ts
+# sst
+.sst
+.build
 
 # misc
 .DS_Store
 
-# sst build output
-.build
-.sst
+# local env files
+.env*.local
 cdk.context.json
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# .env
-.env.local
-.env.local.dev
-
-#Sonar
-!sonar.js

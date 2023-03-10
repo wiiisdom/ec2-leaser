@@ -4,7 +4,7 @@ A tiny tool to allow google user to start EC2 instances from a list of Launch Te
 
 ## Architecture
 
-The backend is managed serverlessly via [SST](https://docs.serverless-stack.com/).
+The backend is managed serverlessly via [SST](https://sst.dev/).
 The frontend is a React application. It's design to be deployed on AWS.
 
 ## How to run the application locally ?
@@ -13,17 +13,17 @@ Run the backend only (you need only that to use a local frontend):
 
 ```
 yarn
-yarn start
+yarn dev
 ```
 
 Start the frontend:
 
 ```
-cd frontend/
+cd packages/web/
 yarn start
 ```
 
-no need to provide environment variables, are these are made available to the frontend via the @serverless-stack/static-site-env package.
+no need to provide environment variables, are these are made available to the frontend via SST.
 
 ## How to deploy the application
 
@@ -31,9 +31,8 @@ Deploy the infrastructure with SST (front and back stack)
 (it push the frontend to S3 and invalidate cloudfront distribution)
 
 ```
-yarn deploy --stage dev
-yarn deploy --stage prod --region eu-central-1
-yarn deploy --stage demo --region us-east-1
+yarn deploy --stage prod --region eu-central-1 # on aws prod account
+yarn deploy --stage demo --region us-east-1 # on aws demo account
 
 ```
 
@@ -46,8 +45,6 @@ We have added a auth system on top of the system to make it usable only by a spe
 To add cost center list so that the frontend can make use of it, add items directly from the AWS GUI:
 visit [DynamoDB section](https://console.aws.amazon.com/dynamodbv2/home)
 search for `{stage}-ec2-leaser-config`
-grab data in backend/data
-add items (needs to be done 1 by 1)s
 
 See below for an example on how to enter the items in the table.
 

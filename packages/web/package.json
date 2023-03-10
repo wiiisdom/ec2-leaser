@@ -9,7 +9,6 @@
     "aws-amplify": "^5.0.15",
     "cross-env": "7.x",
     "prettier": "^2.x",
-    "prettier-plugin-tailwind": "^2.x",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.24.4",
@@ -17,7 +16,7 @@
     "react-svg-spinner": "^1.0.4"
   },
   "scripts": {
-    "start": "sst-env -- react-scripts start",
+    "start": "sst env react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom ",
     "test:ci": "react-scripts test --env=jsdom --coverage --reporters 'default' --reporters 'jest-junit' --testResultsProcessor 'jest-sonar-reporter'",
@@ -50,13 +49,13 @@
     ]
   },
   "devDependencies": {
-    "@serverless-stack/static-site-env": "^1.18.4",
     "autoprefixer": "^10.4.2",
     "jest-junit": "^15.0.0",
     "jest-sonar-reporter": "^2.0.0",
     "postcss": "^8.4.6",
     "react-test-renderer": "^18.2.0",
     "sonarqube-scanner": "^3.0.1",
+    "sst": "^2.1.17",
     "tailwindcss": "^3.0.22"
   }
 }
