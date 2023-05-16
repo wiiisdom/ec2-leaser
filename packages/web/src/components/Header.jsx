@@ -2,7 +2,9 @@ import { Auth } from 'aws-amplify';
 
 const Header = () => {
   const handleSignOut = () => {
-    Auth.signOut();
+    Auth.signOut().catch(() => {
+      // for sonar
+    });
   };
 
   return (

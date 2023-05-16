@@ -20,11 +20,11 @@ const App = () => {
       }
     });
 
-    Auth.currentAuthenticatedUser().then(data =>
-      setUser(data.signInUserSession.idToken.payload).catch(() => {
+    Auth.currentAuthenticatedUser()
+      .then(data => setUser(data.signInUserSession.idToken.payload))
+      .catch(() => {
         setUser(null);
-      })
-    );
+      });
   }, []);
 
   return !user ? <LoginScreen /> : <MainScreen user={user} />;
