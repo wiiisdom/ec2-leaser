@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Spinner from 'react-svg-spinner';
+import Spinner from './Spinner';
 import { useQuery } from 'react-query';
 import { fetchList, fetchPolicy } from '../API';
 import LaunchTemplateContainer from './LaunchTemplateContainer';
@@ -15,7 +15,8 @@ const SelectLaunchTemplate = ({
     fetchPolicy
   );
   // sort template data
-  data && data.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1 );
+  data &&
+    data.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
 
   if (error) throw new Error(error);
 
@@ -42,10 +43,17 @@ const SelectLaunchTemplate = ({
         </div>
         {isLoading && (
           <div className="flex items-center justify-center">
-            <Spinner size="48" color="lightgrey" />
+            <Spinner />
           </div>
         )}
-        {data && <LaunchTemplateContainer data={data} search={search} selectedLaunchTemplateId={selectedLaunchTemplateId} setLaunchTemplate={setLaunchTemplate}/> }
+        {data && (
+          <LaunchTemplateContainer
+            data={data}
+            search={search}
+            selectedLaunchTemplateId={selectedLaunchTemplateId}
+            setLaunchTemplate={setLaunchTemplate}
+          />
+        )}
       </div>
     </section>
   );

@@ -1,5 +1,4 @@
 import SignInWithGoogle from './SignInWithGoogle';
-import logo from '../medias/peak.jpeg';
 
 const LoginScreen = () => {
   return (
@@ -9,7 +8,7 @@ const LoginScreen = () => {
           <img
             className="rounded object-cover object-center"
             alt="hero"
-            src={logo}
+            src="/peak.jpeg"
           />
         </div>
         <div className="flex flex-col items-center text-center md:items-start md:pl-16 md:w-1/2 md:text-left lg:flex-grow lg:pl-24">

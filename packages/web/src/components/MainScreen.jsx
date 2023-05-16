@@ -6,7 +6,7 @@ import SelectLaunchTemplate from './SelectLaunchTemplate';
 import SelectTitle from './SelectTitle';
 
 import { API } from 'aws-amplify';
-import Spinner from 'react-svg-spinner';
+import Spinner from './Spinner';
 import SelectCostCenter from './SelectCostCenter';
 import SelectSchedule from './SelectSchedule';
 
@@ -17,7 +17,9 @@ const MainScreen = ({ user }) => {
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState('');
   const [instanceId, setInstanceId] = useState('');
-  const [isSpotInstance, setIsSpotInstance] = useState(process.env.REACT_APP_DEFAULT_SPOT === "1");
+  const [isSpotInstance, setIsSpotInstance] = useState(
+    import.meta.env.VITE_DEFAULT_SPOT === '1'
+  );
   const [schedule, setSchedule] = useState('');
 
   useEffect(() => {
@@ -86,7 +88,7 @@ const MainScreen = ({ user }) => {
               Result
             </h1>
             <div className="flex items-center justify-center">
-              {starting && <Spinner size="48" color="lightgrey" />}
+              {starting && <Spinner />}
             </div>
             {error && (
               <div className="text-yellow-800 text-lg font-semibold rounded-sm">

@@ -19,8 +19,10 @@ function buildOptions() {
     "sonar.projectKey": "ec2-leaser-backend",
     "sonar.projectName": "ec2-leaser-backend",
     "sonar.qualitygate.wait": "false",
-    "sonar.sources": "packages/functions/src",
-    "sonar.tests": "packages/functions/test"
+    "sonar.sources": "src",
+    "sonar.tests": "test",
+    "sonar.javascript.lcov.reportPaths": "coverage/lcov.info",
+    "sonar.testExecutionReportPaths": "sonar-report.xml"
   };
   if (process.env.BITBUCKET_PR_ID) {
     options["sonar.pullrequest.key"] = process.env.BITBUCKET_PR_ID;

@@ -15,7 +15,7 @@ definitions:
         script:
           - yarn
           - cd packages/web/
-          - yarn test:ci
+          - yarn coverage
           - yarn sonar
     - step: &backend-sonar
         name: sonar backend (sst)
@@ -25,8 +25,7 @@ definitions:
         script:
           - yarn
           - cd packages/functions/
-          - yarn test
-          - cd ../..
+          - yarn coverage
           - yarn sonar
     - step: &dependency-track-backend
         name: Generate and upload BOM file for backend
