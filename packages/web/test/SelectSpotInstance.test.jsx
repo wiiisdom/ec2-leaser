@@ -1,8 +1,6 @@
-import { describe, vi, beforeEach, it, expect } from 'vitest';
+import { describe, vi, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import SelectSpotInstance from '../src/components/SelectSpotInstance';
-
-vi.mock('aws-amplify');
 
 describe('SelectSpotInstance', () => {
   it('should render correctly', async () => {

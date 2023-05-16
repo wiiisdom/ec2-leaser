@@ -1,4 +1,4 @@
-import { describe, vi, beforeEach, it, expect } from 'vitest';
+import { describe, vi, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import SelectCostCenter from '../src/components/SelectCostCenter';
 
