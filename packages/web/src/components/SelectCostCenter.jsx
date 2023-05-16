@@ -2,7 +2,7 @@ import { API } from 'aws-amplify';
 import { useState, useEffect } from 'react';
 import Spinner from './Spinner';
 
-const SelectConstCenter = ({ costCenter, setCostCenter }) => {
+const SelectCostCenter = ({ costCenter, setCostCenter }) => {
   const [costCenters, setCostCenters] = useState([]);
 
   useEffect(() => {
@@ -50,4 +50,4 @@ const SelectConstCenter = ({ costCenter, setCostCenter }) => {
   );
 };
 
-export default SelectConstCenter;
+export default SelectCostCenter;

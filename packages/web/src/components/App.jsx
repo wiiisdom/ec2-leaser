@@ -15,6 +15,8 @@ const App = () => {
         case 'signOut':
           setUser(null);
           break;
+        default:
+          break;
       }
     });
 

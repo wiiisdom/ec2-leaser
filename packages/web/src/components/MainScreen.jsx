@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Header from './HeaderComponent';
+import Header from './Header';
 
 import SelectSpotInstance from './SelectSpotInstance';
 import SelectLaunchTemplate from './SelectLaunchTemplate';
@@ -42,8 +42,8 @@ const MainScreen = ({ user }) => {
 
     const body = {
       instanceId: selectedLaunchTemplate.id,
-      title,
       owner: user.email,
+      title,
       isSpotInstance,
       costCenter,
       schedule

@@ -18,7 +18,9 @@ const SelectLaunchTemplate = ({
   data &&
     data.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
 
-  if (error) throw new Error(error);
+  if (error) {
+    throw new Error(error);
+  }
 
   return (
     <section className="body-font text-gray-600">
