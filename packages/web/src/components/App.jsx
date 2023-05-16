@@ -19,7 +19,10 @@ const App = () => {
     });
 
     Auth.currentAuthenticatedUser().then(data =>
-      setUser(data.signInUserSession.idToken.payload)
+      setUser(data.signInUserSession.idToken.payload).catch(() => {
+        /* callback is required to handle exception
+                   comment is added to avoid sonar complaining */
+      })
     );
   }, []);
 

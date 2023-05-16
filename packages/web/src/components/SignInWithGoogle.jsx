@@ -7,17 +7,18 @@ import { Auth } from 'aws-amplify';
  * @returns
  */
 const SignInWithGoogle = () => {
-
-  const signIn = async (event) => {
-    event.preventDefault()
-    try{await Auth.federatedSignIn({
-      provider: 'Google',
-      customState: 'redirect = /'
-    })}catch (e){
-      throw new Error(e)
-    };
+  const signIn = async event => {
+    event.preventDefault();
+    try {
+      await Auth.federatedSignIn({
+        provider: 'Google',
+        customState: 'redirect = /'
+      });
+    } catch (e) {
+      throw new Error(e);
+    }
   };
-  
+
   return (
     <div>
       <button
