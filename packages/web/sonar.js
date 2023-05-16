@@ -18,6 +18,7 @@ function buildOptions() {
     'sonar.organization': 'gbandsmith',
     'sonar.sources': 'src',
     'sonar.tests': 'test',
+    'sonar.exclusions': 'test/**',
     'sonar.javascript.lcov.reportPaths': 'coverage/lcov.info',
     'sonar.testExecutionReportPaths': 'sonar-report.xml',
     'sonar.projectKey': 'ec2-leaser-frontend',
