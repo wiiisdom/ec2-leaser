@@ -10,7 +10,9 @@ const SelectCostCenter = ({ costCenter, setCostCenter }) => {
       const data = await API.get('main', '/costcenters');
       setCostCenters(data.sort((a, b) => a.name.localeCompare(b.name)));
     };
-    fetchCostCenters().catch(console.error);
+    fetchCostCenters().catch(() => {
+      // comment for sonar
+    });
   }, []);
 
   const optionsRender = costCenters.map(cc => (

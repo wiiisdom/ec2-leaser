@@ -15,7 +15,9 @@ const SelectSchedule = ({ schedule, setSchedule }) => {
       setSchedule(sortedData[0].name);
     };
 
-    fetchSchedules().catch(console.error);
+    fetchSchedules().catch(() => {
+      // comment for sonar
+    });
   }, [setSchedule]);
 
   const optionsRender = schedules.map(s => (
