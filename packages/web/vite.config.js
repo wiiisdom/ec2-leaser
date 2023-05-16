@@ -7,7 +7,7 @@ export default defineConfig(() => {
     test: {
       globals: true,
       environment: 'jsdom',
-      setupFiles: './tests/setup.js',
+      setupFiles: './test/setup.js',
       reporters: 'vitest-sonar-reporter',
       outputFile: 'sonar-report.xml',
       coverage: {
