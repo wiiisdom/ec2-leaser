@@ -15,13 +15,12 @@ const App = () => {
         case 'signOut':
           setUser(null);
           break;
-        default:
-          return null;
       }
     });
 
-    Auth.currentAuthenticatedUser()
-      .then(data => setUser(data.signInUserSession.idToken.payload))
+    Auth.currentAuthenticatedUser().then(data =>
+      setUser(data.signInUserSession.idToken.payload)
+    );
   }, []);
 
   return !user ? <LoginScreen /> : <MainScreen user={user} />;

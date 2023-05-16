@@ -5,21 +5,17 @@ import Spinner from './Spinner';
 const SelectConstCenter = ({ costCenter, setCostCenter }) => {
   const [costCenters, setCostCenters] = useState([]);
 
+  const fetchCostCenters = async () => {
+    const data = await API.get('main', '/costcenters');
+    setCostCenters(data.sort((a, b) => a.name.localeCompare(b.name)));
+  };
   useEffect(() => {
-    try {
-      async function fetchCostCenters() {
-        const data = await API.get('main', '/costcenters');
-        setCostCenters(data.sort((a, b) => a.name.localeCompare(b.name)));
-      }
-      fetchCostCenters();
-    } catch (error) {
-      throw new Error(error);
-    }
+    fetchCostCenters();
   }, []);
 
-  const optionsRender = costCenters.map(costCenter => (
-    <option value={costCenter.name} key={costCenter.name}>
-      {costCenter.name} - {costCenter.description}
+  const optionsRender = costCenters.map(cc => (
+    <option value={cc.name} key={cc.name}>
+      {cc.name} - {cc.description}
     </option>
   ));
   if (!costCenter) {

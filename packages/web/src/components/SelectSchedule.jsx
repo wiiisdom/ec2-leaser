@@ -5,25 +5,22 @@ import Spinner from './Spinner';
 const SelectSchedule = ({ schedule, setSchedule }) => {
   const [schedules, setSchedules] = useState([]);
 
-  useEffect(() => {
-    try {
-      async function fetchSchedules() {
-        const data = await API.get('main', '/schedules');
-        const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
-        setSchedules(sortedData);
+  const fetchSchedules = async () => {
+    const data = await API.get('main', '/schedules');
+    const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+    setSchedules(sortedData);
 
-        // adds lille as default selection
-        setSchedule(sortedData[0].name);
-      }
-      fetchSchedules();
-    } catch (error) {
-      throw new Error(error);
-    }
+    // adds lille as default selection
+    setSchedule(sortedData[0].name);
+  };
+
+  useEffect(() => {
+    fetchSchedules();
   }, [setSchedule]);
 
-  const optionsRender = schedules.map(schedule => (
-    <option value={schedule.name} key={schedule.name}>
-      {schedule.name} - {schedule.description}
+  const optionsRender = schedules.map(s => (
+    <option value={s.name} key={s.name}>
+      {s.name} - {s.description}
     </option>
   ));
 
