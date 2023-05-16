@@ -14,9 +14,8 @@ const SelectLaunchTemplate = ({
     fetchList,
     fetchPolicy
   );
-  // sort template data
-  data &&
-    data.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+
+  data?.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
 
   if (error) {
     throw new Error(error);
