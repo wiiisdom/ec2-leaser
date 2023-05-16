@@ -139,7 +139,7 @@ export function API({ stack, app }: StackContext) {
   // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
   const site = new StaticSite(stack, "Site", {
     path: "packages/web",
-    buildOutput: "build",
+    buildOutput: "dist",
     buildCommand: "yarn build",
     environment: {
       VITE_DEFAULT_SPOT: "0",

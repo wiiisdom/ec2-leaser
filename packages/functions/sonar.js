@@ -1,4 +1,4 @@
-const sonarqubeScanner = require("sonarqube-scanner");
+import sonarqubeScanner from "sonarqube-scanner";
 
 sonarqubeScanner(
   {

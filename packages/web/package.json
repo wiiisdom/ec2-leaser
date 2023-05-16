@@ -1,6 +1,7 @@
 {
   "name": "@ec2-leaser/frontend",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "aws-amplify": "^5.0.15",
