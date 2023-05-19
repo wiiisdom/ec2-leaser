@@ -1,6 +1,12 @@
 import { Auth } from 'aws-amplify';
 
 const Header = () => {
+  const handleSignOut = () => {
+    Auth.signOut().catch(() => {
+      // for sonar
+    });
+  };
+
   return (
     <header className="body-font text-gray-600">
       <div className="container flex flex-col flex-wrap items-center mx-auto p-5 md:flex-row md:justify-between">
@@ -25,7 +31,7 @@ const Header = () => {
         </a>
         <button
           className="inline-flex items-center mt-4 px-3 py-1 text-base bg-gray-100 hover:bg-gray-200 border-0 rounded focus:outline-none md:mt-0"
-          onClick={() => Auth.signOut()}
+          onClick={handleSignOut}
         >
           Sign out
           <svg

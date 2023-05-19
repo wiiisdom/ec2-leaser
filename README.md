@@ -20,7 +20,7 @@ Start the frontend:
 
 ```
 cd packages/web/
-yarn start
+yarn dev
 ```
 
 no need to provide environment variables, are these are made available to the frontend via SST.

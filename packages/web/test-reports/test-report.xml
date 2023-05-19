@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testExecutions version="1">
-    <file path="/Users/julien/work/lab/ec2-leaser/frontend/src/__tests__/LaunchTemplateContainer.test.js">
-        <testCase name="LaunchTemplateContainer should render all launch templates" duration="38"/>
-        <testCase name="LaunchTemplateContainer should filter launch templates by search" duration="7"/>
-        <testCase name="LaunchTemplateContainer should call setLaunchTemplate when a template is clicked" duration="8"/>
-        <testCase name="LaunchTemplateContainer should render with sorted data" duration="6"/>
-    </file>
-</testExecutions>

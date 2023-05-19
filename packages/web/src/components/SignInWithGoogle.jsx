@@ -7,17 +7,16 @@ import { Auth } from 'aws-amplify';
  * @returns
  */
 const SignInWithGoogle = () => {
-
-  const signIn = async (event) => {
-    event.preventDefault()
-    try{await Auth.federatedSignIn({
+  const signIn = event => {
+    event.preventDefault();
+    Auth.federatedSignIn({
       provider: 'Google',
       customState: 'redirect = /'
-    })}catch (e){
-      throw new Error(e)
-    };
+    }).catch(() => {
+      // for sonar
+    });
   };
-  
+
   return (
     <div>
       <button

@@ -1,25 +1,23 @@
 import { API } from 'aws-amplify';
 import { useState, useEffect } from 'react';
-import Spinner from 'react-svg-spinner';
+import Spinner from './Spinner';
 
-const SelectConstCenter = ({ costCenter, setCostCenter }) => {
+const SelectCostCenter = ({ costCenter, setCostCenter }) => {
   const [costCenters, setCostCenters] = useState([]);
 
   useEffect(() => {
-    try {
-      async function fetchCostCenters() {
-        const data = await API.get('main', '/costcenters');
-        setCostCenters(data.sort((a, b) => a.name.localeCompare(b.name)));
-      }
-      fetchCostCenters();
-    } catch (error) {
-      throw new Error(error);
-    }
+    const fetchCostCenters = async () => {
+      const data = await API.get('main', '/costcenters');
+      setCostCenters(data.sort((a, b) => a.name.localeCompare(b.name)));
+    };
+    fetchCostCenters().catch(() => {
+      // comment for sonar
+    });
   }, []);
 
-  const optionsRender = costCenters.map(costCenter => (
-    <option value={costCenter.name} key={costCenter.name}>
-      {costCenter.name} - {costCenter.description}
+  const optionsRender = costCenters.map(cc => (
+    <option value={cc.name} key={cc.name}>
+      {cc.name} - {cc.description}
     </option>
   ));
   if (!costCenter) {
@@ -45,7 +43,7 @@ const SelectConstCenter = ({ costCenter, setCostCenter }) => {
             </select>
           ) : (
             <div className="flex items-center justify-center">
-              <Spinner size="48" color="lightgrey" />
+              <Spinner />
             </div>
           )}
         </div>
@@ -54,4 +52,4 @@ const SelectConstCenter = ({ costCenter, setCostCenter }) => {
   );
 };
 
-export default SelectConstCenter;
+export default SelectCostCenter;

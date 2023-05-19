@@ -1,4 +1,4 @@
-const sonarqubeScanner = require("sonarqube-scanner");
+import sonarqubeScanner from "sonarqube-scanner";
 
 sonarqubeScanner(
   {
@@ -14,13 +14,16 @@ sonarqubeScanner(
  * @return {{}} return a json object representing options
  */
 function buildOptions() {
-  const options = {};
-  options["sonar.organization"] = "gbandsmith";
-  options["sonar.projectKey"] = "ec2-leaser-backend";
-  options["sonar.projectName"] = "ec2-leaser-backend";
-  options["sonar.qualitygate.wait"] = "false";
-  options["sonar.sources"] = "packages/functions/src";
-  options["sonar.tests"] = "packages/functions/test";
+  const options = {
+    "sonar.organization": "gbandsmith",
+    "sonar.projectKey": "ec2-leaser-backend",
+    "sonar.projectName": "ec2-leaser-backend",
+    "sonar.qualitygate.wait": "false",
+    "sonar.sources": "src",
+    "sonar.tests": "test",
+    "sonar.javascript.lcov.reportPaths": "coverage/lcov.info",
+    "sonar.testExecutionReportPaths": "sonar-report.xml"
+  };
   if (process.env.BITBUCKET_PR_ID) {
     options["sonar.pullrequest.key"] = process.env.BITBUCKET_PR_ID;
     options["sonar.pullrequest.branch"] = process.env.BITBUCKET_BRANCH;

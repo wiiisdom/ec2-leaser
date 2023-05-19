@@ -16,12 +16,15 @@ const App = () => {
           setUser(null);
           break;
         default:
-          return null;
+          break;
       }
     });
 
     Auth.currentAuthenticatedUser()
       .then(data => setUser(data.signInUserSession.idToken.payload))
+      .catch(() => {
+        setUser(null);
+      });
   }, []);
 
   return !user ? <LoginScreen /> : <MainScreen user={user} />;

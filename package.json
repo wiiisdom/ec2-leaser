@@ -4,16 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "sst dev",
-    "test": "sst test",
     "build": "sst build",
     "deploy": "sst deploy",
     "remove": "sst remove",
-    "typecheck": "tsc --noEmit",
-    "sonar": "node sonar.js"
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.3",
-    "sonarqube-scanner": "^3.0.1",
     "sst": "^2.1.17",
     "typescript": "^5.0.0"
   },

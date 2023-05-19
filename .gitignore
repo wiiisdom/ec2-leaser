@@ -11,3 +11,6 @@ node_modules
 # local env files
 .env*.local
 cdk.context.json
+
+coverage
+sonar-report.xml

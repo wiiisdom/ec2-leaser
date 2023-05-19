@@ -102,8 +102,8 @@ export function API({ stack, app }: StackContext) {
         },
         oAuth: {
           scopes: [OAuthScope.EMAIL, OAuthScope.OPENID, OAuthScope.PROFILE],
-          callbackUrls: ["http://localhost:3000", `https://${siteDomain}`],
-          logoutUrls: ["http://localhost:3000", `https://${siteDomain}`],
+          callbackUrls: ["http://localhost:5173", `https://${siteDomain}`],
+          logoutUrls: ["http://localhost:5173", `https://${siteDomain}`],
           flows: {
             authorizationCodeGrant: true
           }
@@ -139,19 +139,19 @@ export function API({ stack, app }: StackContext) {
   // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
   const site = new StaticSite(stack, "Site", {
     path: "packages/web",
-    buildOutput: "build",
+    buildOutput: "dist",
     buildCommand: "yarn build",
     environment: {
-      REACT_APP_DEFAULT_SPOT: "0",
-      REACT_APP_API: api.url,
-      REACT_APP_COGNITO_REGION: stack.region,
-      REACT_APP_COGNITO_USER_POOL_ID: auth.cdk.userPool.userPoolId,
-      REACT_APP_COGNITO_USER_POOL_CLIENT_ID:
+      VITE_DEFAULT_SPOT: "0",
+      VITE_API: api.url,
+      VITE_COGNITO_REGION: stack.region,
+      VITE_COGNITO_USER_POOL_ID: auth.cdk.userPool.userPoolId,
+      VITE_COGNITO_USER_POOL_CLIENT_ID:
         auth.cdk.userPoolClient.userPoolClientId,
-      REACT_APP_COGNITO_IDENTITY_POOL_ID: auth.cognitoIdentityPoolId as string,
-      REACT_APP_COGNITO_DOMAIN: `${domainPrefix}.auth.${stack.region}.amazoncognito.com`,
-      REACT_APP_PUBLIC_DOMAIN: app.local
-        ? "http://localhost:3000"
+      VITE_COGNITO_IDENTITY_POOL_ID: auth.cognitoIdentityPoolId as string,
+      VITE_COGNITO_DOMAIN: `${domainPrefix}.auth.${stack.region}.amazoncognito.com`,
+      VITE_PUBLIC_DOMAIN: app.local
+        ? "http://localhost:5173"
         : `https://${siteDomain}`
     },
     customDomain: {

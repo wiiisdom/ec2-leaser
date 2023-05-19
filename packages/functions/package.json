@@ -4,14 +4,18 @@
   "type": "module",
   "scripts": {
     "test": "vitest",
-    "typecheck": "tsc -noEmit"
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc -noEmit",
+    "sonar": "node sonar.js"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.110",
     "@types/debug": "^4.1.7",
     "@types/node": "^18.13.0",
+    "sonarqube-scanner": "^3.0.1",
     "sst": "^2.1.17",
-    "vitest": "^0.31.0"
+    "vitest": "^0.31.0",
+    "vitest-sonar-reporter": "^0.4.0"
   },
   "dependencies": {
     "debug": "^4.3.4",
