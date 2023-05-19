@@ -2,9 +2,10 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    reporters: "vitest-sonar-reporter",
+    threads: false,
     outputFile: "sonar-report.xml",
     coverage: {
+      provider: "istanbul",
       reporter: ["lcov", "text"]
     }
   }

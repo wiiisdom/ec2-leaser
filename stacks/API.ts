@@ -8,6 +8,7 @@ import {
 import {
   Api,
   Cognito,
+  Config,
   Cron,
   StackContext,
   StaticSite,
@@ -160,6 +161,33 @@ export function API({ stack, app }: StackContext) {
     }
   });
 
+  // Create the resources for the Google Chat Bot (EC2 Tools)
+
+  // Google Project ID used to validate the Bearer sent by Google
+  const PROJECT_ID = new Config.Parameter(stack, "PROJECT_ID", {
+    value: "912868966610"
+  });
+
+  // a dedicated API Gateway for Google Chat interaction with specific permissions
+  const chatApi = new Api(stack, "ChatApi", {
+    defaults: {
+      function: {
+        bind: [PROJECT_ID],
+        permissions: [
+          "ec2:DescribeInstances",
+          "ec2:DescribeSnapshots",
+          "ec2:CreateSnapshot",
+          "ec2:DeleteSnapshot",
+          "ec2:CreateTags",
+          "ec2:CreateReplaceRootVolumeTask"
+        ]
+      }
+    },
+    routes: {
+      "POST /": "packages/functions/src/bot/googleChat.handler"
+    }
+  });
+
   // Show API endpoint  and site url in output
   stack.addOutputs({
     ApiEndpoint: {
@@ -169,6 +197,7 @@ export function API({ stack, app }: StackContext) {
     IdentityPoolId: {
       value: auth.cognitoIdentityPoolId as string,
       exportName: `${app.stage}-${app.name}-poolid`
-    }
+    },
+    ChatApi: chatApi.url
   });
 }
