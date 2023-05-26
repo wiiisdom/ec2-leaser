@@ -1,7 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "schedule": [
-    "before 3am on Monday"
-  ],
-  "ignoreDeps": ["aws-cdk-lib"]
+  "extends": [
+    "config:base",
+    "npm:unpublishSafe",
+    "schedule:earlyMondays",
+  ]
 }
