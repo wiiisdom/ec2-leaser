@@ -7,7 +7,7 @@
     "aws-amplify": "^5.0.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-query": "^3.24.4"
+    "@tanstack/react-query": "^4.0.5"
   },
   "scripts": {
     "dev": "sst bind vite",
