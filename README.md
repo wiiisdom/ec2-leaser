@@ -1,6 +1,9 @@
 # ec2-leaser
 
 A tiny tool to allow google user to start EC2 instances from a list of Launch Template already created. It can be used to not provide `startInstance` IAM right yo your users.
+
+![EC2 Leaser](ec2-leaser.gif)
+
 Another feature of the application is a small Google Chat Bot to snapshot and restore EC2 instance volumes.
 
 ## Architecture
