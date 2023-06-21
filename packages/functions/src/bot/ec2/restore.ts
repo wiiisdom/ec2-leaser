@@ -51,7 +51,7 @@ export const restoreInstance = async (instanceId: string) => {
       TagSpecifications: [
         {
           ResourceType: "volume",
-          Tags: instance.Tags
+          Tags: instance.Tags?.filter(tag => !tag.Key?.startsWith("aws:"))
         }
       ]
     })

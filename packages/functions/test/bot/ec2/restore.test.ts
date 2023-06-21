@@ -78,7 +78,7 @@ describe("ec2 restore", () => {
     );
   });
 
-  it("restoreInstance must success if all is good", async () => {
+  it("restoreInstance must success if all is good (and filter aws: tags)", async () => {
     const ec2ClientMock = mockClient(EC2Client);
     ec2ClientMock.on(DescribeInstancesCommand).resolves({
       Reservations: [
@@ -86,6 +86,10 @@ describe("ec2 restore", () => {
           Instances: [
             {
               InstanceId: "instanceId",
+              Tags: [
+                { Key: "Name", Value: "instanceId" },
+                { Key: "aws:something", Value: "instanceId" }
+              ],
               BlockDeviceMappings: []
             }
           ]
@@ -108,6 +112,13 @@ describe("ec2 restore", () => {
     });
 
     const result = await restoreInstance("instanceId");
+
+    expect(
+      ec2ClientMock.commandCalls(CreateReplaceRootVolumeTaskCommand)[0].firstArg
+        .input.TagSpecifications
+    ).toStrictEqual([
+      { ResourceType: "volume", Tags: [{ Key: "Name", Value: "instanceId" }] }
+    ]);
 
     expect(result).toStrictEqual({
       ReplaceRootVolumeTask: {
