@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@tsconfig/node18": "^2.0.1",
+    "@tsconfig/node18": "^18.0.0",
     "sst": "^2.1.17",
     "typescript": "^5.0.0"
   },
