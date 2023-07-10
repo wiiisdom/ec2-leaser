@@ -675,9 +675,9 @@
     uuid "^3.0.0"
 
 "@aws-sdk/client-ec2@^3.332.0":
-  version "3.363.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-ec2/-/client-ec2-3.363.0.tgz#69e8c045c5427d52fb9ac067a036029d50f299d0"
-  integrity sha512-AnF8o9PxxqLOtMh6kpxvlLkdabXsR7aIwViiTFh8lmsE0wRm5RGnlIOtEvGD4ze2o96PmB/vKrsise1W3d8YXA==
+  version "3.367.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-ec2/-/client-ec2-3.367.0.tgz#bb28f3ebe3dcb194c69bc7ed0737f5a0d65b0235"
+  integrity sha512-RdIPKHSLVhvMmtr7KHZoCzD9GZIwMuziV9qrP+kjUXjZ/iYAm5bbXn3/NmhNfPHmmkisWGSVr8tlFllgQ+F/gA==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
@@ -4769,7 +4769,9 @@
     pretty-format "^29.0.0"
 
 "@types/jsonwebtoken@^9.0.0":
-  version "9.0.1"
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/@types/jsonwebtoken/-/jsonwebtoken-9.0.2.tgz#9eeb56c76dd555039be2a3972218de5bd3b8d83e"
+  integrity sha512-drE6uz7QBKq1fYqqoFKTDRdFCPHd5TCub75BM+D+cMx7NU9hUz7SESLfC2fSCXVFMO5Yj8sOWHuGqPgjc+fz0Q==
   dependencies:
     "@types/node" "*"
 
