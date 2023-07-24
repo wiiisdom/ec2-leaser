@@ -653,9 +653,9 @@
     uuid "^3.0.0"
 
 "@aws-sdk/client-ec2@^3.332.0":
-  version "3.370.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-ec2/-/client-ec2-3.370.0.tgz#0813760eb21bec202589fd130541bba1affae529"
-  integrity sha512-BlsBWbA8nBPZec7t1Lx+9vGuSA4yl6w/94E6ahqaWgH4xA+r8VJ4JqhagPIkXjU5yC1YV7BwLPihFVWAgdiipg==
+  version "3.373.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-ec2/-/client-ec2-3.373.0.tgz#31ee9401f3bef31d7797480b66f20fa2bc3201a9"
+  integrity sha512-KTnzpxoxQbeEs7kXbg7sWUuXm1KR7UHvk6LOBxCnsclJ54UKdvgOpkBRQemE9FOhlwodM1r09c/VKg7bT9Cb4Q==
   dependencies:
     "@aws-crypto/sha256-browser" "3.0.0"
     "@aws-crypto/sha256-js" "3.0.0"
