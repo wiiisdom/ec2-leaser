@@ -1,22 +1,21 @@
-import { Config } from "sst/node/config";
-import jwt from "jsonwebtoken";
-import { JwksClient } from "jwks-rsa";
-import { APIGatewayProxyEventV2 } from "aws-lambda";
-import { Ec2ToolError } from "../../errors";
+import { Config } from 'sst/node/config';
+import jwt from 'jsonwebtoken';
+import { JwksClient } from 'jwks-rsa';
+import { APIGatewayProxyEventV2 } from 'aws-lambda';
+import { Ec2ToolError } from '../../errors/index';
 
 export const checkBearerToken = async (_evt: APIGatewayProxyEventV2) => {
-  const auth = _evt.headers["authorization"];
+  const auth = _evt.headers['authorization'];
   if (!auth) {
     throw new Ec2ToolError("Can't read bearer");
   }
-  await checkBearer(auth.split(" ")[1]);
+  await checkBearer(auth.split(' ')[1]);
 };
 
 const checkBearer = async (token: string) => {
   const jwksClient = new JwksClient({
-    jwksUri:
-      "https://www.googleapis.com/service_accounts/v1/jwk/chat@system.gserviceaccount.com",
-    cache: true
+    jwksUri: 'https://www.googleapis.com/service_accounts/v1/jwk/chat@system.gserviceaccount.com',
+    cache: true,
   });
 
   await new Promise<boolean>((resolve, reject) => {
@@ -32,11 +31,11 @@ const checkBearer = async (token: string) => {
       getKey,
       {
         audience: Config.PROJECT_ID,
-        issuer: "chat@system.gserviceaccount.com"
+        issuer: 'chat@system.gserviceaccount.com',
       },
-      (err: any, decoded: any) => {
+      (err: any, _decoded: any) => {
         if (err) {
-          reject(new Error("Bad auth"));
+          reject(new Error('Bad auth'));
         } else {
           resolve(true);
         }

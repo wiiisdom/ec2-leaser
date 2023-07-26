@@ -2,7 +2,7 @@ import { describe, vi, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import MainScreen from '../src/components/MainScreen';
 
-vi.mock('react-query');
+vi.mock('@tanstack/react-query');
 
 describe('MainScreen', () => {
   it('should render correctly', async () => {

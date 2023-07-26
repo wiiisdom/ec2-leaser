@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { fetchDescription, fetchPolicy } from '../API';
 
 const LaunchTemplate = memo(({ id, name, selected, setLaunchTemplate }) => {

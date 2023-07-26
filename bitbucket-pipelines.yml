@@ -17,6 +17,7 @@ definitions:
           - cd packages/web/
           - yarn coverage
           - yarn sonar
+          - yarn lint
     - step: &backend-sonar
         name: sonar backend (sst)
         caches:
@@ -27,6 +28,7 @@ definitions:
           - cd packages/functions/
           - yarn coverage
           - yarn sonar
+          - yarn lint
     - step: &dependency-track-backend
         name: Generate and upload BOM file for backend
         script:

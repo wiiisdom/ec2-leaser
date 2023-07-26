@@ -1,9 +1,9 @@
-import { ApiHandler } from "sst/node/api";
-import { chat_v1 } from "googleapis";
-import { APIGatewayProxyStructuredResultV2 } from "aws-lambda";
-import { snapshotInstance } from "./ec2/snapshot";
-import { restoreInstance } from "./ec2/restore";
-import { checkBearerToken } from "./google/auth";
+import { ApiHandler } from 'sst/node/api';
+import { chat_v1 } from 'googleapis';
+import { APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
+import { snapshotInstance } from './ec2/snapshot';
+import { restoreInstance } from './ec2/restore';
+import { checkBearerToken } from './google/auth';
 
 const SNAPSHOT_COMMAND = 1;
 const RESTORE_COMMAND = 2;
@@ -13,13 +13,11 @@ export const handler = ApiHandler(async _evt => {
   await checkBearerToken(_evt);
 
   if (_evt.body === undefined) {
-    throw new Error("Body undefined");
+    throw new Error('Body undefined');
   }
 
   // Read the body
-  const googleChatEvent = JSON.parse(
-    _evt.body
-  ) as chat_v1.Schema$DeprecatedEvent;
+  const googleChatEvent = JSON.parse(_evt.body) as chat_v1.Schema$DeprecatedEvent;
   try {
     // Extract the instance id from the message text
     const instanceId = extractInstanceId(googleChatEvent.message?.text);
@@ -49,7 +47,7 @@ export const handler = ApiHandler(async _evt => {
           );
         }
       default:
-        return buildMessage("I can help you. Use a / command 🤖");
+        return buildMessage('I can help you. Use a / command 🤖');
     }
   } catch (e) {
     return buildMessage(
@@ -63,13 +61,12 @@ Contact email:lab@wiiisdom.com if appropriate.`
 const buildMessage = (text: string): APIGatewayProxyStructuredResultV2 => {
   return {
     statusCode: 200,
-    body: JSON.stringify({ text })
+    body: JSON.stringify({ text }),
   };
 };
 
 export const getSlashCommand = (event: chat_v1.Schema$DeprecatedEvent) => {
-  const slashCommand =
-    event?.message?.annotations?.[0]?.slashCommand?.commandId;
+  const slashCommand = event?.message?.annotations?.[0]?.slashCommand?.commandId;
   return slashCommand ? Number(slashCommand) : null;
 };
 

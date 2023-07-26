@@ -1,6 +1,6 @@
-import { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { Table } from "sst/node/table";
-import AWS from "aws-sdk";
+import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
+import { Table } from 'sst/node/table';
+import AWS from 'aws-sdk';
 
 export const list: APIGatewayProxyHandlerV2 = async () => {
   try {
@@ -8,23 +8,21 @@ export const list: APIGatewayProxyHandlerV2 = async () => {
     const { Items } = await documentClient
       .query({
         TableName: Table.config.tableName,
-        KeyConditionExpression: "PK = :PK",
-        ExpressionAttributeValues: { ":PK": "schedules" }
+        KeyConditionExpression: 'PK = :PK',
+        ExpressionAttributeValues: { ':PK': 'schedules' },
       })
       .promise();
 
     return {
       statusCode: 200,
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify(
-        Items?.map(item => ({ name: item.SK, description: item.description }))
-      )
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(Items?.map(item => ({ name: item.SK, description: item.description }))),
     };
   } catch (error) {
     return {
       statusCode: 500,
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify(error)
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(error),
     };
   }
 };

@@ -4,7 +4,7 @@ const SelectStart = ({ disabled, handleStart }) => {
       disabled
       className="py-2 w-56 text-white text-lg bg-yellow-300 border-0 rounded cursor-default"
     >
-      Can't start now...
+      Can&apos;t start now...
     </button>
   ) : (
     <button

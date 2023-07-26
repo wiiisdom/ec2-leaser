@@ -4,7 +4,7 @@ import LaunchTemplateContainer from '../src/components/LaunchTemplateContainer';
 
 import { describe, vi, beforeEach, it, expect } from 'vitest';
 
-vi.mock('react-query');
+vi.mock('@tanstack/react-query');
 
 describe('LaunchTemplateContainer', () => {
   let data;

@@ -1,13 +1,13 @@
-import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
-import EC2 from "aws-sdk/clients/ec2";
+import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from 'aws-lambda';
+import EC2 from 'aws-sdk/clients/ec2';
 
 export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEventV2) => {
   const ec2 = new EC2();
-  if (event.body == undefined) {
+  if (event.body === undefined) {
     return {
       statusCode: 500,
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify({ message: "Missing parameters" }),
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ message: 'Missing parameters' }),
     };
   }
   const request = JSON.parse(event.body);
@@ -21,23 +21,23 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
 
   const tags: EC2.TagList = [
     {
-      Key: "Name",
+      Key: 'Name',
       Value: name,
     },
     {
-      Key: "Ec2LeaserDuration",
-      Value: "6",
+      Key: 'Ec2LeaserDuration',
+      Value: '6',
     },
     {
-      Key: "costcenter",
+      Key: 'costcenter',
       Value: costCenter,
     },
     {
-      Key: "owner",
+      Key: 'owner',
       Value: owner,
     },
     {
-      Key: "schedule",
+      Key: 'schedule',
       Value: schedule,
     },
   ];
@@ -50,19 +50,19 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
     },
     TagSpecifications: [
       {
-        ResourceType: "instance",
+        ResourceType: 'instance',
         Tags: tags,
       },
       {
-        ResourceType: "volume",
+        ResourceType: 'volume',
         Tags: tags,
       },
     ],
     InstanceMarketOptions: spotInstance && {
-      MarketType: "spot",
+      MarketType: 'spot',
       SpotOptions: {
-        InstanceInterruptionBehavior: "stop",
-        SpotInstanceType: "persistent",
+        InstanceInterruptionBehavior: 'stop',
+        SpotInstanceType: 'persistent',
       },
     },
   };
@@ -71,12 +71,12 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
     const data = await ec2.runInstances(params).promise();
 
     if (!data || !data.Instances) {
-      throw new Error("Wrong result from the EC2 API");
+      throw new Error('Wrong result from the EC2 API');
     }
 
     return {
       statusCode: 200,
-      headers: { "Content-Type": "text/plain" },
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({
         instanceId: data.Instances[0].InstanceId,
       }),
@@ -84,7 +84,7 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
   } catch (error) {
     return {
       statusCode: 500,
-      headers: { "Content-Type": "text/plain" },
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(error),
     };
   }

@@ -1,5 +1,6 @@
 export const useQuery = query => {
-  if (query === 'launchTemplates') {
+  const name = query[0];
+  if (name === 'launchTemplates') {
     return {
       data: [
         { id: 1, name: 'imageA' },
@@ -8,7 +9,7 @@ export const useQuery = query => {
       isLoading: false
     };
   }
-  if (Array.isArray(query) && query[0] === 'template') {
+  if (name === 'template') {
     return {
       data: { description: 'mocked desc' },
       isLoading: false,

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Spinner from './Spinner';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { fetchList, fetchPolicy } from '../API';
 import LaunchTemplateContainer from './LaunchTemplateContainer';
 
@@ -10,7 +10,7 @@ const SelectLaunchTemplate = ({
 }) => {
   const [search, setSearch] = useState('');
   const { data, isLoading, error } = useQuery(
-    'launchTemplates',
+    ['launchTemplates'],
     fetchList,
     fetchPolicy
   );
