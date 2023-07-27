@@ -1,12 +1,14 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from 'aws-lambda';
 import EC2 from 'aws-sdk/clients/ec2';
 
+const TEXT_PLAIN = { 'Content-Type': 'text/plain' };
+
 export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEventV2) => {
   const ec2 = new EC2();
   if (event.body === undefined) {
     return {
       statusCode: 500,
-      headers: { 'Content-Type': 'text/plain' },
+      headers: TEXT_PLAIN,
       body: JSON.stringify({ message: 'Missing parameters' }),
     };
   }
@@ -14,10 +16,8 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
 
   const launchTemplateId = request.instanceId;
   const name = request.title;
-  const owner = request.owner;
   const spotInstance = request.isSpotInstance || undefined;
-  const costCenter = request.costCenter;
-  const schedule = request.schedule;
+  const { owner, costCenter, schedule } = request.costCenter;
 
   const tags: EC2.TagList = [
     {
@@ -65,18 +65,22 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
         SpotInstanceType: 'persistent',
       },
     },
+    MetadataOptions: {
+      HttpEndpoint: 'enabled',
+      HttpTokens: 'required',
+    },
   };
 
   try {
     const data = await ec2.runInstances(params).promise();
 
-    if (!data || !data.Instances) {
+    if (!data?.Instances) {
       throw new Error('Wrong result from the EC2 API');
     }
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'text/plain' },
+      headers: TEXT_PLAIN,
       body: JSON.stringify({
         instanceId: data.Instances[0].InstanceId,
       }),
@@ -84,7 +88,7 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
   } catch (error) {
     return {
       statusCode: 500,
-      headers: { 'Content-Type': 'text/plain' },
+      headers: TEXT_PLAIN,
       body: JSON.stringify(error),
     };
   }
