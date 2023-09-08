@@ -4,11 +4,15 @@ clone:
   depth: full
 
 definitions:
+  services:
+    docker:
+      memory: 4096
   caches:
     sonar: ~/.sonar/cache
   steps:
     - step: &frontend-sonar
         name: sonar frontend
+        size: 2x
         caches:
           - node
           - sonar
@@ -16,10 +20,20 @@ definitions:
           - yarn
           - cd packages/web/
           - yarn coverage
-          - yarn sonar
+          - pipe: sonarsource/sonarcloud-scan:2.0.0
+            variables:
+              EXTRA_ARGS: >
+                -Dsonar.organization=gbandsmith
+                -Dsonar.projectKey=ec2-leaser-frontend
+                -Dsonar.sources=src
+                -Dsonar.tests=test
+                -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+                -Dsonar.testExecutionReportPaths=./sonar-report.xml
+              SONAR_SCANNER_OPTS: -Xmx2048m
           - yarn lint
     - step: &backend-sonar
         name: sonar backend (sst)
+        size: 2x
         caches:
           - node
           - sonar
@@ -27,7 +41,17 @@ definitions:
           - yarn
           - cd packages/functions/
           - yarn coverage
-          - yarn sonar
+          - pipe: sonarsource/sonarcloud-scan:2.0.0
+            variables:
+              EXTRA_ARGS: >
+                -Dsonar.organization=gbandsmith
+                -Dsonar.projectKey=ec2-leaser-backend
+                -Dsonar.javascript.node.maxspace=4096
+                -Dsonar.sources=src
+                -Dsonar.tests=test
+                -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+                -Dsonar.testExecutionReportPaths=./sonar-report.xml
+              SONAR_SCANNER_OPTS: -Xmx4096m
           - yarn lint
     - step: &dependency-track-backend
         name: Generate and upload BOM file for backend

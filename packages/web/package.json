@@ -15,7 +15,6 @@
     "test": "vitest",
     "coverage": "vitest run --coverage --reporter=vitest-sonar-reporter --outputFile=sonar-report.xml",
     "format": "prettier --write \"./src/**/*.{js,jsx}\"",
-    "sonar": "node sonar.js",
     "lint": "eslint --ext .jsx"
   },
   "eslintConfig": {
@@ -56,7 +55,6 @@
     "postcss": "^8.4.6",
     "prettier": "^3.0.0",
     "react-test-renderer": "^18.2.0",
-    "sonarqube-scanner": "^3.0.1",
     "sst": "^2.1.17",
     "tailwindcss": "^3.0.22",
     "typescript": "*",
