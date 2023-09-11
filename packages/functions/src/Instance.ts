@@ -17,7 +17,7 @@ export const start: APIGatewayProxyHandlerV2 = async (event: APIGatewayProxyEven
   const launchTemplateId = request.instanceId;
   const name = request.title;
   const spotInstance = request.isSpotInstance || undefined;
-  const { owner, costCenter, schedule } = request.costCenter;
+  const { owner, costCenter, schedule } = request;
 
   const tags: EC2.TagList = [
     {
