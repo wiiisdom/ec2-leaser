@@ -2,6 +2,7 @@ import { RemovalPolicy } from "aws-cdk-lib";
 import {
   UserPoolClientIdentityProvider,
   UserPoolIdentityProviderGoogle,
+  UserPoolIdentityProviderOidc,
   OAuthScope,
   ProviderAttribute
 } from "aws-cdk-lib/aws-cognito";
@@ -109,6 +110,7 @@ export function API({ stack, app }: StackContext) {
             authorizationCodeGrant: true
           }
         },
+
         supportedIdentityProviders: [UserPoolClientIdentityProvider.GOOGLE]
       }
     }
@@ -126,6 +128,22 @@ export function API({ stack, app }: StackContext) {
   });
 
   auth.cdk.userPoolClient.node.addDependency(googleIdp);
+
+  const azureADIdp = new UserPoolIdentityProviderOidc(stack, "AzureADIdP", {
+    name: "AzureAD",
+    clientId: process.env.AZURE_CLIENT_ID!,
+    clientSecret: process.env.AZURE_CLIENT_SECRET!,
+    issuerUrl: `https://login.microsoftonline.com/${process.env.AZURE_TENANT_ID}/v2.0`,
+    userPool: auth.cdk.userPool,
+    attributeMapping: {
+      email: ProviderAttribute.other("email"),
+      fullname: ProviderAttribute.other("name")
+    },
+    scopes: ["email", "openid", "profile"]
+  });
+
+  auth.cdk.userPool.registerIdentityProvider(azureADIdp);
+  auth.cdk.userPoolClient.node.addDependency(azureADIdp);
 
   const domainPrefix = `${stack.stage}-${app.name}`;
   auth.cdk.userPool.addDomain("default", {

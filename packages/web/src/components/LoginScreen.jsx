@@ -1,3 +1,4 @@
+import SignInWithAzureAD from './SignInWithAzureAD';
 import SignInWithGoogle from './SignInWithGoogle';
 
 const LoginScreen = () => {
@@ -22,7 +23,12 @@ const LoginScreen = () => {
             Start by providing your corporate google account.
           </p>
           <div className="flex justify-center">
-            <SignInWithGoogle />
+            <div className='m-1'>
+              <SignInWithGoogle />
+            </div>
+            <div className='m-1'>
+              <SignInWithAzureAD />
+            </div>
           </div>
         </div>
       </div>
