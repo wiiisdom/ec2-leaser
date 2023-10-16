@@ -10,7 +10,7 @@ export default {
   },
   stacks(app) {
     app.setDefaultFunctionProps({
-      logRetention: "three_months",
+      logRetention: "one_year",
       runtime: "nodejs18.x"
     });
     app.stack(API, {
