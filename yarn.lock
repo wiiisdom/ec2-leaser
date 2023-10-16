@@ -4746,9 +4746,9 @@
     undici-types "~5.25.1"
 
 "@types/node@^18.13.0":
-  version "18.18.3"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.18.3.tgz#e5188135fc2909b46530c798ef49be65083be3fd"
-  integrity sha512-0OVfGupTl3NBFr8+iXpfZ8NR7jfFO+P1Q+IO/q0wbo02wYkP5gy36phojeYWpLQ6WAMjl+VfmqUk2YbUfp0irA==
+  version "18.18.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.18.5.tgz#afc0fd975df946d6e1add5bbf98264225b212244"
+  integrity sha512-4slmbtwV59ZxitY4ixUZdy1uRLf9eSIvBWPQxNjhHYWEtn0FryfKpyS2cvADYXTayWdKEIsJengncrVvkI4I6A==
 
 "@types/prop-types@*":
   version "15.7.8"
@@ -4766,9 +4766,9 @@
   integrity sha512-xrO9OoVPqFuYyR/loIHjnbvvyRZREYKLjxV4+dY6v3FQR3stQ9ZxIGkaclF7YhI9hfjpuTbu14hZEy94qKLtOA==
 
 "@types/react-dom@^18.0.0":
-  version "18.2.8"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.8.tgz#338f1b0a646c9f10e0a97208c1d26b9f473dffd6"
-  integrity sha512-bAIvO5lN/U8sPGvs1Xm61rlRHHaq5rp5N3kp9C+NJ/Q41P8iqjkXSu0+/qu8POsjH9pNWb0OYabFez7taP7omw==
+  version "18.2.13"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.13.tgz#89cd7f9ec8b28c8b6f0392b9591671fb4a9e96b7"
+  integrity sha512-eJIUv7rPP+EC45uNYp/ThhSpE16k22VJUknt5OLoH9tbXoi8bMhwLf5xRuWMywamNbWzhrSmU7IBJfPup1+3fw==
   dependencies:
     "@types/react" "*"
 
