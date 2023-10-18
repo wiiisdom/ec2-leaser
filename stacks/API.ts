@@ -1,4 +1,4 @@
-import { RemovalPolicy } from "aws-cdk-lib";
+import { RemovalPolicy, Duration } from "aws-cdk-lib";
 import {
   UserPoolClientIdentityProvider,
   UserPoolIdentityProviderGoogle,
@@ -15,6 +15,10 @@ import {
   StaticSite,
   Table
 } from "sst/constructs";
+import { Topic } from "aws-cdk-lib/aws-sns";
+import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
+import { Alarm } from "aws-cdk-lib/aws-cloudwatch";
+import { SnsAction } from "aws-cdk-lib/aws-cloudwatch-actions";
 
 export function API({ stack, app }: StackContext) {
   // Create a table for the cost center list
@@ -205,6 +209,85 @@ export function API({ stack, app }: StackContext) {
       "POST /": "packages/functions/src/bot/googleChat.handler"
     }
   });
+
+  // alarms
+  if (!app.local) {
+    const alarmTopic = new Topic(stack, `${stack.stackName}-AlarmTopic`);
+    alarmTopic.addSubscription(new EmailSubscription("lab@wiiisdom.com"));
+    for (const route of api.routes) {
+      const func = api.getFunction(route);
+      if (func) {
+        const alarm = new Alarm(stack, `FunctionAlarm-${func.id}`, {
+          metric: func.metricErrors({
+            period: Duration.minutes(15)
+          }),
+          alarmName: `${stack.stackName} ${route}`,
+          threshold: 5,
+          evaluationPeriods: 1
+        });
+        alarm.addAlarmAction(new SnsAction(alarmTopic));
+      }
+    }
+
+    for (const route of chatApi.routes) {
+      const func = api.getFunction(route);
+      if (func) {
+        const alarm = new Alarm(stack, `FunctionAlarm-${func.id}`, {
+          metric: func.metricErrors({
+            period: Duration.minutes(15)
+          }),
+          alarmName: `${stack.stackName} ${route}`,
+          threshold: 5,
+          evaluationPeriods: 1
+        });
+        alarm.addAlarmAction(new SnsAction(alarmTopic));
+      }
+    }
+
+    const destroyEc2Alarm = new Alarm(stack, `FunctionAlarm-DestroyEC2`, {
+      metric: destroyEc2Cron.jobFunction.metricErrors({
+        period: Duration.minutes(15)
+      }),
+      alarmName: `${stack.stackName} Destroy EC2 Job`,
+      threshold: 1,
+      evaluationPeriods: 1
+    });
+    destroyEc2Alarm.addAlarmAction(new SnsAction(alarmTopic));
+
+    const cancelSpotRequestsAlarm = new Alarm(
+      stack,
+      `FunctionAlarm-CancelSpotRequests`,
+      {
+        metric: cancelSpotRequestsCron.jobFunction.metricErrors({
+          period: Duration.minutes(15)
+        }),
+        alarmName: `${stack.stackName} Cancel Spot Requests Job`,
+        threshold: 1,
+        evaluationPeriods: 1
+      }
+    );
+    cancelSpotRequestsAlarm.addAlarmAction(new SnsAction(alarmTopic));
+
+    const tableReadCapacity = new Alarm(stack, `FunctionAlarm-DynamoRead`, {
+      metric: table.cdk.table.metricConsumedReadCapacityUnits({
+        period: Duration.minutes(15)
+      }),
+      alarmName: `${stack.stackName} DynamoDB Consumed Read Capacity`,
+      threshold: 5,
+      evaluationPeriods: 1
+    });
+    tableReadCapacity.addAlarmAction(new SnsAction(alarmTopic));
+
+    const tableWriteCapacity = new Alarm(stack, `FunctionAlarm-DynamoWrite`, {
+      metric: table.cdk.table.metricConsumedWriteCapacityUnits({
+        period: Duration.minutes(15)
+      }),
+      alarmName: `${stack.stackName} DynamoDB Consumed Write Capacity`,
+      threshold: 5,
+      evaluationPeriods: 1
+    });
+    tableWriteCapacity.addAlarmAction(new SnsAction(alarmTopic));
+  }
 
   // Show API endpoint  and site url in output
   stack.addOutputs({
