@@ -230,7 +230,7 @@ export function API({ stack, app }: StackContext) {
     }
 
     for (const route of chatApi.routes) {
-      const func = api.getFunction(route);
+      const func = chatApi.getFunction(route);
       if (func) {
         const alarm = new Alarm(stack, `FunctionAlarm-${func.id}`, {
           metric: func.metricErrors({
