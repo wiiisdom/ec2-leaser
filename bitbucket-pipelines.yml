@@ -83,6 +83,9 @@ pipelines:
 
   branches:
     main:
+      - parallel:
+          - step: *backend-sonar
+          - step: *frontend-sonar
       - step:
           script:
             - git push --mirror git@github.com:wiiisdom/ec2-leaser.git
