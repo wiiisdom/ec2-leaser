@@ -7,7 +7,7 @@ vi.mock('aws-amplify');
 describe('SelectSchedule', () => {
   it('should render correctly', async () => {
     const setSchedule = vi.fn();
-    const schedule = undefined;
+    const schedule = '';
     render(<SelectSchedule schedule={schedule} setSchedule={setSchedule} />);
     await screen.findByText('lille-office-stop - desc');
   });

@@ -2,9 +2,10 @@ import { Auth, Hub } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 import LoginScreen from './LoginScreen';
 import MainScreen from './MainScreen';
+import { UserType } from '../models/User';
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<UserType | null>(null);
   useEffect(() => {
     Hub.listen('auth', ({ payload: { event, data } }) => {
       // data contains {id, email, name, token}

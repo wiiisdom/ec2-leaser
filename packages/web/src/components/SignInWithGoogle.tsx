@@ -1,4 +1,4 @@
-import React from 'react';
+import { MouseEvent } from 'react';
 import { Auth } from 'aws-amplify';
 
 /**
@@ -6,11 +6,11 @@ import { Auth } from 'aws-amplify';
  * To federated sign in from Google
  * @returns
  */
-const SignInWithAzureAD = () => {
-  const signIn = event => {
+const SignInWithGoogle = () => {
+  const signIn = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     Auth.federatedSignIn({
-      provider: 'AzureAD',
+      customProvider: 'Google',
       customState: 'redirect = /'
     }).catch(() => {
       // for sonar
@@ -20,14 +20,13 @@ const SignInWithAzureAD = () => {
   return (
     <div>
       <button
-      data-testid="azure-signin-button"
         className="px-6 py-2 text-white text-lg bg-yellow-500 hover:bg-yellow-600 border-0 rounded focus:outline-none"
         onClick={signIn}
       >
-        Log in with Azure
+        Log in with Google
       </button>
     </div>
   );
 };
 
-export default SignInWithAzureAD;
+export default SignInWithGoogle;

@@ -7,7 +7,8 @@ vi.mock('@tanstack/react-query');
 describe('MainScreen', () => {
   it('should render correctly', async () => {
     const user = {
-      name: 'test'
+      name: 'test',
+      email: 'XXXXXXXXXXXXX'
     };
     render(<MainScreen user={user} />);
     expect(screen.findByText('imageA')).toBeDefined();

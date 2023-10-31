@@ -3,10 +3,14 @@ import Spinner from './Spinner';
 import { useQuery } from '@tanstack/react-query';
 import { fetchList, fetchPolicy } from '../API';
 import LaunchTemplateContainer from './LaunchTemplateContainer';
+import { LaunchTemplateType } from '../models/LaunchTemplate';
 
 const SelectLaunchTemplate = ({
   selectedLaunchTemplateId,
   setLaunchTemplate
+}: {
+  selectedLaunchTemplateId: string | null;
+  setLaunchTemplate: Function;
 }) => {
   const [search, setSearch] = useState('');
   const { data, isLoading, error } = useQuery(
@@ -15,10 +19,12 @@ const SelectLaunchTemplate = ({
     fetchPolicy
   );
 
-  data?.sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
+  data?.sort((a: LaunchTemplateType, b: LaunchTemplateType) =>
+    a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
+  ) as LaunchTemplateType[];
 
   if (error) {
-    throw new Error(error);
+    throw new Error(error as string);
   }
 
   return (

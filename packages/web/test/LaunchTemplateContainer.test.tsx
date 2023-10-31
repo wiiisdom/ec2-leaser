@@ -1,26 +1,31 @@
-import React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  cleanup,
+  RenderResult
+} from '@testing-library/react';
 import LaunchTemplateContainer from '../src/components/LaunchTemplateContainer';
 
 import { describe, vi, beforeEach, it, expect } from 'vitest';
+import { LaunchTemplateType } from '../src/models/LaunchTemplate';
 
 vi.mock('@tanstack/react-query');
 
 describe('LaunchTemplateContainer', () => {
-  let data;
-  let search;
-  let selectedLaunchTemplateId;
-  let setLaunchTemplate;
-  let component;
+  let data: LaunchTemplateType[];
+  let search: string;
+  let selectedLaunchTemplateId: string;
+  let setLaunchTemplate: Function;
+  let component: RenderResult;
 
   beforeEach(() => {
     data = [
-      { id: 1, name: 'Template A' },
-      { id: 2, name: 'Template B' },
-      { id: 3, name: 'Template C' }
+      { id: '1', name: 'Template A' },
+      { id: '2', name: 'Template B' },
+      { id: '3', name: 'Template C' }
     ];
     search = '';
-    selectedLaunchTemplateId = 1;
+    selectedLaunchTemplateId = '1';
     setLaunchTemplate = vi.fn();
     component = render(
       <LaunchTemplateContainer
@@ -64,7 +69,7 @@ describe('LaunchTemplateContainer', () => {
     const { getByText } = component;
     fireEvent.click(getByText('Template B'));
     expect(setLaunchTemplate).toHaveBeenCalledWith({
-      id: 2,
+      id: '2',
       name: 'Template B'
     });
   });

@@ -1,14 +1,28 @@
 import { API } from 'aws-amplify';
 import { useState, useEffect } from 'react';
 import Spinner from './Spinner';
+import { CostCenterType } from '../models/CostCenter';
 
-const SelectCostCenter = ({ costCenter, setCostCenter }) => {
-  const [costCenters, setCostCenters] = useState([]);
+const SelectCostCenter = ({
+  costCenter,
+  setCostCenter
+}: {
+  costCenter: CostCenterType | null;
+  setCostCenter: Function;
+}) => {
+  const [costCenters, setCostCenters] = useState<CostCenterType[]>([]);
 
   useEffect(() => {
     const fetchCostCenters = async () => {
-      const data = await API.get('main', '/costcenters');
-      setCostCenters(data.sort((a, b) => a.name.localeCompare(b.name)));
+      const data = (await API.get(
+        'main',
+        '/costcenters',
+        {}
+      )) as CostCenterType[];
+      data.sort((a: CostCenterType, b: CostCenterType) =>
+        a.name.localeCompare(b.name)
+      );
+      setCostCenters(data);
     };
     fetchCostCenters().catch(() => {
       // comment for sonar

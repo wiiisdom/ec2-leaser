@@ -1,7 +1,18 @@
+import { MouseEventHandler } from 'react';
 import SelectStart from './SelectStart';
 
-const SelectTitle = ({ title, setTitle, handleStart, disabled }) => {
-  const setCleanTitle = value => {
+const SelectTitle = ({
+  title,
+  setTitle,
+  handleStart,
+  disabled
+}: {
+  title: string;
+  setTitle: Function;
+  handleStart: MouseEventHandler<HTMLButtonElement>;
+  disabled: boolean;
+}) => {
+  const setCleanTitle = (value: string) => {
     if (value) {
       setTitle(value.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-'));
     }

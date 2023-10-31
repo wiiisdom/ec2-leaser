@@ -1,4 +1,12 @@
-const SelectStart = ({ disabled, handleStart }) => {
+import { MouseEventHandler } from 'react';
+
+const SelectStart = ({
+  disabled,
+  handleStart
+}: {
+  disabled: boolean;
+  handleStart: MouseEventHandler<HTMLButtonElement>;
+}) => {
   return disabled ? (
     <button
       disabled

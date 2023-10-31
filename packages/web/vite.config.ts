@@ -5,16 +5,10 @@ export default defineConfig(() => {
   return {
     plugins: [react()],
     test: {
-      globals: true,
       environment: 'jsdom',
-      setupFiles: './test/setup.js',
+      setupFiles: './setup-tests.ts',
       coverage: {
         reporter: ['lcov', 'text']
-      }
-    },
-    resolve: {
-      alias: {
-        './runtimeConfig': './runtimeConfig.browser'
       }
     }
   };

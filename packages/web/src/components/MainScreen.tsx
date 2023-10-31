@@ -9,9 +9,12 @@ import { API } from 'aws-amplify';
 import Spinner from './Spinner';
 import SelectCostCenter from './SelectCostCenter';
 import SelectSchedule from './SelectSchedule';
+import { UserType } from '../models/User';
+import { LaunchTemplateType } from '../models/LaunchTemplate';
 
-const MainScreen = ({ user }) => {
-  const [selectedLaunchTemplate, setLaunchTemplate] = useState(null);
+const MainScreen = ({ user }: { user: UserType }) => {
+  const [selectedLaunchTemplate, setLaunchTemplate] =
+    useState<LaunchTemplateType | null>(null);
   const [costCenter, setCostCenter] = useState(null);
   const [title, setTitle] = useState('');
   const [starting, setStarting] = useState(false);
@@ -35,6 +38,9 @@ const MainScreen = ({ user }) => {
   }, [selectedLaunchTemplate?.name, user]);
 
   const handleStart = () => {
+    if (selectedLaunchTemplate === null) {
+      return;
+    }
     setInstanceId('');
     setError('');
     // show spinner
@@ -54,7 +60,7 @@ const MainScreen = ({ user }) => {
         setStarting(false);
         setInstanceId(data.instanceId);
         setLaunchTemplate(null);
-        setTitle(null);
+        setTitle('');
       })
       .catch(err => {
         setStarting(false);

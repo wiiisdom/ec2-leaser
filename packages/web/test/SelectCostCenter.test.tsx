@@ -7,7 +7,7 @@ vi.mock('aws-amplify');
 describe('SelectCostCenter', () => {
   it('should render correctly', async () => {
     const setCostCenter = vi.fn();
-    const costCenter = undefined;
+    const costCenter = null;
     render(
       <SelectCostCenter costCenter={costCenter} setCostCenter={setCostCenter} />
     );

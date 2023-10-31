@@ -4,8 +4,8 @@ const FIVE_MINUTES = 5;
 const SIXTY_SECONDS = 60;
 const FIFTY__NINE_SECONDS = 59;
 const ONE_SECOND = 1000;
-export const fetchList = () => API.get('main', '/list');
-export const fetchDescription = id =>
+export const fetchList = () => API.get('main', '/list', {});
+export const fetchDescription = (id: string) =>
   API.post('main', '/description', {
     body: {
       instanceId: id

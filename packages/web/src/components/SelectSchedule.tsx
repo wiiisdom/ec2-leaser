@@ -1,18 +1,27 @@
 import { API } from 'aws-amplify';
 import { useState, useEffect } from 'react';
 import Spinner from './Spinner';
+import { ScheduleType } from '../models/Schedule';
 
-const SelectSchedule = ({ schedule, setSchedule }) => {
-  const [schedules, setSchedules] = useState([]);
+const SelectSchedule = ({
+  schedule,
+  setSchedule
+}: {
+  schedule: string;
+  setSchedule: Function;
+}) => {
+  const [schedules, setSchedules] = useState<ScheduleType[]>([]);
 
   useEffect(() => {
     const fetchSchedules = async () => {
-      const data = await API.get('main', '/schedules');
-      const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
-      setSchedules(sortedData);
+      const data = (await API.get('main', '/schedules', {})) as ScheduleType[];
+      data.sort((a: ScheduleType, b: ScheduleType) =>
+        a.name.localeCompare(b.name)
+      );
+      setSchedules(data);
 
       // adds lille as default selection
-      setSchedule(sortedData[0].name);
+      setSchedule(data[0].name);
     };
 
     fetchSchedules().catch(() => {
