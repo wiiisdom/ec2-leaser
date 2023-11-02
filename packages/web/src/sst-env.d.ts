@@ -8,6 +8,7 @@ interface ImportMetaEnv {
   readonly VITE_COGNITO_IDENTITY_POOL_ID: string
   readonly VITE_COGNITO_DOMAIN: string
   readonly VITE_PUBLIC_DOMAIN: string
+  readonly VITE_SHOW_SNAPSHOT_RESTORE: string
 }
 interface ImportMeta {
   readonly env: ImportMetaEnv

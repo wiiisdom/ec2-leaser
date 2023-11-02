@@ -14,6 +14,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true }
     ],
-    '@typescript-eslint/ban-types': 'off'
+    '@typescript-eslint/ban-types': 'off',
+    'react-refresh/only-export-components': 'off'
   }
 };

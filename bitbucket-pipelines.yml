@@ -25,6 +25,7 @@ definitions:
               EXTRA_ARGS: >
                 -Dsonar.organization=gbandsmith
                 -Dsonar.projectKey=ec2-leaser-frontend
+                -Dsonar.exclusions=src/components/ui/**,src/libs/**
                 -Dsonar.sources=src
                 -Dsonar.tests=test
                 -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info

@@ -1,5 +1,5 @@
-import SignInWithAzureAD from './SignInWithAzureAD';
-import SignInWithGoogle from './SignInWithGoogle';
+import SignInWithAzureAD from './login/SignInWithAzureAD';
+import SignInWithGoogle from './login/SignInWithGoogle';
 
 const LoginScreen = () => {
   return (
@@ -23,10 +23,10 @@ const LoginScreen = () => {
             Start by providing your corporate google account.
           </p>
           <div className="flex justify-center">
-            <div className='m-1'>
+            <div className="m-1">
               <SignInWithGoogle />
             </div>
-            <div className='m-1'>
+            <div className="m-1">
               <SignInWithAzureAD />
             </div>
           </div>

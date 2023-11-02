@@ -56,7 +56,11 @@ export function API({ stack, app }: StackContext) {
           handler: "packages/functions/src/GetSchedulesList.list",
           bind: [table]
         }
-      }
+      },
+      "POST /ec2/snapshot":
+        "packages/functions/src/handlers/api/ec2/snapshot.handler",
+      "POST /ec2/restore":
+        "packages/functions/src/handlers/api/ec2/restore.handler"
     }
   });
 
@@ -66,7 +70,12 @@ export function API({ stack, app }: StackContext) {
     "ec2:DescribeLaunchTemplateVersions",
     "iam:CreateServiceLinkedRole",
     "ec2:RunInstances",
-    "ec2:CreateTags"
+    "ec2:CreateTags",
+    "ec2:DescribeInstances",
+    "ec2:DescribeSnapshots",
+    "ec2:CreateSnapshot",
+    "ec2:DeleteSnapshot",
+    "ec2:CreateReplaceRootVolumeTask"
   ]);
 
   // Create the Cron tasks to destroy old resources
@@ -175,38 +184,12 @@ export function API({ stack, app }: StackContext) {
       VITE_COGNITO_DOMAIN: `${domainPrefix}.auth.${stack.region}.amazoncognito.com`,
       VITE_PUBLIC_DOMAIN: app.local
         ? "http://localhost:5173"
-        : `https://${siteDomain}`
+        : `https://${siteDomain}`,
+      VITE_SHOW_SNAPSHOT_RESTORE: app.stage !== "prod" ? "1" : "0"
     },
     customDomain: {
       domainName: siteDomain,
       hostedZone: domain
-    }
-  });
-
-  // Create the resources for the Google Chat Bot (EC2 Tools)
-
-  // Google Project ID used to validate the Bearer sent by Google
-  const PROJECT_ID = new Config.Parameter(stack, "PROJECT_ID", {
-    value: "912868966610"
-  });
-
-  // a dedicated API Gateway for Google Chat interaction with specific permissions
-  const chatApi = new Api(stack, "ChatApi", {
-    defaults: {
-      function: {
-        bind: [PROJECT_ID],
-        permissions: [
-          "ec2:DescribeInstances",
-          "ec2:DescribeSnapshots",
-          "ec2:CreateSnapshot",
-          "ec2:DeleteSnapshot",
-          "ec2:CreateTags",
-          "ec2:CreateReplaceRootVolumeTask"
-        ]
-      }
-    },
-    routes: {
-      "POST /": "packages/functions/src/bot/googleChat.handler"
     }
   });
 
@@ -216,21 +199,6 @@ export function API({ stack, app }: StackContext) {
     alarmTopic.addSubscription(new EmailSubscription("lab@wiiisdom.com"));
     for (const route of api.routes) {
       const func = api.getFunction(route);
-      if (func) {
-        const alarm = new Alarm(stack, `FunctionAlarm-${func.id}`, {
-          metric: func.metricErrors({
-            period: Duration.minutes(15)
-          }),
-          alarmName: `${stack.stackName} ${route}`,
-          threshold: 5,
-          evaluationPeriods: 1
-        });
-        alarm.addAlarmAction(new SnsAction(alarmTopic));
-      }
-    }
-
-    for (const route of chatApi.routes) {
-      const func = chatApi.getFunction(route);
       if (func) {
         const alarm = new Alarm(stack, `FunctionAlarm-${func.id}`, {
           metric: func.metricErrors({
@@ -298,7 +266,6 @@ export function API({ stack, app }: StackContext) {
     IdentityPoolId: {
       value: auth.cognitoIdentityPoolId as string,
       exportName: `${app.stage}-${app.name}-poolid`
-    },
-    ChatApi: chatApi.url
+    }
   });
 }
