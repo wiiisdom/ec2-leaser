@@ -10365,11 +10365,6 @@ vitest-mock-extended@^1.3.1:
   dependencies:
     ts-essentials "^9.3.2"
 
-vitest-sonar-reporter@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/vitest-sonar-reporter/-/vitest-sonar-reporter-0.4.1.tgz#aba4f3dd41f5a9083039b1e802ffe1059fae7b6b"
-  integrity sha512-754xxoEe5h8QO8jFlNd/aLm9nUYwgu708KAiatdNH0DVwbS4LI9Mm2tBjKMPYbPVaD8UjQUO+/mGa+WTExzygQ==
-
 vitest-sonar-reporter@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/vitest-sonar-reporter/-/vitest-sonar-reporter-0.5.0.tgz#41e55863b4154a4bf2939b3eab8de2d6d3cb1f83"
