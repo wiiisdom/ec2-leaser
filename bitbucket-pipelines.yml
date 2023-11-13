@@ -9,6 +9,13 @@ definitions:
       memory: 4096
   caches:
     sonar: ~/.sonar/cache
+  scripts:
+    - script: &install-trivy apt-get update;
+        apt-get install -y wget apt-transport-https gnupg lsb-release;
+        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | tee /usr/share/keyrings/trivy.gpg > /dev/null;
+        echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | tee -a /etc/apt/sources.list.d/trivy.list;
+        apt-get update;
+        apt-get install -y trivy;
   steps:
     - step: &frontend-sonar
         name: sonar frontend
@@ -54,26 +61,6 @@ definitions:
                 -Dsonar.testExecutionReportPaths=./sonar-report.xml
               SONAR_SCANNER_OPTS: -Xmx4096m
           - yarn lint
-    - step: &dependency-track-backend
-        name: Generate and upload BOM file for backend
-        script:
-          - yarn
-          - npm install -g @cyclonedx/bom@3.10.6
-          - cyclonedx-node -l -o bom.json
-          - 'curl -f -X POST "${DTRACK_URL}/v1/bom" -H "X-Api-Key: ${DTRACK_API_KEY}" -H "Content-Type: multipart/form-data" -F "project=${DTRACK_BACKEND_ID}" -F "bom=@bom.json"'
-        artifacts:
-          - bom.json
-    - step: &dependency-track-frontend
-        name: Generate and upload BOM file for frontend
-        script:
-          - yarn
-          - rm -rf packages/web/node_modules && mv node_modules/ packages/web/
-          - npm install -g @cyclonedx/bom@3.10.6
-          - cd packages/web/
-          - cyclonedx-node -l -o bom.json
-          - 'curl -f -X POST "${DTRACK_URL}/v1/bom" -H "X-Api-Key: ${DTRACK_API_KEY}" -H "Content-Type: multipart/form-data" -F "project=${DTRACK_FRONTEND_ID}" -F "bom=@bom.json"'
-        artifacts:
-          - packages/web/bom.json
 
 pipelines:
   pull-requests:
@@ -93,6 +80,14 @@ pipelines:
 
   custom:
     dependency-track:
-      - parallel:
-          - step: *dependency-track-backend
-          - step: *dependency-track-frontend
+      - step:
+          name: Generate and publish CycloneDX SBOM
+          caches:
+            - node
+          script:
+            - *install-trivy
+            - yarn install --frozen-lockfile
+            - trivy repo --format cyclonedx --output bom.json ./
+            - 'curl -f -X POST "${DTRACK_URL}/v1/bom" -H "X-Api-Key: ${DTRACK_API_KEY}" -H "Content-Type: multipart/form-data" -F "project=${DTRACK_PROJECT_ID}" -F "bom=@bom.json"'
+          artifacts:
+            - bom.json
