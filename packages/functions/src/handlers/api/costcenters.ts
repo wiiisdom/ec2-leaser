@@ -1,17 +1,19 @@
-import { APIGatewayProxyHandlerV2 } from 'aws-lambda';
 import { Table } from 'sst/node/table';
-import AWS from 'aws-sdk';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocumentClient, QueryCommand } from '@aws-sdk/lib-dynamodb';
+import { ApiHandler } from 'sst/node/api';
 
-export const list: APIGatewayProxyHandlerV2 = async () => {
+const ddbDocClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
+
+export const handler = ApiHandler(async () => {
   try {
-    const documentClient = new AWS.DynamoDB.DocumentClient();
-    const { Items } = await documentClient
-      .query({
+    const { Items } = await ddbDocClient.send(
+      new QueryCommand({
         TableName: Table.config.tableName,
         KeyConditionExpression: 'PK = :PK',
         ExpressionAttributeValues: { ':PK': 'costcenters' },
       })
-      .promise();
+    );
 
     return {
       statusCode: 200,
@@ -22,7 +24,7 @@ export const list: APIGatewayProxyHandlerV2 = async () => {
     return {
       statusCode: 500,
       headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(error),
+      body: (error as Error).message,
     };
   }
-};
+});

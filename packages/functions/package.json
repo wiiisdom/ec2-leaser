@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "vitest",
-    "coverage": "vitest run --reporter vitest-sonar-reporter --reporter=verbose --coverage",
+    "test": "sst bind --stage dev vitest",
+    "coverage": "sst bind --stage dev \"vitest run --reporter vitest-sonar-reporter --reporter=verbose --coverage\"",
     "typecheck": "tsc -noEmit",
     "lint": "eslint ."
   },
@@ -30,7 +30,9 @@
     "vitest-sonar-reporter": "^0.5.0"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.454.0",
     "@aws-sdk/client-ec2": "^3.440.0",
+    "@aws-sdk/lib-dynamodb": "^3.454.0",
     "aws-sdk-client-mock": "^3.0.0",
     "debug": "^4.3.4"
   }

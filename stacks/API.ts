@@ -41,26 +41,26 @@ export function API({ stack, app }: StackContext) {
       authorizer: "iam"
     },
     routes: {
-      "GET /requests": "packages/functions/src/TerminateSpotRequest.handler",
-      "GET /list": "packages/functions/src/LaunchTemplate.list",
-      "POST /description": "packages/functions/src/LaunchTemplate.description",
-      "POST /start": "packages/functions/src/Instance.start",
+      "GET /list": "packages/functions/src/handlers/api/list-templates.handler",
+      "POST /description":
+        "packages/functions/src/handlers/api/describe-template.handler",
+      "POST /start":
+        "packages/functions/src/handlers/api/start-instance.handler",
       "GET /costcenters": {
         function: {
-          handler: "packages/functions/src/GetCostCenterList.list",
+          handler: "packages/functions/src/handlers/api/costcenters.handler",
           bind: [table]
         }
       },
       "GET /schedules": {
         function: {
-          handler: "packages/functions/src/GetSchedulesList.list",
+          handler: "packages/functions/src/handlers/api/schedules.handler",
           bind: [table]
         }
       },
       "POST /ec2/snapshot":
-        "packages/functions/src/handlers/api/ec2/snapshot.handler",
-      "POST /ec2/restore":
-        "packages/functions/src/handlers/api/ec2/restore.handler"
+        "packages/functions/src/handlers/api/snapshot.handler",
+      "POST /ec2/restore": "packages/functions/src/handlers/api/restore.handler"
     }
   });
 
@@ -81,23 +81,12 @@ export function API({ stack, app }: StackContext) {
   // Create the Cron tasks to destroy old resources
   const destroyEc2Cron = new Cron(stack, "DestroyEc2", {
     schedule: "rate(20 minutes)",
-    job: "packages/functions/src/TerminateInstance.handler"
-  });
-
-  const cancelSpotRequestsCron = new Cron(stack, "CanceSpotRequests", {
-    schedule: "rate(20 minutes)",
-    job: "packages/functions/src/TerminateSpotRequest.handler"
+    job: "packages/functions/src/handlers/cron/terminate-instances.handler"
   });
 
   // Cron permissions
   destroyEc2Cron.attachPermissions([
     "ec2:DescribeInstances",
-    "ec2:TerminateInstances"
-  ]);
-  cancelSpotRequestsCron.attachPermissions([
-    "ec2:DescribeSpotInstanceRequests",
-    "ec2:DescribeInstances",
-    "ec2:CancelSpotInstanceRequests",
     "ec2:TerminateInstances"
   ]);
 
@@ -174,7 +163,6 @@ export function API({ stack, app }: StackContext) {
     buildOutput: "dist",
     buildCommand: "yarn build",
     environment: {
-      VITE_DEFAULT_SPOT: "0",
       VITE_API: api.url,
       VITE_COGNITO_REGION: stack.region,
       VITE_COGNITO_USER_POOL_ID: auth.cdk.userPool.userPoolId,
@@ -221,20 +209,6 @@ export function API({ stack, app }: StackContext) {
       evaluationPeriods: 1
     });
     destroyEc2Alarm.addAlarmAction(new SnsAction(alarmTopic));
-
-    const cancelSpotRequestsAlarm = new Alarm(
-      stack,
-      `FunctionAlarm-CancelSpotRequests`,
-      {
-        metric: cancelSpotRequestsCron.jobFunction.metricErrors({
-          period: Duration.minutes(15)
-        }),
-        alarmName: `${stack.stackName} Cancel Spot Requests Job`,
-        threshold: 1,
-        evaluationPeriods: 1
-      }
-    );
-    cancelSpotRequestsAlarm.addAlarmAction(new SnsAction(alarmTopic));
 
     const tableReadCapacity = new Alarm(stack, `FunctionAlarm-DynamoRead`, {
       metric: table.cdk.table.metricConsumedReadCapacityUnits({

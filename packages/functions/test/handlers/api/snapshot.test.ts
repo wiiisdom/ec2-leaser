@@ -1,4 +1,4 @@
-import { handler, snapshot } from 'src/handlers/api/ec2/snapshot';
+import { handler, snapshot } from 'src/handlers/api/snapshot';
 import { it, expect, describe } from 'vitest';
 import { mockClient } from 'aws-sdk-client-mock';
 import {

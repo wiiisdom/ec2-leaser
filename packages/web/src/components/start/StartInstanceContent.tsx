@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import SelectSpotInstance from './SelectSpotInstance';
 import SelectLaunchTemplate from './SelectLaunchTemplate';
 import SelectTitle from './SelectTitle';
 
@@ -23,9 +22,6 @@ const StartInstanceContent = (props: StartInstanceContentProps) => {
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState('');
   const [instanceId, setInstanceId] = useState('');
-  const [isSpotInstance, setIsSpotInstance] = useState(
-    import.meta.env.VITE_DEFAULT_SPOT === '1'
-  );
   const [schedule, setSchedule] = useState('');
 
   useEffect(() => {
@@ -53,7 +49,6 @@ const StartInstanceContent = (props: StartInstanceContentProps) => {
       instanceId: selectedLaunchTemplate.id,
       owner: props.user.email,
       title,
-      isSpotInstance,
       costCenter,
       schedule
     };
@@ -67,7 +62,7 @@ const StartInstanceContent = (props: StartInstanceContentProps) => {
       })
       .catch(err => {
         setStarting(false);
-        setError(err.response.data.message);
+        setError(err.response.data);
       });
   };
 
@@ -76,10 +71,6 @@ const StartInstanceContent = (props: StartInstanceContentProps) => {
       <SelectLaunchTemplate
         selectedLaunchTemplateId={selectedLaunchTemplate?.id ?? null}
         setLaunchTemplate={setLaunchTemplate}
-      />
-      <SelectSpotInstance
-        isSpotInstance={isSpotInstance}
-        setIsSpotInstance={setIsSpotInstance}
       />
       <SelectCostCenter setCostCenter={setCostCenter} costCenter={costCenter} />
       <SelectSchedule setSchedule={setSchedule} schedule={schedule} />

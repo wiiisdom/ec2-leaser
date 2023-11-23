@@ -1,4 +1,4 @@
-import { handler, replaceRootVolume } from 'src/handlers/api/ec2/restore';
+import { handler, replaceRootVolume } from 'src/handlers/api/restore';
 import { it, expect, describe, vi } from 'vitest';
 import { mockClient } from 'aws-sdk-client-mock';
 import { mock } from 'vitest-mock-extended';
