@@ -9,7 +9,6 @@ import {
 import {
   Api,
   Cognito,
-  Config,
   Cron,
   StackContext,
   StaticSite,
@@ -19,6 +18,7 @@ import { Topic } from "aws-cdk-lib/aws-sns";
 import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Alarm } from "aws-cdk-lib/aws-cloudwatch";
 import { SnsAction } from "aws-cdk-lib/aws-cloudwatch-actions";
+import { ResponseHeadersPolicy } from "aws-cdk-lib/aws-cloudfront";
 
 export function API({ stack, app }: StackContext) {
   // Create a table for the cost center list
@@ -178,6 +178,13 @@ export function API({ stack, app }: StackContext) {
     customDomain: {
       domainName: siteDomain,
       hostedZone: domain
+    },
+    cdk: {
+      distribution: {
+        defaultBehavior: {
+          responseHeadersPolicy: ResponseHeadersPolicy.SECURITY_HEADERS
+        }
+      }
     }
   });
 
