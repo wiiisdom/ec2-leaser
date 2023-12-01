@@ -30,7 +30,7 @@ definitions:
           - pipe: sonarsource/sonarcloud-scan:2.0.0
             variables:
               EXTRA_ARGS: >
-                -Dsonar.organization=gbandsmith
+                -Dsonar.organization=${SONAR_ORGANIZATION}
                 -Dsonar.projectKey=ec2-leaser-frontend
                 -Dsonar.exclusions=src/components/ui/**,src/libs/**
                 -Dsonar.sources=src
@@ -52,7 +52,7 @@ definitions:
           - pipe: sonarsource/sonarcloud-scan:2.0.0
             variables:
               EXTRA_ARGS: >
-                -Dsonar.organization=gbandsmith
+                -Dsonar.organization=${SONAR_ORGANIZATION}
                 -Dsonar.projectKey=ec2-leaser-backend
                 -Dsonar.javascript.node.maxspace=4096
                 -Dsonar.sources=src
