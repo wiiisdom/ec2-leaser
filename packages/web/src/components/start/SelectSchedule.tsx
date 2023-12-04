@@ -1,7 +1,8 @@
-import { API } from 'aws-amplify';
 import { useState, useEffect } from 'react';
 import Spinner from './../common/Spinner';
 import { ScheduleType } from '../../models/Schedule';
+import { callApi } from '@/api';
+import { useUser } from '@/contexts/UserContext';
 
 const SelectSchedule = ({
   schedule,
@@ -11,10 +12,10 @@ const SelectSchedule = ({
   setSchedule: Function;
 }) => {
   const [schedules, setSchedules] = useState<ScheduleType[]>([]);
-
+  const user = useUser();
   useEffect(() => {
     const fetchSchedules = async () => {
-      const data = (await API.get('main', '/schedules', {})) as ScheduleType[];
+      const data = (await callApi(user.token, '/schedules')) as ScheduleType[];
       data.sort((a: ScheduleType, b: ScheduleType) =>
         a.name.localeCompare(b.name)
       );
@@ -27,7 +28,7 @@ const SelectSchedule = ({
     fetchSchedules().catch(() => {
       // comment for sonar
     });
-  }, [setSchedule]);
+  }, [setSchedule, user.token]);
 
   const optionsRender = schedules.map(s => (
     <option value={s.name} key={s.name}>

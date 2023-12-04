@@ -1,10 +1,9 @@
-import { Auth } from 'aws-amplify';
+import { Button } from './ui/button';
 
 const Header = () => {
   const handleSignOut = () => {
-    Auth.signOut().catch(() => {
-      // for sonar
-    });
+    localStorage.clear();
+    window.location.replace(window.location.origin);
   };
 
   return (
@@ -29,23 +28,8 @@ const Header = () => {
 
           <span className="ml-3 text-xl">EC2 Leaser</span>
         </a>
-        <button
-          className="inline-flex items-center mt-4 px-3 py-1 text-base bg-gray-100 hover:bg-gray-200 border-0 rounded focus:outline-none md:mt-0"
-          onClick={handleSignOut}
-        >
-          Sign out
-          <svg
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="ml-1 w-4 h-4"
-            viewBox="0 0 24 24"
-          >
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-          </svg>
-        </button>
+
+        <Button onClick={handleSignOut}>Sign out</Button>
       </div>
     </header>
   );

@@ -3,6 +3,8 @@ import { it, expect, describe, vi } from 'vitest';
 import { mockClient } from 'aws-sdk-client-mock';
 import { mock } from 'vitest-mock-extended';
 
+vi.mock('src/utils/authUtils');
+
 import {
   CreateReplaceRootVolumeTaskCommand,
   DescribeInstancesCommand,

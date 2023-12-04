@@ -1,11 +1,11 @@
 import { EC2Client, RunInstancesCommand, RunInstancesCommandInput } from '@aws-sdk/client-ec2';
-import { ApiHandler } from 'sst/node/api';
+import { SecureHandler } from 'src/utils/handlerUtils';
 
 const client = new EC2Client({});
 
 const TEXT_PLAIN = { 'Content-Type': 'text/plain' };
 
-export const handler = ApiHandler(async event => {
+export const handler = SecureHandler(async event => {
   try {
     if (event.body === undefined) {
       throw new Error('Missing parameters');

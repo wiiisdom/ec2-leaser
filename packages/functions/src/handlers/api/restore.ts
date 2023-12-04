@@ -5,11 +5,12 @@ import {
   EC2Client,
 } from '@aws-sdk/client-ec2';
 import { Ec2ToolError } from 'src/errors';
-import { ApiHandler, useJsonBody } from 'sst/node/api';
+import { SecureHandler } from 'src/utils/handlerUtils';
+import { useJsonBody } from 'sst/node/api';
 
 const client = new EC2Client({});
 
-export const handler = ApiHandler(async evt => {
+export const handler = SecureHandler(async evt => {
   const data = useJsonBody();
   try {
     const instanceId = data.instanceId;

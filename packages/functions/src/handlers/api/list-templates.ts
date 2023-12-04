@@ -1,9 +1,9 @@
 import { DescribeLaunchTemplatesCommand, EC2Client } from '@aws-sdk/client-ec2';
-import { ApiHandler } from 'sst/node/api';
+import { SecureHandler } from 'src/utils/handlerUtils';
 
 const client = new EC2Client({});
 
-export const handler = ApiHandler(async () => {
+export const handler = SecureHandler(async () => {
   try {
     const ltData = await client.send(
       new DescribeLaunchTemplatesCommand({

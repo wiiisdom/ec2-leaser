@@ -1,11 +1,11 @@
 import { Table } from 'sst/node/table';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, QueryCommand } from '@aws-sdk/lib-dynamodb';
-import { ApiHandler } from 'sst/node/api';
+import { SecureHandler } from 'src/utils/handlerUtils';
 
 const ddbDocClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
-export const handler = ApiHandler(async () => {
+export const handler = SecureHandler(async () => {
   try {
     const { Items } = await ddbDocClient.send(
       new QueryCommand({

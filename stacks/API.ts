@@ -1,14 +1,8 @@
 import { RemovalPolicy, Duration } from "aws-cdk-lib";
 import {
-  UserPoolClientIdentityProvider,
-  UserPoolIdentityProviderGoogle,
-  UserPoolIdentityProviderOidc,
-  OAuthScope,
-  ProviderAttribute
-} from "aws-cdk-lib/aws-cognito";
-import {
   Api,
-  Cognito,
+  Auth,
+  Config,
   Cron,
   StackContext,
   StaticSite,
@@ -21,6 +15,11 @@ import { SnsAction } from "aws-cdk-lib/aws-cloudwatch-actions";
 import { ResponseHeadersPolicy } from "aws-cdk-lib/aws-cloudfront";
 
 export function API({ stack, app }: StackContext) {
+  // Config
+  const azureClientId = new Config.Secret(stack, "AZURE_CLIENT_ID");
+  const azureClientSecret = new Config.Secret(stack, "AZURE_CLIENT_SECRET");
+  const azureTenantId = new Config.Secret(stack, "AZURE_TENANT_ID");
+
   // Create a table for the cost center list
   const table = new Table(stack, `config`, {
     fields: {
@@ -37,10 +36,8 @@ export function API({ stack, app }: StackContext) {
 
   // Create the HTTP API
   const api = new Api(stack, "Api", {
-    defaults: {
-      authorizer: "iam"
-    },
     routes: {
+      "GET /session": "packages/functions/src/handlers/api/session.handler",
       "GET /list": "packages/functions/src/handlers/api/list-templates.handler",
       "POST /description":
         "packages/functions/src/handlers/api/describe-template.handler",
@@ -96,66 +93,23 @@ export function API({ stack, app }: StackContext) {
   // Creates the full address to use as URL
   const siteDomain = app.name + "." + domain;
 
-  // Create an Auth via Google Identity
-  const auth = new Cognito(stack, "Auth", {
-    cdk: {
-      userPoolClient: {
-        authFlows: {
-          custom: true,
-          userSrp: true
-        },
-        oAuth: {
-          scopes: [OAuthScope.EMAIL, OAuthScope.OPENID, OAuthScope.PROFILE],
-          callbackUrls: ["http://localhost:5173", `https://${siteDomain}`],
-          logoutUrls: ["http://localhost:5173", `https://${siteDomain}`],
-          flows: {
-            authorizationCodeGrant: true
-          }
-        },
+  const siteUrl = new Config.Parameter(stack, "SITE_URL", {
+    value: `https://${siteDomain}`
+  });
 
-        supportedIdentityProviders: [UserPoolClientIdentityProvider.GOOGLE]
-      }
+  const auth = new Auth(stack, "auth", {
+    authenticator: {
+      handler: "packages/functions/src/handlers/api/auth.handler",
+      bind: [azureClientId, azureClientSecret, azureTenantId, siteUrl]
     }
   });
 
-  const googleIdp = new UserPoolIdentityProviderGoogle(stack, "GoogleIdP", {
-    clientId: process.env.GOOGLE_CLIENT_ID!,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    userPool: auth.cdk.userPool,
-    attributeMapping: {
-      email: ProviderAttribute.GOOGLE_EMAIL,
-      fullname: ProviderAttribute.GOOGLE_NAME
-    },
-    scopes: ["email", "openid", "profile"]
+  auth.attach(stack, {
+    api,
+    prefix: "/auth"
   });
-
-  auth.cdk.userPoolClient.node.addDependency(googleIdp);
-
-  const azureADIdp = new UserPoolIdentityProviderOidc(stack, "AzureADIdP", {
-    name: "AzureAD",
-    clientId: process.env.AZURE_CLIENT_ID!,
-    clientSecret: process.env.AZURE_CLIENT_SECRET!,
-    issuerUrl: `https://login.microsoftonline.com/${process.env.AZURE_TENANT_ID}/v2.0`,
-    userPool: auth.cdk.userPool,
-    attributeMapping: {
-      email: ProviderAttribute.other("email"),
-      fullname: ProviderAttribute.other("name")
-    },
-    scopes: ["email", "openid", "profile"]
-  });
-
-  auth.cdk.userPool.registerIdentityProvider(azureADIdp);
-  auth.cdk.userPoolClient.node.addDependency(azureADIdp);
 
   const domainPrefix = `${stack.stage}-${app.name}`;
-  auth.cdk.userPool.addDomain("default", {
-    cognitoDomain: {
-      domainPrefix
-    }
-  });
-
-  // Allow user to use API
-  auth.attachPermissionsForAuthUsers(stack, [api]);
 
   // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
   const site = new StaticSite(stack, "Site", {
@@ -164,15 +118,15 @@ export function API({ stack, app }: StackContext) {
     buildCommand: "yarn build",
     environment: {
       VITE_API: api.url,
-      VITE_COGNITO_REGION: stack.region,
-      VITE_COGNITO_USER_POOL_ID: auth.cdk.userPool.userPoolId,
-      VITE_COGNITO_USER_POOL_CLIENT_ID:
-        auth.cdk.userPoolClient.userPoolClientId,
-      VITE_COGNITO_IDENTITY_POOL_ID: auth.cognitoIdentityPoolId as string,
-      VITE_COGNITO_DOMAIN: `${domainPrefix}.auth.${stack.region}.amazoncognito.com`,
-      VITE_PUBLIC_DOMAIN: app.local
-        ? "http://localhost:5173"
-        : `https://${siteDomain}`,
+      // VITE_COGNITO_REGION: stack.region,
+      // VITE_COGNITO_USER_POOL_ID: auth.cdk.userPool.userPoolId,
+      // VITE_COGNITO_USER_POOL_CLIENT_ID:
+      //   auth.cdk.userPoolClient.userPoolClientId,
+      // VITE_COGNITO_IDENTITY_POOL_ID: auth.cognitoIdentityPoolId as string,
+      // VITE_COGNITO_DOMAIN: `${domainPrefix}.auth.${stack.region}.amazoncognito.com`,
+      // VITE_PUBLIC_DOMAIN: app.local
+      //   ? "http://localhost:5173"
+      //   : `https://${siteDomain}`,
       VITE_SHOW_SNAPSHOT_RESTORE: app.stage !== "prod" ? "1" : "0"
     },
     customDomain: {
@@ -243,10 +197,6 @@ export function API({ stack, app }: StackContext) {
     ApiEndpoint: {
       value: api.url,
       exportName: `${app.stage}-${app.name}-api`
-    },
-    IdentityPoolId: {
-      value: auth.cognitoIdentityPoolId as string,
-      exportName: `${app.stage}-${app.name}-poolid`
     }
   });
 }

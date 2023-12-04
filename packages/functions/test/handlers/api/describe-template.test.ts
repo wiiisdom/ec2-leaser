@@ -1,7 +1,9 @@
 import { handler } from 'src/handlers/api/describe-template';
-import { it, expect, describe } from 'vitest';
+import { it, expect, describe, vi } from 'vitest';
 import { mockClient } from 'aws-sdk-client-mock';
 import { mock } from 'vitest-mock-extended';
+
+vi.mock('src/utils/authUtils');
 
 import { APIGatewayProxyEventV2, Context } from 'aws-lambda';
 import { DescribeLaunchTemplateVersionsCommand, EC2Client } from '@aws-sdk/client-ec2';

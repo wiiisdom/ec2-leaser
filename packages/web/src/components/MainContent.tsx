@@ -1,15 +1,10 @@
-import { UserType } from '../models/User';
 import RestoreInstanceContent from './restore/RestoreInstanceContent';
 import SnapshotInstanceContent from './snapshot/SnapshotInstanceContent';
 import StartInstanceContent from './start/StartInstanceContent';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-interface MainContentProps {
-  user: UserType;
-}
-
-const MainContent = (props: MainContentProps) => {
+const MainContent = () => {
   if (import.meta.env.VITE_SHOW_SNAPSHOT_RESTORE === '1') {
     return (
       <Tabs defaultValue="start" className="w-full">
@@ -23,7 +18,7 @@ const MainContent = (props: MainContentProps) => {
           <TabsTrigger value="restore">Restore an Instance</TabsTrigger>
         </TabsList>
         <TabsContent value="start">
-          <StartInstanceContent user={props.user} />
+          <StartInstanceContent />
         </TabsContent>
         <TabsContent value="snapshot">
           <SnapshotInstanceContent />
@@ -34,7 +29,7 @@ const MainContent = (props: MainContentProps) => {
       </Tabs>
     );
   } else {
-    return <StartInstanceContent user={props.user} />;
+    return <StartInstanceContent />;
   }
 };
 

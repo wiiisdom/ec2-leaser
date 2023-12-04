@@ -1,10 +1,12 @@
 import { handler } from 'src/handlers/api/schedules';
-import { it, expect, describe } from 'vitest';
+import { it, expect, describe, vi } from 'vitest';
 import { mockClient } from 'aws-sdk-client-mock';
 import { mock } from 'vitest-mock-extended';
 
 import { APIGatewayProxyEventV2, Context } from 'aws-lambda';
 import { DynamoDBDocumentClient, QueryCommand } from '@aws-sdk/lib-dynamodb';
+
+vi.mock('src/utils/authUtils');
 
 describe('schedules list', () => {
   it('handler must return a schedule list', async () => {

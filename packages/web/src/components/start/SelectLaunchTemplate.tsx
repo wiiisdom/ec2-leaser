@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Spinner from './../common/Spinner';
 import { useQuery } from '@tanstack/react-query';
-import { fetchList, fetchPolicy } from '../../api';
+import { callApi, fetchPolicy } from '../../api';
 import LaunchTemplateContainer from './LaunchTemplateContainer';
 import { LaunchTemplateType } from '../../models/LaunchTemplate';
+import { useUser } from '@/contexts/UserContext';
 
 const SelectLaunchTemplate = ({
   selectedLaunchTemplateId,
@@ -12,10 +13,11 @@ const SelectLaunchTemplate = ({
   selectedLaunchTemplateId: string | null;
   setLaunchTemplate: Function;
 }) => {
+  const user = useUser();
   const [search, setSearch] = useState('');
   const { data, isLoading, error } = useQuery(
     ['launchTemplates'],
-    fetchList,
+    () => callApi(user.token, '/list'),
     fetchPolicy
   );
 

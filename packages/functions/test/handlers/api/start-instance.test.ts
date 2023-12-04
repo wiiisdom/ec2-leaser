@@ -1,14 +1,12 @@
 import { handler } from 'src/handlers/api/start-instance';
-import { it, expect, describe } from 'vitest';
+import { it, expect, describe, vi } from 'vitest';
 import { mockClient } from 'aws-sdk-client-mock';
 import { mock } from 'vitest-mock-extended';
 
 import { APIGatewayProxyEventV2, Context } from 'aws-lambda';
-import {
-  DescribeLaunchTemplateVersionsCommand,
-  EC2Client,
-  RunInstancesCommand,
-} from '@aws-sdk/client-ec2';
+import { EC2Client, RunInstancesCommand } from '@aws-sdk/client-ec2';
+
+vi.mock('src/utils/authUtils');
 
 describe('start instance', () => {
   it('handler must start instance', async () => {

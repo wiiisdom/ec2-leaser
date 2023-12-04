@@ -1,13 +1,11 @@
 import Header from './Header';
-
-import { UserType } from '../models/User';
 import MainContent from './MainContent';
 
-const MainScreen = ({ user }: { user: UserType }) => {
+const MainScreen = () => {
   return (
     <>
       <Header />
-      <MainContent user={user} />
+      <MainContent />
     </>
   );
 };

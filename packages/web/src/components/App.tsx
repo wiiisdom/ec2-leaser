@@ -1,34 +1,45 @@
-import { Auth, Hub } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 import LoginScreen from './LoginScreen';
 import MainScreen from './MainScreen';
-import { UserType } from '../models/User';
+import { UserContext, UserType } from '@/contexts/UserContext';
+import { getUserInfo } from '@/api';
 
 const App = () => {
-  const [user, setUser] = useState<UserType | null>(null);
-  useEffect(() => {
-    Hub.listen('auth', ({ payload: { event, data } }) => {
-      // data contains {id, email, name, token}
-      switch (event) {
-        case 'signIn':
-          setUser(data.signInUserSession.idToken.payload);
-          break;
-        case 'signOut':
-          setUser(null);
-          break;
-        default:
-          break;
-      }
-    });
+  const [user, setUser] = useState<UserType>();
 
-    Auth.currentAuthenticatedUser()
-      .then(data => setUser(data.signInUserSession.idToken.payload))
-      .catch(() => {
-        setUser(null);
-      });
+  const getSession = async () => {
+    const token = localStorage.getItem('session');
+    if (token) {
+      const userInfo = await getUserInfo(token);
+      if (userInfo) {
+        setUser(userInfo);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getSession();
   }, []);
 
-  return !user ? <LoginScreen /> : <MainScreen user={user} />;
+  useEffect(() => {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    const token = params.get('token');
+    if (token) {
+      localStorage.setItem('session', token);
+      window.location.replace(window.location.origin);
+    }
+  }, []);
+
+  if (user) {
+    return (
+      <UserContext.Provider value={user}>
+        <MainScreen />
+      </UserContext.Provider>
+    );
+  } else {
+    return <LoginScreen />;
+  }
 };
 
 export default App;

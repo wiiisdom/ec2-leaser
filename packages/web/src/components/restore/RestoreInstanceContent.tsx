@@ -4,12 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { infer as zodInfer } from 'zod';
 
-import { API } from 'aws-amplify';
-import axios from 'axios';
 import { FormSchema } from '@/schemas/FormSchema';
 import { FormInstance } from '../common/FormInstance';
+import { callApi } from '@/api';
+import { useUser } from '@/contexts/UserContext';
 
 const RestoreInstanceContent = () => {
+  const user = useUser();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -22,13 +23,16 @@ const RestoreInstanceContent = () => {
   const onSubmit = async (values: zodInfer<typeof FormSchema>) => {
     setLoading(true);
     try {
-      const instanceId = await API.post('main', '/ec2/restore', {
-        body: values
-      });
+      const instanceId = await callApi(
+        user.token,
+        '/ec2/restore',
+        'POST',
+        values
+      );
       setMessage(`Restoring the instance ID ${instanceId}`);
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        setMessage(e.response?.data);
+      if (e instanceof Error) {
+        setMessage(e.message);
       } else {
         setMessage('Unknown error');
       }

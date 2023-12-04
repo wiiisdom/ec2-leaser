@@ -1,9 +1,9 @@
 import { DescribeLaunchTemplateVersionsCommand, EC2Client } from '@aws-sdk/client-ec2';
-import { ApiHandler } from 'sst/node/api';
+import { SecureHandler } from 'src/utils/handlerUtils';
 
 const client = new EC2Client({});
 
-export const handler = ApiHandler(async event => {
+export const handler = SecureHandler(async event => {
   try {
     if (event.body === undefined) {
       throw new Error('Missing parameters');

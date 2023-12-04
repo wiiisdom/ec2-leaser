@@ -1,5 +1,4 @@
-import SignInWithAzureAD from './login/SignInWithAzureAD';
-import SignInWithGoogle from './login/SignInWithGoogle';
+import { Button } from './ui/button';
 
 const LoginScreen = () => {
   return (
@@ -20,14 +19,21 @@ const LoginScreen = () => {
             Simple tool to help you start temporary EC2 instance with automatic
             terminate after a fixed duration.
             <br />
-            Start by providing your corporate google account.
+            Start by providing your enterprise account.
           </p>
           <div className="flex justify-center">
             <div className="m-1">
-              <SignInWithGoogle />
+              <a href={`${import.meta.env.VITE_API}/auth/google/authorize`}>
+                <Button variant={'secondary'}>Login with Google</Button>
+              </a>
             </div>
             <div className="m-1">
-              <SignInWithAzureAD />
+              <a
+                data-testid="azure-login"
+                href={`${import.meta.env.VITE_API}/auth/azure/authorize`}
+              >
+                <Button>Login with Azure</Button>
+              </a>
             </div>
           </div>
         </div>

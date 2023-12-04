@@ -1,5 +1,5 @@
 import { handler, snapshot } from 'src/handlers/api/snapshot';
-import { it, expect, describe } from 'vitest';
+import { it, expect, describe, vi } from 'vitest';
 import { mockClient } from 'aws-sdk-client-mock';
 import {
   CreateSnapshotCommand,
@@ -10,6 +10,8 @@ import {
 } from '@aws-sdk/client-ec2';
 import { APIGatewayProxyEventV2, Context } from 'aws-lambda';
 import { mock } from 'vitest-mock-extended';
+
+vi.mock('src/utils/authUtils');
 
 describe('ec2 snapshot', () => {
   it('handler must fail if no instanceId', async () => {
