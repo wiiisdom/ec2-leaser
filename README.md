@@ -40,10 +40,6 @@ yarn deploy --stage demo --region us-east-1 # on aws demo account
 
 ```
 
-### Google authentication
-
-We have added a auth system on top of the system to make it usable only by a specific google suite group. To use it, you must create a new project on https://console.developers.google.com, and generate Client ID for webapplication.
-
 ### Cost center data content
 
 To add cost center list so that the frontend can make use of it, add items directly from the AWS GUI:

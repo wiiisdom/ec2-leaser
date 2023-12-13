@@ -23,11 +23,6 @@ const LoginScreen = () => {
           </p>
           <div className="flex justify-center">
             <div className="m-1">
-              <a href={`${import.meta.env.VITE_API}/auth/google/authorize`}>
-                <Button variant={'secondary'}>Login with Google</Button>
-              </a>
-            </div>
-            <div className="m-1">
               <a
                 data-testid="azure-login"
                 href={`${import.meta.env.VITE_API}/auth/azure/authorize`}

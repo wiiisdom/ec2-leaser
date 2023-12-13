@@ -118,15 +118,6 @@ export function API({ stack, app }: StackContext) {
     buildCommand: "yarn build",
     environment: {
       VITE_API: api.url,
-      // VITE_COGNITO_REGION: stack.region,
-      // VITE_COGNITO_USER_POOL_ID: auth.cdk.userPool.userPoolId,
-      // VITE_COGNITO_USER_POOL_CLIENT_ID:
-      //   auth.cdk.userPoolClient.userPoolClientId,
-      // VITE_COGNITO_IDENTITY_POOL_ID: auth.cognitoIdentityPoolId as string,
-      // VITE_COGNITO_DOMAIN: `${domainPrefix}.auth.${stack.region}.amazoncognito.com`,
-      // VITE_PUBLIC_DOMAIN: app.local
-      //   ? "http://localhost:5173"
-      //   : `https://${siteDomain}`,
       VITE_SHOW_SNAPSHOT_RESTORE: app.stage !== "prod" ? "1" : "0"
     },
     customDomain: {
