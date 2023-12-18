@@ -10,6 +10,12 @@ definitions:
   caches:
     sonar: ~/.sonar/cache
   scripts:
+    - script:
+        &aws curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip";
+        unzip -qq awscliv2.zip;
+        ./aws/install;
+        export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token;
+        echo $BITBUCKET_STEP_OIDC_TOKEN > $(pwd)/web-identity-token
     - script: &install-trivy apt-get update;
         apt-get install -y wget apt-transport-https gnupg lsb-release;
         wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | tee /usr/share/keyrings/trivy.gpg > /dev/null;
@@ -41,11 +47,13 @@ definitions:
           - yarn lint
     - step: &backend-sonar
         name: sonar backend (sst)
+        oidc: true
         size: 2x
         caches:
           - node
           - sonar
         script:
+          - *aws
           - yarn
           - cd packages/functions/
           - yarn coverage
@@ -74,9 +82,27 @@ pipelines:
       - parallel:
           - step: *backend-sonar
           - step: *frontend-sonar
-      - step:
-          script:
-            - git push --mirror git@github.com:wiiisdom/ec2-leaser.git
+      - parallel:
+          - step:
+              name: Sync to GitHub
+              script:
+                - git push --mirror git@github.com:wiiisdom/ec2-leaser.git
+          - step:
+              name: Deploy to production
+              oidc: true
+              deployment: production
+              script:
+                - *aws
+                - yarn
+                - yarn deploy --stage prod --region eu-central-1
+          - step:
+              name: Deploy to demo
+              oidc: true
+              deployment: demo
+              script:
+                - *aws
+                - yarn
+                - yarn deploy --stage demo --region us-east-1
 
   custom:
     dependency-track:
