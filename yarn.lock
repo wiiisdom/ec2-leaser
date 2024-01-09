@@ -7273,10 +7273,10 @@ lru-cache@^7.14.1:
   dependencies:
     semver "^7.3.5"
 
-lucide-react@^0.303.0:
-  version "0.303.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.303.0.tgz#48409f43b68fc930ac74f3de24c99614a2dc05c2"
-  integrity sha512-B0B9T3dLEFBYPCUlnUS1mvAhW1craSbF9HO+JfBjAtpFUJ7gMIqmEwNSclikY3RiN2OnCkj/V1ReAQpaHae8Bg==
+lucide-react@^0.306.0:
+  version "0.306.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.306.0.tgz#07e427c1c0e6c6d50712b746b889ff807606131c"
+  integrity sha512-eShuk2PI3vxN4YN8kNPmhAsroSvPXbtaxU/UX/zrBcLLg8FeFH9MG7C2EYzYsT2rNrPVjbP7rpBz3mOviZYN3A==
 
 lz-string@^1.5.0:
   version "1.5.0"
