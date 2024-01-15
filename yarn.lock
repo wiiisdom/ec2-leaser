@@ -3300,7 +3300,7 @@
     "@smithy/types" "^2.5.0"
     tslib "^2.5.0"
 
-"@smithy/node-config-provider@^2.1.9":
+"@smithy/node-config-provider@^2.1.6", "@smithy/node-config-provider@^2.1.9":
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/@smithy/node-config-provider/-/node-config-provider-2.1.9.tgz#2e9e5ee7c4412be6696a74b26f9ed2a66e2a5fb4"
   integrity sha512-tUyW/9xrRy+s7RXkmQhgYkAPMpTIF8izK4orhHjNFEKR3QZiOCbWB546Y8iB/Fpbm3O9+q0Af9rpywLKJOwtaQ==
@@ -3687,6 +3687,15 @@
     "@smithy/property-provider" "^2.0.17"
     "@smithy/smithy-client" "^2.2.1"
     "@smithy/types" "^2.8.0"
+    tslib "^2.5.0"
+
+"@smithy/util-endpoints@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@smithy/util-endpoints/-/util-endpoints-1.0.5.tgz#9e6ffdc9ac9d597869209e3b83784a13f277956e"
+  integrity sha512-K7qNuCOD5K/90MjHvHm9kJldrfm40UxWYQxNEShMFxV/lCCCRIg8R4uu1PFAxRvPxNpIdcrh1uK6I1ISjDXZJw==
+  dependencies:
+    "@smithy/node-config-provider" "^2.1.6"
+    "@smithy/types" "^2.6.0"
     tslib "^2.5.0"
 
 "@smithy/util-endpoints@^1.0.4":
@@ -8593,10 +8602,10 @@ sst-aws-cdk@2.110.1-1:
   optionalDependencies:
     fsevents "2.3.2"
 
-sst@2.39.2:
-  version "2.39.2"
-  resolved "https://registry.yarnpkg.com/sst/-/sst-2.39.2.tgz#b76e4b7e8263bb07e93f2d39eadc4e95fcf5b4b9"
-  integrity sha512-lWtdSIoaZLa+pNzuwGmfExj6lvRFv6flT0Zrja+jlZt7eMJ8GPMUqFQoX4simkfNaKCDWSgHrQhexuDvFgEDJQ==
+sst@2.39.4:
+  version "2.39.4"
+  resolved "https://registry.yarnpkg.com/sst/-/sst-2.39.4.tgz#2e268d7012bb73607009fb6b0de96682f874cd51"
+  integrity sha512-nEIxEeH4HM+S6KyNNfJcqqvkRx01HwVLNa/nqiyir7d5ETtRYDT0ec2Ebd3JDLOiXNYyYTCb/aXzrB72BpiKUw==
   dependencies:
     "@aws-cdk/aws-apigatewayv2-alpha" "^2.110.1-alpha.0"
     "@aws-cdk/aws-apigatewayv2-authorizers-alpha" "^2.110.1-alpha.0"
@@ -8626,6 +8635,7 @@ sst@2.39.2:
     "@babel/generator" "^7.20.5"
     "@babel/plugin-syntax-typescript" "^7.21.4"
     "@smithy/signature-v4" "^2.0.16"
+    "@smithy/util-endpoints" "1.0.5"
     "@trpc/server" "9.16.0"
     adm-zip "^0.5.10"
     aws-cdk-lib "2.110.1"
