@@ -64,7 +64,7 @@ describe('ec2 restore', () => {
     const context = mock<Context>();
     const result = await handler(event, context);
     expect(result.statusCode).toStrictEqual(200);
-    expect(result.body).toStrictEqual('instanceId');
+    expect(result.body).toStrictEqual('{"instanceId":"instanceId"}');
   });
   it('replaceRootVolume must fail if bad instanceId is provided', () => {
     const ec2ClientMock = mockClient(EC2Client);

@@ -22,7 +22,9 @@ export const handler = SecureHandler(async evt => {
 
     return {
       statusCode: 200,
-      body: commandResult.ReplaceRootVolumeTask?.InstanceId,
+      body: JSON.stringify({
+        instanceId: commandResult.ReplaceRootVolumeTask?.InstanceId,
+      }),
     };
   } catch (err) {
     if (err instanceof Error) {

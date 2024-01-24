@@ -23,7 +23,9 @@ export const handler = SecureHandler(async evt => {
 
     return {
       statusCode: 200,
-      body: ebsSnapshot.SnapshotId,
+      body: JSON.stringify({
+        snapshotId: ebsSnapshot.SnapshotId,
+      }),
     };
   } catch (err) {
     if (err instanceof Error) {

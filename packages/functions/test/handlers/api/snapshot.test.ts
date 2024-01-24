@@ -58,7 +58,7 @@ describe('ec2 snapshot', () => {
     const context = mock<Context>();
     const result = await handler(event, context);
     expect(result.statusCode).toStrictEqual(200);
-    expect(result.body).toStrictEqual('snapshotId');
+    expect(result.body).toStrictEqual('{"snapshotId":"snapshotId"}');
   });
   it('snapshot must fail if bad instanceId is provided', () => {
     const ec2ClientMock = mockClient(EC2Client);

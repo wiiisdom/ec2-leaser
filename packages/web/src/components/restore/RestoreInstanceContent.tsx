@@ -23,13 +23,8 @@ const RestoreInstanceContent = () => {
   const onSubmit = async (values: zodInfer<typeof FormSchema>) => {
     setLoading(true);
     try {
-      const instanceId = await callApi(
-        user.token,
-        '/ec2/restore',
-        'POST',
-        values
-      );
-      setMessage(`Restoring the instance ID ${instanceId}`);
+      const result = await callApi(user.token, '/ec2/restore', 'POST', values);
+      setMessage(`Restoring the instance ID ${result.instanceId}`);
     } catch (e) {
       if (e instanceof Error) {
         setMessage(e.message);
@@ -46,8 +41,7 @@ const RestoreInstanceContent = () => {
         onSubmit={onSubmit}
         loading={loading}
         description="This is the instance ID you want to restore. It will work only
-                  if it has been snapshoted before. Only one backup is stored
-                  per instance ID."
+                  if it has been snapshot'ed before."
       />
       {message && <p>{message}</p>}
     </div>

@@ -24,13 +24,10 @@ const SnapshotInstanceContent = () => {
   const onSubmit = async (values: zodInfer<typeof FormSchema>) => {
     setLoading(true);
     try {
-      const snapshotId = await callApi(
-        user.token,
-        '/ec2/snapshot',
-        'POST',
-        values
+      const result = await callApi(user.token, '/ec2/snapshot', 'POST', values);
+      setMessage(
+        `Saving a snapshot under the snapshot ID ${result.snapshotId}`
       );
-      setMessage(`Saving a snapshot under the snapshot ID ${snapshotId}`);
     } catch (e) {
       if (e instanceof Error) {
         setMessage(e.message);
@@ -46,7 +43,7 @@ const SnapshotInstanceContent = () => {
         form={form}
         onSubmit={onSubmit}
         loading={loading}
-        description="This is the instance ID you want to restore. It will work only if it has been snapshoted before. Only one backup is stored per instance ID."
+        description="This is the instance ID you want to snapshot. Only one backup is stored per instance ID (if exist, previous will be deleted)."
       />
       {message && <p>{message}</p>}
     </div>
