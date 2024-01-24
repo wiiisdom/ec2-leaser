@@ -5,11 +5,12 @@ import {
   RenderResult
 } from '@testing-library/react';
 import LaunchTemplateContainer from '../../../src/components/start/LaunchTemplateContainer';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { describe, vi, beforeEach, it, expect } from 'vitest';
 import { LaunchTemplateType } from '../../../src/models/LaunchTemplate';
 
-vi.mock('@tanstack/react-query');
+const queryClient = new QueryClient();
 
 describe('LaunchTemplateContainer', () => {
   let data: LaunchTemplateType[];
@@ -28,12 +29,14 @@ describe('LaunchTemplateContainer', () => {
     selectedLaunchTemplateId = '1';
     setLaunchTemplate = vi.fn();
     component = render(
-      <LaunchTemplateContainer
-        data={data}
-        search={search}
-        selectedLaunchTemplateId={selectedLaunchTemplateId}
-        setLaunchTemplate={setLaunchTemplate}
-      />
+      <QueryClientProvider client={queryClient}>
+        <LaunchTemplateContainer
+          data={data}
+          search={search}
+          selectedLaunchTemplateId={selectedLaunchTemplateId}
+          setLaunchTemplate={setLaunchTemplate}
+        />
+      </QueryClientProvider>
     );
   });
 
@@ -52,12 +55,14 @@ describe('LaunchTemplateContainer', () => {
 
     search = 'Template A';
     component.rerender(
-      <LaunchTemplateContainer
-        data={data}
-        search={search}
-        selectedLaunchTemplateId={selectedLaunchTemplateId}
-        setLaunchTemplate={setLaunchTemplate}
-      />
+      <QueryClientProvider client={queryClient}>
+        <LaunchTemplateContainer
+          data={data}
+          search={search}
+          selectedLaunchTemplateId={selectedLaunchTemplateId}
+          setLaunchTemplate={setLaunchTemplate}
+        />
+      </QueryClientProvider>
     );
 
     expect(getByText('Template A')).toBeInTheDocument();
@@ -85,7 +90,11 @@ describe('LaunchTemplateContainer', () => {
       setLaunchTemplate: vi.fn()
     };
     cleanup();
-    const { getAllByTestId } = render(<LaunchTemplateContainer {...props} />);
+    const { getAllByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <LaunchTemplateContainer {...props} />
+      </QueryClientProvider>
+    );
     const expectedOrder = sortedData.map(template => template.name);
     const displayedOrder = getAllByTestId('template-name').map(
       node => node.textContent

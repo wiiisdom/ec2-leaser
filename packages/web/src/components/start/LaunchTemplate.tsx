@@ -16,11 +16,12 @@ const LaunchTemplate = memo(
     setLaunchTemplate: Function;
   }) => {
     const user = useUser();
-    const { data, isLoading, error } = useQuery(
-      ['template', id],
-      () => callApi(user.token, '/description', 'POST', { instanceId: id }),
-      fetchPolicy
-    );
+    const { data, isLoading, error } = useQuery({
+      queryKey: ['template', id],
+      queryFn: () =>
+        callApi(user.token, '/description', 'POST', { instanceId: id }),
+      ...fetchPolicy
+    });
     const onClick = () =>
       selected ? setLaunchTemplate(null) : setLaunchTemplate({ id, name });
 

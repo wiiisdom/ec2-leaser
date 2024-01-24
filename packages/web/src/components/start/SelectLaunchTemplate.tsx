@@ -15,11 +15,11 @@ const SelectLaunchTemplate = ({
 }) => {
   const user = useUser();
   const [search, setSearch] = useState('');
-  const { data, isLoading, error } = useQuery(
-    ['launchTemplates'],
-    () => callApi(user.token, '/list'),
-    fetchPolicy
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['launchTemplates'],
+    queryFn: () => callApi(user.token, '/list'),
+    ...fetchPolicy
+  });
 
   data?.sort((a: LaunchTemplateType, b: LaunchTemplateType) =>
     a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
