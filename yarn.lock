@@ -3329,16 +3329,6 @@
     "@smithy/types" "^2.5.0"
     tslib "^2.5.0"
 
-"@smithy/node-config-provider@^2.1.6":
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/@smithy/node-config-provider/-/node-config-provider-2.1.9.tgz#2e9e5ee7c4412be6696a74b26f9ed2a66e2a5fb4"
-  integrity sha512-tUyW/9xrRy+s7RXkmQhgYkAPMpTIF8izK4orhHjNFEKR3QZiOCbWB546Y8iB/Fpbm3O9+q0Af9rpywLKJOwtaQ==
-  dependencies:
-    "@smithy/property-provider" "^2.0.17"
-    "@smithy/shared-ini-file-loader" "^2.2.8"
-    "@smithy/types" "^2.8.0"
-    tslib "^2.5.0"
-
 "@smithy/node-config-provider@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@smithy/node-config-provider/-/node-config-provider-2.2.1.tgz#c440c7948d58d72f0e212aa1967aa12f0729defd"
@@ -3388,14 +3378,6 @@
   integrity sha512-k3D2qp9o6imTrLaXRj6GdLYEJr1sXqS99nLhzq8fYmJjSVOeMg/G+1KVAAc7Oxpu71rlZ2f8SSZxcSxkevuR0A==
   dependencies:
     "@smithy/types" "^2.5.0"
-    tslib "^2.5.0"
-
-"@smithy/property-provider@^2.0.17":
-  version "2.0.17"
-  resolved "https://registry.yarnpkg.com/@smithy/property-provider/-/property-provider-2.0.17.tgz#288475021613649811dc79a9fab4894be01cd069"
-  integrity sha512-+VkeZbVu7qtQ2DjI48Qwaf9fPOr3gZIwxQpuLJgRRSkWsdSvmaTCxI3gzRFKePB63Ts9r4yjn4HkxSCSkdWmcQ==
-  dependencies:
-    "@smithy/types" "^2.8.0"
     tslib "^2.5.0"
 
 "@smithy/property-provider@^2.1.1":
@@ -3500,14 +3482,6 @@
     "@smithy/types" "^2.5.0"
     tslib "^2.5.0"
 
-"@smithy/shared-ini-file-loader@^2.2.8":
-  version "2.2.8"
-  resolved "https://registry.yarnpkg.com/@smithy/shared-ini-file-loader/-/shared-ini-file-loader-2.2.8.tgz#b5fa153d4920a3c740215c60ad1667972d67a164"
-  integrity sha512-E62byatbwSWrtq9RJ7xN40tqrRKDGrEL4EluyNpaIDvfvet06a/QC58oHw2FgVaEgkj0tXZPjZaKrhPfpoU0qw==
-  dependencies:
-    "@smithy/types" "^2.8.0"
-    tslib "^2.5.0"
-
 "@smithy/shared-ini-file-loader@^2.3.1":
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/@smithy/shared-ini-file-loader/-/shared-ini-file-loader-2.3.1.tgz#a2e28b4d85f8a8262a84403fa2b74a086b3a7703"
@@ -3608,13 +3582,6 @@
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@smithy/types/-/types-2.6.0.tgz#a09c40b512e2df213229a20a43d0d9cfcf55ca3e"
   integrity sha512-PgqxJq2IcdMF9iAasxcqZqqoOXBHufEfmbEUdN1pmJrJltT42b0Sc8UiYSWWzKkciIp9/mZDpzYi4qYG1qqg6g==
-  dependencies:
-    tslib "^2.5.0"
-
-"@smithy/types@^2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@smithy/types/-/types-2.8.0.tgz#bdbaa0a54c9c3538d6c763c6f32d3e4f76fe0df9"
-  integrity sha512-h9sz24cFgt/W1Re22OlhQKmUZkNh244ApgRsUDYinqF8R+QgcsBIX344u2j61TPshsTz3CvL6HYU1DnQdsSrHA==
   dependencies:
     tslib "^2.5.0"
 
@@ -3786,15 +3753,6 @@
     "@smithy/property-provider" "^2.1.1"
     "@smithy/smithy-client" "^2.3.1"
     "@smithy/types" "^2.9.1"
-    tslib "^2.5.0"
-
-"@smithy/util-endpoints@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@smithy/util-endpoints/-/util-endpoints-1.0.5.tgz#9e6ffdc9ac9d597869209e3b83784a13f277956e"
-  integrity sha512-K7qNuCOD5K/90MjHvHm9kJldrfm40UxWYQxNEShMFxV/lCCCRIg8R4uu1PFAxRvPxNpIdcrh1uK6I1ISjDXZJw==
-  dependencies:
-    "@smithy/node-config-provider" "^2.1.6"
-    "@smithy/types" "^2.6.0"
     tslib "^2.5.0"
 
 "@smithy/util-endpoints@^1.0.4":
@@ -8757,10 +8715,10 @@ sst-aws-cdk@2.110.1-1:
   optionalDependencies:
     fsevents "2.3.2"
 
-sst@2.39.6:
-  version "2.39.6"
-  resolved "https://registry.yarnpkg.com/sst/-/sst-2.39.6.tgz#0b517c819c6488796e848fdab7b6d4389f5442b5"
-  integrity sha512-7g02hLh/pnMfVh5Q+qv5roreD+no3OP2kbdNdrWwxpWKlQn/pp7IBpU3TvWw2+MNKR8VE7QqbVyKsMjier5VCQ==
+sst@2.39.11:
+  version "2.39.11"
+  resolved "https://registry.yarnpkg.com/sst/-/sst-2.39.11.tgz#250b70b92da7bf97e467d89d156f7161d4ef64ad"
+  integrity sha512-OU+YEXffMSQKz354Gm22HiAZQtbml4EwjxAjBfh6mHj/p+5/sa5gKyNxIxNTWyYiartFChD653fITRbrvuZMjg==
   dependencies:
     "@aws-cdk/aws-apigatewayv2-alpha" "^2.110.1-alpha.0"
     "@aws-cdk/aws-apigatewayv2-authorizers-alpha" "^2.110.1-alpha.0"
@@ -8790,7 +8748,6 @@ sst@2.39.6:
     "@babel/generator" "^7.20.5"
     "@babel/plugin-syntax-typescript" "^7.21.4"
     "@smithy/signature-v4" "^2.0.16"
-    "@smithy/util-endpoints" "1.0.5"
     "@trpc/server" "9.16.0"
     adm-zip "^0.5.10"
     aws-cdk-lib "2.110.1"
