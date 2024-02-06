@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.0.0",
-    "sst": "2.39.11",
+    "sst": "2.40.1",
     "typescript": "^5.0.0"
   },
   "dependencies": {},
