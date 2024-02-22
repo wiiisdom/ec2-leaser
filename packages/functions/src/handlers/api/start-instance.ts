@@ -55,6 +55,10 @@ export const handler = SecureHandler(async event => {
           Tags: tags,
         },
       ],
+      MetadataOptions: {
+        HttpEndpoint: 'enabled',
+        HttpTokens: 'required',
+      },
     };
 
     const data = await client.send(new RunInstancesCommand(params));
