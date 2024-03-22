@@ -72,6 +72,7 @@ export const handler = SecureHandler(async event => {
       headers: TEXT_PLAIN,
       body: JSON.stringify({
         instanceId: data.Instances[0].InstanceId,
+        privateIp: data.Instances[0].PrivateIpAddress,
       }),
     };
   } catch (error) {

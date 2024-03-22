@@ -15,6 +15,7 @@ describe('start instance', () => {
       Instances: [
         {
           InstanceId: 'id',
+          PrivateIpAddress: '1.1.1.1',
         },
       ],
     });
@@ -33,6 +34,7 @@ describe('start instance', () => {
     expect(result.body).toStrictEqual(
       JSON.stringify({
         instanceId: 'id',
+        privateIp: '1.1.1.1',
       })
     );
   });

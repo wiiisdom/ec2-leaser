@@ -32,6 +32,7 @@ definitions:
         script:
           - yarn
           - cd packages/web/
+          - yarn typecheck
           - yarn coverage
           - pipe: sonarsource/sonarcloud-scan:2.0.0
             variables:
@@ -55,7 +56,9 @@ definitions:
         script:
           - *aws
           - yarn
+          - yarn build --stage dev
           - cd packages/functions/
+          - yarn typecheck
           - yarn coverage
           - pipe: sonarsource/sonarcloud-scan:2.0.0
             variables:

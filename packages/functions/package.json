@@ -14,6 +14,7 @@
     "@types/node": "^18.13.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@vitest/coverage-v8": "^1.0.0",
+    "aws-sdk-client-mock": "^4.0.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard-with-typescript": "^43.0.0",
@@ -22,7 +23,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "prettier": "^3.0.0",
-    "sst": "2.41.2",
+    "sst": "2.41.3",
     "typescript": "*",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^1.2.2",
@@ -30,10 +31,9 @@
     "vitest-sonar-reporter": "^2.0.0"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.454.0",
-    "@aws-sdk/client-ec2": "^3.440.0",
-    "@aws-sdk/lib-dynamodb": "^3.454.0",
-    "aws-sdk-client-mock": "^3.0.0",
+    "@aws-sdk/client-dynamodb": "3.454.0",
+    "@aws-sdk/client-ec2": "3.454.0",
+    "@aws-sdk/lib-dynamodb": "3.454.0",
     "debug": "^4.3.4"
   }
 }

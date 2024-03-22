@@ -26,7 +26,7 @@ const LaunchTemplate = memo(
       selected ? setLaunchTemplate(null) : setLaunchTemplate({ id, name });
 
     if (error) {
-      throw new Error(error as string);
+      throw new Error(error as unknown as string);
     }
 
     return (

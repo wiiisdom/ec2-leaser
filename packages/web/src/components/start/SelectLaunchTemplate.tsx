@@ -26,7 +26,7 @@ const SelectLaunchTemplate = ({
   ) as LaunchTemplateType[];
 
   if (error) {
-    throw new Error(error as string);
+    throw new Error(error as unknown as string);
   }
 
   return (

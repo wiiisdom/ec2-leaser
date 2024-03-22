@@ -4,7 +4,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
-    threads: false,
+    pool: 'forks',
     outputFile: 'sonar-report.xml',
     coverage: {
       reporter: ['lcov', 'text'],
