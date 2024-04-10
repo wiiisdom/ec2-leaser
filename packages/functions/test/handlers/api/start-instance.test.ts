@@ -4,13 +4,31 @@ import { mockClient } from 'aws-sdk-client-mock';
 import { mock } from 'vitest-mock-extended';
 
 import { APIGatewayProxyEventV2, Context } from 'aws-lambda';
-import { EC2Client, RunInstancesCommand } from '@aws-sdk/client-ec2';
+import {
+  DescribeLaunchTemplateVersionsCommand,
+  EC2Client,
+  RunInstancesCommand,
+} from '@aws-sdk/client-ec2';
 
 vi.mock('src/utils/authUtils');
 
 describe('start instance', () => {
   it('handler must start instance', async () => {
     const ec2ClientMock = mockClient(EC2Client);
+    ec2ClientMock.on(DescribeLaunchTemplateVersionsCommand).resolves({
+      LaunchTemplateVersions: [
+        {
+          LaunchTemplateData: {
+            ImageId: 'ami-id',
+            InstanceType: 't2.micro',
+            KeyName: 'key-name',
+            SecurityGroupIds: ['sg-id'],
+          },
+          VersionNumber: 1,
+        },
+      ],
+    });
+
     ec2ClientMock.on(RunInstancesCommand).resolves({
       Instances: [
         {
@@ -30,6 +48,11 @@ describe('start instance', () => {
 
     const context = mock<Context>();
     const result = await handler(event, context);
+
+    const runInstanceCommandInput = ec2ClientMock.call(1).args[0].input;
+    expect(runInstanceCommandInput).toHaveProperty('ImageId', 'ami-id');
+    expect(runInstanceCommandInput).toHaveProperty('InstanceType', 't2.micro');
+
     expect(result.statusCode).toStrictEqual(200);
     expect(result.body).toStrictEqual(
       JSON.stringify({
@@ -47,8 +70,34 @@ describe('start instance', () => {
     expect(result.statusCode).toStrictEqual(500);
     expect(result.body).toStrictEqual('Missing parameters');
   });
-  it('handler must return a error if aws error', async () => {
+  it('handler must return a error if aws error on describe launch template', async () => {
     const ec2ClientMock = mockClient(EC2Client);
+
+    ec2ClientMock.on(DescribeLaunchTemplateVersionsCommand).rejects('AWS error');
+    const event = mock<APIGatewayProxyEventV2>();
+    event.body = JSON.stringify({
+      instanceId: 'id',
+    });
+    const context = mock<Context>();
+    const result = await handler(event, context);
+    expect(result.statusCode).toStrictEqual(500);
+    expect(result.body).toStrictEqual('AWS error');
+  });
+  it('handler must return a error if aws error on run instance', async () => {
+    const ec2ClientMock = mockClient(EC2Client);
+    ec2ClientMock.on(DescribeLaunchTemplateVersionsCommand).resolves({
+      LaunchTemplateVersions: [
+        {
+          LaunchTemplateData: {
+            ImageId: 'ami-id',
+            InstanceType: 't2.micro',
+            KeyName: 'key-name',
+            SecurityGroupIds: ['sg-id'],
+          },
+          VersionNumber: 1,
+        },
+      ],
+    });
     ec2ClientMock.on(RunInstancesCommand).rejects('AWS error');
     const event = mock<APIGatewayProxyEventV2>();
     event.body = JSON.stringify({
@@ -61,6 +110,19 @@ describe('start instance', () => {
   });
   it('handler must return a error if no instance in result', async () => {
     const ec2ClientMock = mockClient(EC2Client);
+    ec2ClientMock.on(DescribeLaunchTemplateVersionsCommand).resolves({
+      LaunchTemplateVersions: [
+        {
+          LaunchTemplateData: {
+            ImageId: 'ami-id',
+            InstanceType: 't2.micro',
+            KeyName: 'key-name',
+            SecurityGroupIds: ['sg-id'],
+          },
+          VersionNumber: 1,
+        },
+      ],
+    });
     ec2ClientMock.on(RunInstancesCommand).resolves({
       Instances: [],
     });

@@ -1,4 +1,9 @@
-import { EC2Client, RunInstancesCommand, RunInstancesCommandInput } from '@aws-sdk/client-ec2';
+import {
+  DescribeLaunchTemplateVersionsCommand,
+  EC2Client,
+  RunInstancesCommand,
+  RunInstancesCommandInput,
+} from '@aws-sdk/client-ec2';
 import { SecureHandler } from 'src/utils/handlerUtils';
 
 const client = new EC2Client({});
@@ -15,6 +20,15 @@ export const handler = SecureHandler(async event => {
     const launchTemplateId = request.instanceId;
     const name = request.title;
     const { owner, costCenter, schedule } = request;
+
+    // retrieve launchTemplate to extract imageId, instanceType, keyName and securityGroupIds
+    const launchTemplate = await client.send(
+      new DescribeLaunchTemplateVersionsCommand({
+        LaunchTemplateId: launchTemplateId,
+        Versions: ['$Latest'],
+      })
+    );
+    const launchTemplateData = launchTemplate.LaunchTemplateVersions?.[0].LaunchTemplateData;
 
     const tags = [
       {
@@ -42,9 +56,9 @@ export const handler = SecureHandler(async event => {
     const params: RunInstancesCommandInput = {
       MaxCount: 1,
       MinCount: 1,
-      LaunchTemplate: {
-        LaunchTemplateId: launchTemplateId,
-      },
+      ImageId: launchTemplateData?.ImageId,
+      InstanceType: launchTemplateData?.InstanceType,
+      KeyName: launchTemplateData?.KeyName,
       TagSpecifications: [
         {
           ResourceType: 'instance',
@@ -59,6 +73,13 @@ export const handler = SecureHandler(async event => {
         HttpEndpoint: 'enabled',
         HttpTokens: 'required',
       },
+      NetworkInterfaces: [
+        {
+          DeviceIndex: 0,
+          AssociatePublicIpAddress: false,
+          Groups: launchTemplateData?.SecurityGroupIds,
+        },
+      ],
     };
 
     const data = await client.send(new RunInstancesCommand(params));
