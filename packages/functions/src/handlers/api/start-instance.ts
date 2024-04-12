@@ -1,6 +1,7 @@
 import {
   DescribeLaunchTemplateVersionsCommand,
   EC2Client,
+  LaunchTemplateTagSpecification,
   RunInstancesCommand,
   RunInstancesCommandInput,
 } from '@aws-sdk/client-ec2';
@@ -29,6 +30,16 @@ export const handler = SecureHandler(async event => {
       })
     );
     const launchTemplateData = launchTemplate.LaunchTemplateVersions?.[0].LaunchTemplateData;
+
+    const instanceTags =
+      launchTemplateData?.TagSpecifications?.find(
+        (tag: LaunchTemplateTagSpecification) => tag.ResourceType === 'instance'
+      )?.Tags || [];
+
+    const volumeTags =
+      launchTemplateData?.TagSpecifications?.find(
+        (tag: LaunchTemplateTagSpecification) => tag.ResourceType === 'volume'
+      )?.Tags || [];
 
     const tags = [
       {
@@ -62,11 +73,11 @@ export const handler = SecureHandler(async event => {
       TagSpecifications: [
         {
           ResourceType: 'instance',
-          Tags: tags,
+          Tags: [...tags, ...instanceTags],
         },
         {
           ResourceType: 'volume',
-          Tags: tags,
+          Tags: [...tags, ...volumeTags],
         },
       ],
       MetadataOptions: {
