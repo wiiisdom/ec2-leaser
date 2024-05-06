@@ -31,9 +31,9 @@
     "vitest-sonar-reporter": "^2.0.0"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.563.0",
-    "@aws-sdk/client-ec2": "3.563.0",
-    "@aws-sdk/lib-dynamodb": "3.563.0",
+    "@aws-sdk/client-dynamodb": "3.568.0",
+    "@aws-sdk/client-ec2": "3.568.0",
+    "@aws-sdk/lib-dynamodb": "3.568.0",
     "debug": "^4.3.4"
   }
 }
