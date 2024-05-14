@@ -1,10 +1,4 @@
-import {
-  DescribeLaunchTemplateVersionsCommand,
-  EC2Client,
-  LaunchTemplateTagSpecification,
-  RunInstancesCommand,
-  RunInstancesCommandInput,
-} from '@aws-sdk/client-ec2';
+import { EC2Client, RunInstancesCommand, RunInstancesCommandInput } from '@aws-sdk/client-ec2';
 import { SecureHandler } from 'src/utils/handlerUtils';
 
 const client = new EC2Client({});
@@ -22,25 +16,6 @@ export const handler = SecureHandler(async event => {
     const name = request.title;
     const { owner, costCenter, schedule } = request;
 
-    // retrieve launchTemplate to extract imageId, instanceType, keyName and securityGroupIds
-    const launchTemplate = await client.send(
-      new DescribeLaunchTemplateVersionsCommand({
-        LaunchTemplateId: launchTemplateId,
-        Versions: ['$Latest'],
-      })
-    );
-    const launchTemplateData = launchTemplate.LaunchTemplateVersions?.[0].LaunchTemplateData;
-
-    const instanceTags =
-      launchTemplateData?.TagSpecifications?.find(
-        (tag: LaunchTemplateTagSpecification) => tag.ResourceType === 'instance'
-      )?.Tags || [];
-
-    const volumeTags =
-      launchTemplateData?.TagSpecifications?.find(
-        (tag: LaunchTemplateTagSpecification) => tag.ResourceType === 'volume'
-      )?.Tags || [];
-
     const tags = [
       {
         Key: 'Name',
@@ -55,6 +30,10 @@ export const handler = SecureHandler(async event => {
         Value: costCenter,
       },
       {
+        Key: 'project',
+        Value: 'ec2-leaser',
+      },
+      {
         Key: 'owner',
         Value: owner,
       },
@@ -67,30 +46,27 @@ export const handler = SecureHandler(async event => {
     const params: RunInstancesCommandInput = {
       MaxCount: 1,
       MinCount: 1,
-      ImageId: launchTemplateData?.ImageId,
-      InstanceType: launchTemplateData?.InstanceType,
-      KeyName: launchTemplateData?.KeyName,
+      LaunchTemplate: {
+        LaunchTemplateId: launchTemplateId,
+      },
       TagSpecifications: [
         {
           ResourceType: 'instance',
-          Tags: [...tags, ...instanceTags],
+          Tags: tags,
         },
         {
           ResourceType: 'volume',
-          Tags: [...tags, ...volumeTags],
+          Tags: tags,
+        },
+        {
+          ResourceType: 'network-interface',
+          Tags: tags,
         },
       ],
       MetadataOptions: {
         HttpEndpoint: 'enabled',
         HttpTokens: 'required',
       },
-      NetworkInterfaces: [
-        {
-          DeviceIndex: 0,
-          AssociatePublicIpAddress: false,
-          Groups: launchTemplateData?.SecurityGroupIds,
-        },
-      ],
     };
 
     const data = await client.send(new RunInstancesCommand(params));
