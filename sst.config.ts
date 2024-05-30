@@ -11,14 +11,15 @@ export default {
   stacks(app) {
     app.setDefaultFunctionProps({
       logRetention: "one_year",
-      runtime: "nodejs18.x"
+      runtime: "nodejs20.x"
     });
     app.stack(API, {
       id: "backend-stack",
       tags: {
         costcenter: "eng:lab",
         project: "ec2-leaser",
-        owner: "lab@wiiisdom.com"
+        owner: "lab@wiiisdom.com",
+        management: "sst"
       }
     });
   }
