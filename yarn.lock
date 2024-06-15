@@ -8363,10 +8363,10 @@ sst-aws-cdk@2.142.1:
   optionalDependencies:
     fsevents "2.3.2"
 
-sst@2.42.0:
-  version "2.42.0"
-  resolved "https://registry.yarnpkg.com/sst/-/sst-2.42.0.tgz#8399605e4ef887cd956a745641d9cc4b1602d316"
-  integrity sha512-p3Wi8SS7pn0MQ+062uEiMZJX1iq2nSaJi76f+bQki2FLj9xu3l1F4x9IULv76pMFNPZKtNd8yr1/RT2RiwK95Q==
+sst@2.43.1:
+  version "2.43.1"
+  resolved "https://registry.yarnpkg.com/sst/-/sst-2.43.1.tgz#2ff16dd9fd135fb3f7b52bbdb280f7a5b05a02b1"
+  integrity sha512-D2SabojjbVkG678uni9ih9Q7qsuoEvBdSKltItY3YrBYeIsJ2YYthHCdQXP+6U40cwpAu3rr/VtGQsJDA4aCQw==
   dependencies:
     "@aws-cdk/aws-lambda-python-alpha" "2.142.1-alpha.0"
     "@aws-cdk/cloud-assembly-schema" "2.142.1"
