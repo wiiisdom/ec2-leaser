@@ -16,15 +16,15 @@ The frontend is a React application. It's design to be deployed on AWS.
 Run the backend only (you need only that to use a local frontend):
 
 ```
-yarn
-yarn dev
+pnpm install
+pnpm dev
 ```
 
 Start the frontend:
 
 ```
 cd packages/web/
-yarn dev
+pnpm dev
 ```
 
 no need to provide environment variables, are these are made available to the frontend via SST.
@@ -35,8 +35,8 @@ Deploy the infrastructure with SST (front and back stack)
 (it push the frontend to S3 and invalidate cloudfront distribution)
 
 ```
-yarn deploy --stage prod --region eu-central-1 # on aws prod account
-yarn deploy --stage demo --region us-east-1 # on aws demo account
+npx sst deploy --stage prod --region eu-central-1 # on aws prod account
+npx sst deploy --stage demo --region us-east-1 # on aws demo account
 
 ```
 

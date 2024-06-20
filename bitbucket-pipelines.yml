@@ -8,6 +8,7 @@ definitions:
     docker:
       memory: 4096
   caches:
+    pnpm: $BITBUCKET_CLONE_DIR/.pnpm-store
     sonar: ~/.sonar/cache
   scripts:
     - script:
@@ -22,18 +23,21 @@ definitions:
         echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | tee -a /etc/apt/sources.list.d/trivy.list;
         apt-get update;
         apt-get install -y trivy;
+    - script: &pnpm-install corepack enable;
+        corepack prepare pnpm@latest-9 --activate;
+        pnpm install
   steps:
     - step: &frontend-sonar
         name: sonar frontend
         size: 2x
         caches:
-          - node
+          - pnpm
           - sonar
         script:
-          - yarn
+          - *pnpm-install
           - cd packages/web/
-          - yarn typecheck
-          - yarn coverage
+          - pnpm typecheck
+          - pnpm coverage
           - pipe: sonarsource/sonarcloud-scan:2.0.0
             variables:
               EXTRA_ARGS: >
@@ -45,21 +49,21 @@ definitions:
                 -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
                 -Dsonar.testExecutionReportPaths=./sonar-report.xml
               SONAR_SCANNER_OPTS: -Xmx2048m
-          - yarn lint
+          - pnpm lint
     - step: &backend-sonar
         name: sonar backend (sst)
         oidc: true
         size: 2x
         caches:
-          - node
+          - pnpm
           - sonar
         script:
           - *aws
-          - yarn
-          - yarn build --stage dev
+          - *pnpm-install
+          - pnpm build --stage dev
           - cd packages/functions/
-          - yarn typecheck
-          - yarn coverage
+          - pnpm typecheck
+          - pnpm coverage
           - pipe: sonarsource/sonarcloud-scan:2.0.0
             variables:
               EXTRA_ARGS: >
@@ -71,7 +75,7 @@ definitions:
                 -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
                 -Dsonar.testExecutionReportPaths=./sonar-report.xml
               SONAR_SCANNER_OPTS: -Xmx4096m
-          - yarn lint
+          - pnpm lint
 
 pipelines:
   pull-requests:
@@ -92,30 +96,34 @@ pipelines:
                 - git push --mirror git@github.com:wiiisdom/ec2-leaser.git
           - step:
               name: Deploy to production
+              caches:
+                - pnpm
               oidc: true
               deployment: production
               script:
                 - *aws
-                - yarn
-                - yarn deploy --stage prod --region eu-central-1
+                - *pnpm-install
+                - npx sst deploy --stage prod --region eu-central-1
           - step:
               name: Deploy to demo
+              caches:
+                - pnpm
               oidc: true
               deployment: demo
               script:
                 - *aws
-                - yarn
-                - yarn deploy --stage demo --region us-east-1
+                - *pnpm-install
+                - npx sst deploy --stage demo --region us-east-1
 
   custom:
     dependency-track:
       - step:
           name: Generate and publish CycloneDX SBOM
           caches:
-            - node
+            - pnpm
           script:
             - *install-trivy
-            - yarn install --frozen-lockfile
+            - *pnpm-install
             - trivy repo --format cyclonedx --output bom.json ./
             - 'curl -f -X POST "${DTRACK_URL}/v1/bom" -H "X-Api-Key: ${DTRACK_API_KEY}" -H "Content-Type: multipart/form-data" -F "project=${DTRACK_PROJECT_ID}" -F "bom=@bom.json"'
           artifacts:

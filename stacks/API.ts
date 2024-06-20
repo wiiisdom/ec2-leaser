@@ -115,7 +115,7 @@ export function API({ stack, app }: StackContext) {
   const site = new StaticSite(stack, "Site", {
     path: "packages/web",
     buildOutput: "dist",
-    buildCommand: "yarn build",
+    buildCommand: "pnpm build",
     environment: {
       VITE_API: api.url,
       VITE_SHOW_SNAPSHOT_RESTORE: app.stage !== "prod" ? "1" : "0"
