@@ -98,7 +98,7 @@ importers:
         version: 2.0.3(@types/node@20.14.11)(jsdom@24.1.0)
       vitest-mock-extended:
         specifier: ^1.3.1
-        version: 1.3.1(typescript@5.5.3)(vitest@2.0.3(@types/node@20.14.11)(jsdom@24.1.0))
+        version: 1.3.2(typescript@5.5.3)(vitest@2.0.3(@types/node@20.14.11)(jsdom@24.1.0))
       vitest-sonar-reporter:
         specifier: ^2.0.0
         version: 2.0.0(vitest@2.0.3(@types/node@20.14.11)(jsdom@24.1.0))
@@ -4674,10 +4674,10 @@ packages:
     peerDependencies:
       typescript: '>=4.2.0'
 
-  ts-essentials@9.4.2:
-    resolution: {integrity: sha512-mB/cDhOvD7pg3YCLk2rOtejHjjdSi9in/IBYE13S+8WA5FBSraYf4V/ws55uvs0IvQ/l0wBOlXy5yBNZ9Bl8ZQ==}
+  ts-essentials@10.0.1:
+    resolution: {integrity: sha512-HPH+H2bkkO8FkMDau+hFvv7KYozzned9Zr1Urn7rRPXMF4mZmCKOq+u4AI1AAW+2bofIOXTuSdKo9drQuni2dQ==}
     peerDependencies:
-      typescript: '>=4.1.0'
+      typescript: '>=4.5.0'
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -4859,11 +4859,11 @@ packages:
       terser:
         optional: true
 
-  vitest-mock-extended@1.3.1:
-    resolution: {integrity: sha512-OpghYjh4BDuQ/Mzs3lFMQ1QRk9D8/2O9T47MLUA5eLn7K4RWIy+MfIivYOWEyxjTENjsBnzgMihDjyNalN/K0Q==}
+  vitest-mock-extended@1.3.2:
+    resolution: {integrity: sha512-wnpym69MFYBUbUT6vrM/E4sF0bylow+N/RBBTZWn4rO/UFLusvuCrb3CMe3K4663+iBzplrhk0hQ2O246rFrqQ==}
     peerDependencies:
       typescript: 3.x || 4.x || 5.x
-      vitest: '>=0.31.1'
+      vitest: '>=2.0.0'
 
   vitest-sonar-reporter@2.0.0:
     resolution: {integrity: sha512-LorC3NnmrBrryx4+l3BEsNQjD0Y7wfmrD1y/+tHDuZUuVj7w8nOxRXCBSppDfmgfpToOhwchh0JcL4IGMKUKDA==}
@@ -12628,7 +12628,7 @@ snapshots:
     dependencies:
       typescript: 5.5.3
 
-  ts-essentials@9.4.2(typescript@5.5.3):
+  ts-essentials@10.0.1(typescript@5.5.3):
     optionalDependencies:
       typescript: 5.5.3
 
@@ -12800,9 +12800,9 @@ snapshots:
       '@types/node': 20.14.11
       fsevents: 2.3.3
 
-  vitest-mock-extended@1.3.1(typescript@5.5.3)(vitest@2.0.3(@types/node@20.14.11)(jsdom@24.1.0)):
+  vitest-mock-extended@1.3.2(typescript@5.5.3)(vitest@2.0.3(@types/node@20.14.11)(jsdom@24.1.0)):
     dependencies:
-      ts-essentials: 9.4.2(typescript@5.5.3)
+      ts-essentials: 10.0.1(typescript@5.5.3)
       typescript: 5.5.3
       vitest: 2.0.3(@types/node@20.14.11)(jsdom@24.1.0)
 
