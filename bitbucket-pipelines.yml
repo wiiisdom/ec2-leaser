@@ -17,12 +17,6 @@ definitions:
         ./aws/install;
         export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token;
         echo $BITBUCKET_STEP_OIDC_TOKEN > $(pwd)/web-identity-token
-    - script: &install-trivy apt-get update;
-        apt-get install -y wget apt-transport-https gnupg lsb-release;
-        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | tee /usr/share/keyrings/trivy.gpg > /dev/null;
-        echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | tee -a /etc/apt/sources.list.d/trivy.list;
-        apt-get update;
-        apt-get install -y trivy;
     - script: &pnpm-install corepack enable;
         corepack prepare pnpm@latest-9 --activate;
         pnpm install
@@ -114,17 +108,3 @@ pipelines:
                 - *aws
                 - *pnpm-install
                 - npx sst deploy --stage demo --region us-east-1
-
-  custom:
-    dependency-track:
-      - step:
-          name: Generate and publish CycloneDX SBOM
-          caches:
-            - pnpm
-          script:
-            - *install-trivy
-            - *pnpm-install
-            - trivy repo --format cyclonedx --output bom.json ./
-            - 'curl -f -X POST "${DTRACK_URL}/v1/bom" -H "X-Api-Key: ${DTRACK_API_KEY}" -H "Content-Type: multipart/form-data" -F "project=${DTRACK_PROJECT_ID}" -F "bom=@bom.json"'
-          artifacts:
-            - bom.json
