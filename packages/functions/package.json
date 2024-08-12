@@ -28,7 +28,7 @@
     "prettier": "^3.0.0",
     "sst": "2.43.4",
     "typescript": "*",
-    "vite-tsconfig-paths": "^4.2.0",
+    "vite-tsconfig-paths": "^5.0.0",
     "vitest": "^2.0.0",
     "vitest-mock-extended": "^2.0.0",
     "vitest-sonar-reporter": "^2.0.0"
