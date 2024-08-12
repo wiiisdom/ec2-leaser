@@ -11,7 +11,7 @@ import { useJsonBody } from 'sst/node/api';
 
 const client = new EC2Client({});
 
-export const handler = SecureHandler(async evt => {
+export const handler = SecureHandler(async _evt => {
   const data = useJsonBody();
   try {
     const instanceId = data.instanceId;

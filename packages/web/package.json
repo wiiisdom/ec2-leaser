@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "coverage": "vitest run --coverage --reporter=vitest-sonar-reporter --outputFile=sonar-report.xml",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint . **/src/**/*.ts{,x} --fix --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -29,6 +29,9 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@eslint/compat": "^1.1.1",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.8.0",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^16.0.0",
@@ -36,14 +39,15 @@
     "@types/node": "^20.12.13",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
-    "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^7.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.1",
+    "@typescript-eslint/parser": "^8.0.1",
     "@vitejs/plugin-react": "^4.1.0",
     "@vitest/coverage-v8": "^2.0.0",
     "autoprefixer": "^10.4.16",
-    "eslint": "^8.52.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.4",
+    "eslint": "^9.8.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
     "jsdom": "^24.0.0",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
