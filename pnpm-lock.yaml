@@ -12,8 +12,8 @@ importers:
         specifier: ^20.1.4
         version: 20.1.4
       aws-cdk-lib:
-        specifier: 2.151.0
-        version: 2.151.0(constructs@10.3.0)
+        specifier: 2.152.0
+        version: 2.152.0(constructs@10.3.0)
       constructs:
         specifier: 10.3.0
         version: 10.3.0
@@ -2183,8 +2183,8 @@ packages:
       - yaml
       - mime-types
 
-  aws-cdk-lib@2.151.0:
-    resolution: {integrity: sha512-SIzzOGSYO+s1f+y2zyGKK8wH5JmN+nkrGOL28iHzmx9lXK0NaT0+d5sjTbzLo2C8iogzbR91yGnIKze0GzZXHg==}
+  aws-cdk-lib@2.152.0:
+    resolution: {integrity: sha512-w8Dn92xYCUWSRL9ncoXzpGzyDAHbljnrhXFm/pTR1YZTxdbLHvIOdh7D9b9qhtghUnq2i522I6/z2NJggPcNWQ==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       constructs: ^10.0.0
@@ -9192,7 +9192,7 @@ snapshots:
       '@aws-cdk/asset-node-proxy-agent-v6': 2.0.3
       constructs: 10.3.0
 
-  aws-cdk-lib@2.151.0(constructs@10.3.0):
+  aws-cdk-lib@2.152.0(constructs@10.3.0):
     dependencies:
       '@aws-cdk/asset-awscli-v1': 2.2.202
       '@aws-cdk/asset-kubectl-v20': 2.1.2
