@@ -155,7 +155,7 @@ importers:
         version: 2.5.2
       tailwindcss-animate:
         specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.9)
+        version: 1.0.7(tailwindcss@3.4.10)
       zod:
         specifier: ^3.22.4
         version: 3.23.8
@@ -234,7 +234,7 @@ importers:
         version: 2.43.4(@aws-sdk/client-sso-oidc@3.624.0(@aws-sdk/client-sts@3.624.0(aws-crt@1.21.3))(aws-crt@1.21.3))(@types/react@18.3.3)(aws-crt@1.21.3)
       tailwindcss:
         specifier: ^3.3.5
-        version: 3.4.9
+        version: 3.4.10
       typescript:
         specifier: ^5.2.2
         version: 5.5.4
@@ -4348,8 +4348,8 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
 
-  tailwindcss@3.4.9:
-    resolution: {integrity: sha512-1SEOvRr6sSdV5IDf9iC+NU4dhwdqzF4zKKq3sAbasUWHEM6lsMhX+eNN5gkPx1BvLFEnZQEUFbXnGj8Qlp83Pg==}
+  tailwindcss@3.4.10:
+    resolution: {integrity: sha512-KWZkVPm7yJRhdu4SRSl9d4AK2wM3a50UsvgHZO7xY77NQr2V+fIrEuoDGQcbvswWvFGbS2f6e+jC/6WJm1Dl0w==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -11052,11 +11052,11 @@ snapshots:
 
   tailwind-merge@2.5.2: {}
 
-  tailwindcss-animate@1.0.7(tailwindcss@3.4.9):
+  tailwindcss-animate@1.0.7(tailwindcss@3.4.10):
     dependencies:
-      tailwindcss: 3.4.9
+      tailwindcss: 3.4.10
 
-  tailwindcss@3.4.9:
+  tailwindcss@3.4.10:
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
