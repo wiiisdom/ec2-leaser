@@ -52,7 +52,7 @@
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "react-test-renderer": "^18.2.0",
-    "sst": "2.43.4",
+    "sst": "2.43.6",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
