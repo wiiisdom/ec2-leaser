@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
-    "sst": "2.43.6",
+    "sst": "2.43.7",
     "aws-cdk-lib": "2.154.1",
     "constructs": "10.3.0",
     "typescript": "^5.0.0"
