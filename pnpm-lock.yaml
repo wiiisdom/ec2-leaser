@@ -213,7 +213,7 @@ importers:
         version: 4.6.2(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-refresh:
         specifier: ^0.4.9
-        version: 0.4.11(eslint@9.10.0(jiti@1.21.6))
+        version: 0.4.12(eslint@9.10.0(jiti@1.21.6))
       globals:
         specifier: ^15.9.0
         version: 15.9.0
@@ -3083,8 +3083,8 @@ packages:
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
 
-  eslint-plugin-react-refresh@0.4.11:
-    resolution: {integrity: sha512-wrAKxMbVr8qhXTtIKfXqAn5SAtRZt0aXxe5P23Fh4pUAdC6XEsybGLB8P0PI4j1yYqOgUEUlzKAGDfo7rJOjcw==}
+  eslint-plugin-react-refresh@0.4.12:
+    resolution: {integrity: sha512-9neVjoGv20FwYtCP6CB1dzR1vr57ZDNOXst21wd2xJ/cTlM2xLq0GWVlSNTdMn/4BtP6cHYBMCSp1wFBJ9jBsg==}
     peerDependencies:
       eslint: '>=7'
 
@@ -5390,7 +5390,7 @@ snapshots:
       '@aws-sdk/types': 3.649.0
       '@aws-sdk/util-endpoints': 3.649.0
       '@aws-sdk/util-user-agent-browser': 3.649.0
-      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.8
       '@smithy/core': 2.4.3
       '@smithy/fetch-http-handler': 3.2.7
@@ -5439,7 +5439,7 @@ snapshots:
       '@aws-sdk/types': 3.649.0
       '@aws-sdk/util-endpoints': 3.649.0
       '@aws-sdk/util-user-agent-browser': 3.649.0
-      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.8
       '@smithy/core': 2.4.3
       '@smithy/fetch-http-handler': 3.2.7
@@ -6554,7 +6554,7 @@ snapshots:
       '@aws-sdk/types': 3.649.0
       '@aws-sdk/util-endpoints': 3.649.0
       '@aws-sdk/util-user-agent-browser': 3.649.0
-      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.8
       '@smithy/core': 2.4.3
       '@smithy/fetch-http-handler': 3.2.7
@@ -6599,7 +6599,7 @@ snapshots:
       '@aws-sdk/types': 3.649.0
       '@aws-sdk/util-endpoints': 3.649.0
       '@aws-sdk/util-user-agent-browser': 3.649.0
-      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.8
       '@smithy/core': 2.4.3
       '@smithy/fetch-http-handler': 3.2.7
@@ -6715,7 +6715,7 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-sso@3.650.0(aws-crt@1.21.3)':
+  '@aws-sdk/client-sso@3.650.0(aws-crt@1.21.3(debug@4.3.7))':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
@@ -6728,7 +6728,7 @@ snapshots:
       '@aws-sdk/types': 3.649.0
       '@aws-sdk/util-endpoints': 3.649.0
       '@aws-sdk/util-user-agent-browser': 3.649.0
-      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.8
       '@smithy/core': 2.4.3
       '@smithy/fetch-http-handler': 3.2.7
@@ -6953,7 +6953,7 @@ snapshots:
       '@aws-sdk/types': 3.649.0
       '@aws-sdk/util-endpoints': 3.649.0
       '@aws-sdk/util-user-agent-browser': 3.649.0
-      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.8
       '@smithy/core': 2.4.3
       '@smithy/fetch-http-handler': 3.2.7
@@ -6998,7 +6998,7 @@ snapshots:
       '@aws-sdk/types': 3.649.0
       '@aws-sdk/util-endpoints': 3.649.0
       '@aws-sdk/util-user-agent-browser': 3.649.0
-      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.649.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.8
       '@smithy/core': 2.4.3
       '@smithy/fetch-http-handler': 3.2.7
@@ -7583,7 +7583,7 @@ snapshots:
 
   '@aws-sdk/credential-provider-sso@3.650.0(@aws-sdk/client-sso-oidc@3.650.0(@aws-sdk/client-sts@3.650.0(aws-crt@1.21.3(debug@4.3.7)))(aws-crt@1.21.3(debug@4.3.7)))(aws-crt@1.21.3(debug@4.3.7))':
     dependencies:
-      '@aws-sdk/client-sso': 3.650.0(aws-crt@1.21.3)
+      '@aws-sdk/client-sso': 3.650.0(aws-crt@1.21.3(debug@4.3.7))
       '@aws-sdk/token-providers': 3.649.0(@aws-sdk/client-sso-oidc@3.650.0(@aws-sdk/client-sts@3.650.0(aws-crt@1.21.3(debug@4.3.7)))(aws-crt@1.21.3(debug@4.3.7)))
       '@aws-sdk/types': 3.649.0
       '@smithy/property-provider': 3.1.6
@@ -7596,7 +7596,7 @@ snapshots:
 
   '@aws-sdk/credential-provider-sso@3.650.0(@aws-sdk/client-sso-oidc@3.650.0(@aws-sdk/client-sts@3.650.0(aws-crt@1.21.3))(aws-crt@1.21.3))(aws-crt@1.21.3)':
     dependencies:
-      '@aws-sdk/client-sso': 3.650.0(aws-crt@1.21.3)
+      '@aws-sdk/client-sso': 3.650.0(aws-crt@1.21.3(debug@4.3.7))
       '@aws-sdk/token-providers': 3.649.0(@aws-sdk/client-sso-oidc@3.650.0(@aws-sdk/client-sts@3.650.0(aws-crt@1.21.3))(aws-crt@1.21.3))
       '@aws-sdk/types': 3.649.0
       '@smithy/property-provider': 3.1.6
@@ -8079,7 +8079,7 @@ snapshots:
     optionalDependencies:
       aws-crt: 1.21.3(debug@4.3.7)
 
-  '@aws-sdk/util-user-agent-node@3.649.0(aws-crt@1.21.3)':
+  '@aws-sdk/util-user-agent-node@3.649.0(aws-crt@1.21.3(debug@4.3.7))':
     dependencies:
       '@aws-sdk/types': 3.649.0
       '@smithy/node-config-provider': 3.1.7
@@ -10806,7 +10806,7 @@ snapshots:
     dependencies:
       eslint: 9.10.0(jiti@1.21.6)
 
-  eslint-plugin-react-refresh@0.4.11(eslint@9.10.0(jiti@1.21.6)):
+  eslint-plugin-react-refresh@0.4.12(eslint@9.10.0(jiti@1.21.6)):
     dependencies:
       eslint: 9.10.0(jiti@1.21.6)
 
