@@ -23,10 +23,10 @@ importers:
         version: 20.1.4
       aws-cdk-lib:
         specifier: 2.160.0
-        version: 2.160.0(constructs@10.3.0)
+        version: 2.160.0(constructs@10.3.1)
       constructs:
-        specifier: 10.3.0
-        version: 10.3.0
+        specifier: 10.3.1
+        version: 10.3.1
       sst:
         specifier: 2.43.7
         version: 2.43.7(@aws-sdk/client-sso-oidc@3.637.0(@aws-sdk/client-sts@3.637.0(aws-crt@1.21.3))(aws-crt@1.21.3))(@types/react@18.3.11)(aws-crt@1.21.3)
@@ -2848,6 +2848,10 @@ packages:
     resolution: {integrity: sha512-vbK8i3rIb/xwZxSpTjz3SagHn1qq9BChLEfy5Hf6fB3/2eFbrwt2n9kHwQcS0CPTRBesreeAcsJfMq2229FnbQ==}
     engines: {node: '>= 16.14.0'}
 
+  constructs@10.3.1:
+    resolution: {integrity: sha512-gTyTNR3iHOVnOk4cKPK6QHRrSZWT1nsnEMFnwLa094/w1L+CKToQel4v4oxnYHi4L07PBNm1p3Bt0WVZI4kgkg==}
+    engines: {node: '>= 18.12.0'}
+
   content-disposition@0.5.4:
     resolution: {integrity: sha512-FveZTNuGw04cxlAiWbzi6zTAL/lhehaWbTtgluJh4/E95DqMwTmha3KZN1aAWA8cFIhHzMZUvLevkw5Rqk+tSQ==}
     engines: {node: '>= 0.6'}
@@ -5548,7 +5552,7 @@ snapshots:
       '@aws-sdk/types': 3.664.0
       '@aws-sdk/util-endpoints': 3.664.0
       '@aws-sdk/util-user-agent-browser': 3.664.0
-      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.9
       '@smithy/core': 2.4.8
       '@smithy/fetch-http-handler': 3.2.9
@@ -5597,7 +5601,7 @@ snapshots:
       '@aws-sdk/types': 3.664.0
       '@aws-sdk/util-endpoints': 3.664.0
       '@aws-sdk/util-user-agent-browser': 3.664.0
-      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.9
       '@smithy/core': 2.4.8
       '@smithy/fetch-http-handler': 3.2.9
@@ -6712,7 +6716,7 @@ snapshots:
       '@aws-sdk/types': 3.664.0
       '@aws-sdk/util-endpoints': 3.664.0
       '@aws-sdk/util-user-agent-browser': 3.664.0
-      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.9
       '@smithy/core': 2.4.8
       '@smithy/fetch-http-handler': 3.2.9
@@ -6757,7 +6761,7 @@ snapshots:
       '@aws-sdk/types': 3.664.0
       '@aws-sdk/util-endpoints': 3.664.0
       '@aws-sdk/util-user-agent-browser': 3.664.0
-      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.9
       '@smithy/core': 2.4.8
       '@smithy/fetch-http-handler': 3.2.9
@@ -6873,7 +6877,7 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-sso@3.664.0(aws-crt@1.21.3)':
+  '@aws-sdk/client-sso@3.664.0(aws-crt@1.21.3(debug@4.3.7))':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
@@ -6886,7 +6890,7 @@ snapshots:
       '@aws-sdk/types': 3.664.0
       '@aws-sdk/util-endpoints': 3.664.0
       '@aws-sdk/util-user-agent-browser': 3.664.0
-      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.9
       '@smithy/core': 2.4.8
       '@smithy/fetch-http-handler': 3.2.9
@@ -7111,7 +7115,7 @@ snapshots:
       '@aws-sdk/types': 3.664.0
       '@aws-sdk/util-endpoints': 3.664.0
       '@aws-sdk/util-user-agent-browser': 3.664.0
-      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.9
       '@smithy/core': 2.4.8
       '@smithy/fetch-http-handler': 3.2.9
@@ -7156,7 +7160,7 @@ snapshots:
       '@aws-sdk/types': 3.664.0
       '@aws-sdk/util-endpoints': 3.664.0
       '@aws-sdk/util-user-agent-browser': 3.664.0
-      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3)
+      '@aws-sdk/util-user-agent-node': 3.664.0(aws-crt@1.21.3(debug@4.3.7))
       '@smithy/config-resolver': 3.0.9
       '@smithy/core': 2.4.8
       '@smithy/fetch-http-handler': 3.2.9
@@ -7742,7 +7746,7 @@ snapshots:
 
   '@aws-sdk/credential-provider-sso@3.664.0(@aws-sdk/client-sso-oidc@3.664.0(@aws-sdk/client-sts@3.664.0(aws-crt@1.21.3(debug@4.3.7)))(aws-crt@1.21.3(debug@4.3.7)))(aws-crt@1.21.3(debug@4.3.7))':
     dependencies:
-      '@aws-sdk/client-sso': 3.664.0(aws-crt@1.21.3)
+      '@aws-sdk/client-sso': 3.664.0(aws-crt@1.21.3(debug@4.3.7))
       '@aws-sdk/token-providers': 3.664.0(@aws-sdk/client-sso-oidc@3.664.0(@aws-sdk/client-sts@3.664.0(aws-crt@1.21.3(debug@4.3.7)))(aws-crt@1.21.3(debug@4.3.7)))
       '@aws-sdk/types': 3.664.0
       '@smithy/property-provider': 3.1.7
@@ -7755,7 +7759,7 @@ snapshots:
 
   '@aws-sdk/credential-provider-sso@3.664.0(@aws-sdk/client-sso-oidc@3.664.0(@aws-sdk/client-sts@3.664.0(aws-crt@1.21.3))(aws-crt@1.21.3))(aws-crt@1.21.3)':
     dependencies:
-      '@aws-sdk/client-sso': 3.664.0(aws-crt@1.21.3)
+      '@aws-sdk/client-sso': 3.664.0(aws-crt@1.21.3(debug@4.3.7))
       '@aws-sdk/token-providers': 3.664.0(@aws-sdk/client-sso-oidc@3.664.0(@aws-sdk/client-sts@3.664.0(aws-crt@1.21.3))(aws-crt@1.21.3))
       '@aws-sdk/types': 3.664.0
       '@smithy/property-provider': 3.1.7
@@ -8244,7 +8248,7 @@ snapshots:
     optionalDependencies:
       aws-crt: 1.21.3(debug@4.3.7)
 
-  '@aws-sdk/util-user-agent-node@3.664.0(aws-crt@1.21.3)':
+  '@aws-sdk/util-user-agent-node@3.664.0(aws-crt@1.21.3(debug@4.3.7))':
     dependencies:
       '@aws-sdk/middleware-user-agent': 3.664.0
       '@aws-sdk/types': 3.664.0
@@ -10460,13 +10464,13 @@ snapshots:
       '@aws-cdk/asset-node-proxy-agent-v6': 2.1.0
       constructs: 10.3.0
 
-  aws-cdk-lib@2.160.0(constructs@10.3.0):
+  aws-cdk-lib@2.160.0(constructs@10.3.1):
     dependencies:
       '@aws-cdk/asset-awscli-v1': 2.2.202
       '@aws-cdk/asset-kubectl-v20': 2.1.2
       '@aws-cdk/asset-node-proxy-agent-v6': 2.1.0
       '@aws-cdk/cloud-assembly-schema': 38.0.1
-      constructs: 10.3.0
+      constructs: 10.3.1
 
   aws-crt@1.21.3(debug@4.3.7):
     dependencies:
@@ -10779,6 +10783,8 @@ snapshots:
       semver: 7.6.3
 
   constructs@10.3.0: {}
+
+  constructs@10.3.1: {}
 
   content-disposition@0.5.4:
     dependencies:
