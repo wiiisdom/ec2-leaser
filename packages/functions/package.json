@@ -34,9 +34,9 @@
     "vitest-sonar-reporter": "^2.0.0"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.664.0",
-    "@aws-sdk/client-ec2": "3.664.0",
-    "@aws-sdk/lib-dynamodb": "3.664.0",
+    "@aws-sdk/client-dynamodb": "3.669.0",
+    "@aws-sdk/client-ec2": "3.669.0",
+    "@aws-sdk/lib-dynamodb": "3.669.0",
     "debug": "^4.3.4",
     "openid-client": "^5.6.5"
   }
