@@ -22,8 +22,8 @@ importers:
         specifier: ^20.1.4
         version: 20.1.4
       aws-cdk-lib:
-        specifier: 2.166.0
-        version: 2.166.0(constructs@10.3.1)
+        specifier: 2.170.0
+        version: 2.170.0(constructs@10.3.1)
       constructs:
         specifier: 10.3.1
         version: 10.3.1
@@ -2424,8 +2424,8 @@ packages:
       - yaml
       - mime-types
 
-  aws-cdk-lib@2.166.0:
-    resolution: {integrity: sha512-FAsIz/CpczbMrcShgvTWNp3kcGN6IDojJWNLqHioTRsTekcyN3OPmKvQJXUNWL0fnhTd8biFXC2esg6kM19xZw==}
+  aws-cdk-lib@2.170.0:
+    resolution: {integrity: sha512-hlfoOJUZmAY3TjOXjWhAYKlrPcfGNTXA24NirwkEYOX+t1HD8OLSrYZvluMc7nWgIZf1Mq1g6M0xNEZJqykPrA==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       constructs: ^10.0.0
@@ -9954,7 +9954,7 @@ snapshots:
       '@aws-cdk/cloud-assembly-schema': 38.0.1
       constructs: 10.3.0
 
-  aws-cdk-lib@2.166.0(constructs@10.3.1):
+  aws-cdk-lib@2.170.0(constructs@10.3.1):
     dependencies:
       '@aws-cdk/asset-awscli-v1': 2.2.209
       '@aws-cdk/asset-kubectl-v20': 2.1.3
