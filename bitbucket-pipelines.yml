@@ -32,7 +32,7 @@ definitions:
           - cd packages/web/
           - pnpm typecheck
           - pnpm coverage
-          - pipe: sonarsource/sonarcloud-scan:3.0.0
+          - pipe: sonarsource/sonarcloud-scan:3.1.0
             variables:
               EXTRA_ARGS: >
                 -Dsonar.organization=${SONAR_ORGANIZATION}
@@ -58,7 +58,7 @@ definitions:
           - cd packages/functions/
           - pnpm typecheck
           - pnpm coverage
-          - pipe: sonarsource/sonarcloud-scan:3.0.0
+          - pipe: sonarsource/sonarcloud-scan:3.1.0
             variables:
               EXTRA_ARGS: >
                 -Dsonar.organization=${SONAR_ORGANIZATION}
