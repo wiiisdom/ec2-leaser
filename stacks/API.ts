@@ -4,6 +4,7 @@ import {
   Auth,
   Config,
   Cron,
+  NextjsSite,
   StackContext,
   StaticSite,
   Table
@@ -111,15 +112,17 @@ export function API({ stack, app }: StackContext) {
 
   const domainPrefix = `${stack.stage}-${app.name}`;
 
-  // Handles S3 Bucket creation and deployment, and CloudFront CDN setup (certificate, route53)
-  const site = new StaticSite(stack, "Site", {
+  const site = new NextjsSite(stack, "Site", {
     path: "packages/web",
-    buildOutput: "dist",
-    buildCommand: "pnpm build",
     environment: {
-      VITE_API: api.url,
-      VITE_SHOW_SNAPSHOT_RESTORE: app.stage !== "prod" ? "1" : "0"
+      NEXT_PUBLIC_API: api.url,
+      NEXT_PUBLIC_SHOW_SNAPSHOT_RESTORE: app.stage !== "prod" ? "1" : "0"
     },
+    bind: [
+      // see https://github.com/sst/sst/issues/3270#issuecomment-2218550203
+      // if you add a bind here, it will required to undeploy/re-deploy the
+      // NextjsSite construct in prod
+    ],
     customDomain: {
       domainName: siteDomain,
       hostedZone: domain

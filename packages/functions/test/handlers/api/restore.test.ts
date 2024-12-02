@@ -66,7 +66,7 @@ describe('ec2 restore', () => {
     expect(result.statusCode).toStrictEqual(200);
     expect(result.body).toStrictEqual('{"instanceId":"instanceId"}');
   });
-  it('replaceRootVolume must fail if bad instanceId is provided', () => {
+  it('replaceRootVolume must fail if bad instanceId is provided', async () => {
     const ec2ClientMock = mockClient(EC2Client);
     ec2ClientMock.on(DescribeInstancesCommand).resolves({
       Reservations: [
@@ -76,10 +76,10 @@ describe('ec2 restore', () => {
       ],
     });
 
-    expect(() => replaceRootVolume('instanceId')).rejects.toThrowError('find the instance');
+    await expect(() => replaceRootVolume('instanceId')).rejects.toThrowError('find the instance');
   });
 
-  it('replaceRootVolume must fail if no snapshot available', () => {
+  it('replaceRootVolume must fail if no snapshot available', async () => {
     const ec2ClientMock = mockClient(EC2Client);
     ec2ClientMock.on(DescribeInstancesCommand).resolves({
       Reservations: [
@@ -98,12 +98,12 @@ describe('ec2 restore', () => {
       Snapshots: [],
     });
 
-    expect(() => replaceRootVolume('instanceId')).rejects.toThrowError(
+    await expect(() => replaceRootVolume('instanceId')).rejects.toThrowError(
       'No snapshot available for instance instanceId'
     );
   });
 
-  it('replaceRootVolume must fail if error during CreateReplaceRootVolumeTaskCommand', () => {
+  it('replaceRootVolume must fail if error during CreateReplaceRootVolumeTaskCommand', async () => {
     const ec2ClientMock = mockClient(EC2Client);
     ec2ClientMock.on(DescribeInstancesCommand).resolves({
       Reservations: [
@@ -128,7 +128,7 @@ describe('ec2 restore', () => {
 
     ec2ClientMock.on(CreateReplaceRootVolumeTaskCommand).rejects('AWS error');
 
-    expect(() => replaceRootVolume('instanceId')).rejects.toThrowError('AWS error');
+    await expect(() => replaceRootVolume('instanceId')).rejects.toThrowError('AWS error');
   });
 
   it('replaceRootVolume must success if all is good (and filter aws: tags)', async () => {

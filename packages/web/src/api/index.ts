@@ -18,7 +18,7 @@ export const callApi = async (
   body?: any
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 ): Promise<any> => {
-  const response = await fetch(`${import.meta.env.VITE_API}${path}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}${path}`, {
     method,
     headers: {
       Authorization: `Bearer ${token}`
@@ -33,7 +33,7 @@ export const callApi = async (
 };
 
 export const getUserInfo = async (token: string) => {
-  const response = await fetch(`${import.meta.env.VITE_API}/session`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/session`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`

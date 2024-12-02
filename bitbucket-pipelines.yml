@@ -55,6 +55,7 @@ definitions:
           - *aws
           - *pnpm-install
           - pnpm build --stage dev
+          - pnpm typecheck
           - cd packages/functions/
           - pnpm typecheck
           - pnpm coverage

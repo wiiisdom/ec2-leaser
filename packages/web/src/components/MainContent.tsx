@@ -5,7 +5,7 @@ import StartInstanceContent from './start/StartInstanceContent';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const MainContent = () => {
-  if (import.meta.env.VITE_SHOW_SNAPSHOT_RESTORE === '1') {
+  if (process.env.NEXT_PUBLIC_SHOW_SNAPSHOT_RESTORE === '1') {
     return (
       <Tabs defaultValue="start" className="w-full">
         <TabsList className="w-full">

@@ -22,7 +22,7 @@ export const handler = AuthHandler({
       onSuccess: async tokenset => {
         const claims = tokenset.claims();
         return Session.parameter({
-          redirect: process.env.IS_LOCAL ? 'http://localhost:5173' : Config.SITE_URL,
+          redirect: process.env.IS_LOCAL ? 'http://localhost:3000' : Config.SITE_URL,
           type: 'user',
           properties: {
             userID: claims.email!,

@@ -17,7 +17,13 @@ const compat = new FlatCompat({
 
 export default [
   {
-    ignores: ['**/dist', '**/coverage', 'tailwind.config.ts']
+    ignores: [
+      '**/.next',
+      '**/dist',
+      '**/coverage',
+      'tailwind.config.ts',
+      'test'
+    ]
   },
   ...fixupConfigRules(
     compat.extends(
@@ -42,7 +48,8 @@ export default [
     rules: {
       'react-refresh/only-export-components': 'off',
       '@typescript-eslint/ban-types': 'off',
-      '@typescript-eslint/no-unsafe-function-type': 'off'
+      '@typescript-eslint/no-unsafe-function-type': 'off',
+      '@typescript-eslint/triple-slash-reference': 'off'
     }
   }
 ];

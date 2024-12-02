@@ -60,7 +60,7 @@ describe('ec2 snapshot', () => {
     expect(result.statusCode).toStrictEqual(200);
     expect(result.body).toStrictEqual('{"snapshotId":"snapshotId"}');
   });
-  it('snapshot must fail if bad instanceId is provided', () => {
+  it('snapshot must fail if bad instanceId is provided', async () => {
     const ec2ClientMock = mockClient(EC2Client);
     ec2ClientMock.on(DescribeInstancesCommand).resolves({
       Reservations: [
@@ -70,10 +70,10 @@ describe('ec2 snapshot', () => {
       ],
     });
 
-    expect(() => snapshot('instanceId')).rejects.toThrowError('find the instance');
+    await expect(() => snapshot('instanceId')).rejects.toThrowError('find the instance');
   });
 
-  it('snapshot must fail if no EBS volume', () => {
+  it('snapshot must fail if no EBS volume', async () => {
     const ec2ClientMock = mockClient(EC2Client);
     ec2ClientMock.on(DescribeInstancesCommand).resolves({
       Reservations: [
@@ -88,10 +88,10 @@ describe('ec2 snapshot', () => {
       ],
     });
 
-    expect(() => snapshot('instanceId')).rejects.toThrowError("Can't find the instance EBS");
+    await expect(() => snapshot('instanceId')).rejects.toThrowError("Can't find the instance EBS");
   });
 
-  it('snapshot must fail if more than one EBS', () => {
+  it('snapshot must fail if more than one EBS', async () => {
     const ec2ClientMock = mockClient(EC2Client);
     ec2ClientMock.on(DescribeInstancesCommand).resolves({
       Reservations: [
@@ -113,12 +113,12 @@ describe('ec2 snapshot', () => {
       ],
     });
 
-    expect(() => snapshot('instanceId')).rejects.toThrowError(
+    await expect(() => snapshot('instanceId')).rejects.toThrowError(
       'Cannot snapshot an instance with more than a single EBS volume'
     );
   });
 
-  it('snapshot must fail if no EBS volume Id', () => {
+  it('snapshot must fail if no EBS volume Id', async () => {
     const ec2ClientMock = mockClient(EC2Client);
     ec2ClientMock.on(DescribeInstancesCommand).resolves({
       Reservations: [
@@ -138,7 +138,7 @@ describe('ec2 snapshot', () => {
       ],
     });
 
-    expect(() => snapshot('instanceId')).rejects.toThrowError('Cannot find the volumeId');
+    await expect(() => snapshot('instanceId')).rejects.toThrowError('Cannot find the volumeId');
   });
 
   it('snapshot must delete EBS snapshot if found one, then create a new one', async () => {

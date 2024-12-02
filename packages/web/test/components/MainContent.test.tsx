@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 describe('MainContent', () => {
   it('should render all features if env var set to 1', async () => {
-    vi.stubEnv('VITE_SHOW_SNAPSHOT_RESTORE', '1');
+    vi.stubEnv('NEXT_PUBLIC_SHOW_SNAPSHOT_RESTORE', '1');
 
     const queryClient = new QueryClient();
 
@@ -19,7 +19,7 @@ describe('MainContent', () => {
     expect(queryByTestId('snapshot')).toBeInTheDocument();
   });
   it('should render only start if env var set to 0', async () => {
-    vi.stubEnv('VITE_SHOW_SNAPSHOT_RESTORE', '0');
+    vi.stubEnv('NEXT_PUBLIC_SHOW_SNAPSHOT_RESTORE', '0');
 
     const queryClient = new QueryClient();
 

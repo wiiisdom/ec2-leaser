@@ -25,7 +25,7 @@ const LoginScreen = () => {
             <div className="m-1">
               <a
                 data-testid="azure-login"
-                href={`${import.meta.env.VITE_API}/auth/azure/authorize`}
+                href={`${process.env.NEXT_PUBLIC_API}/auth/azure/authorize`}
               >
                 <Button>Login with Azure</Button>
               </a>
