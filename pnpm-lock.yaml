@@ -66,13 +66,13 @@ importers:
         version: 4.1.12
       '@types/node':
         specifier: ^20.12.13
-        version: 20.17.6
+        version: 20.17.9
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.0.1
         version: 8.15.0(@typescript-eslint/parser@8.15.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.6.3))(eslint@9.15.0(jiti@1.21.6))(typescript@5.6.3)
       '@vitest/coverage-v8':
         specifier: ^2.0.0
-        version: 2.1.5(vitest@2.1.5(@types/node@20.17.6)(jsdom@25.0.1))
+        version: 2.1.5(vitest@2.1.5(@types/node@20.17.9)(jsdom@25.0.1))
       aws-sdk-client-mock:
         specifier: ^4.0.0
         version: 4.1.0
@@ -111,16 +111,16 @@ importers:
         version: 5.6.3
       vite-tsconfig-paths:
         specifier: ^5.0.0
-        version: 5.1.3(typescript@5.6.3)(vite@5.4.11(@types/node@20.17.6))
+        version: 5.1.3(typescript@5.6.3)(vite@5.4.11(@types/node@20.17.9))
       vitest:
         specifier: ^2.0.0
-        version: 2.1.5(@types/node@20.17.6)(jsdom@25.0.1)
+        version: 2.1.5(@types/node@20.17.9)(jsdom@25.0.1)
       vitest-mock-extended:
         specifier: ^2.0.0
-        version: 2.0.2(typescript@5.6.3)(vitest@2.1.5(@types/node@20.17.6)(jsdom@25.0.1))
+        version: 2.0.2(typescript@5.6.3)(vitest@2.1.5(@types/node@20.17.9)(jsdom@25.0.1))
       vitest-sonar-reporter:
         specifier: ^2.0.0
-        version: 2.0.0(vitest@2.1.5(@types/node@20.17.6)(jsdom@25.0.1))
+        version: 2.0.0(vitest@2.1.5(@types/node@20.17.9)(jsdom@25.0.1))
 
   packages/web:
     dependencies:
@@ -193,7 +193,7 @@ importers:
         version: 14.5.2(@testing-library/dom@10.4.0)
       '@types/node':
         specifier: ^20.12.13
-        version: 20.17.6
+        version: 20.17.9
       '@types/react':
         specifier: ^18.2.33
         version: 18.3.12
@@ -208,10 +208,10 @@ importers:
         version: 8.15.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.6.3)
       '@vitejs/plugin-react':
         specifier: ^4.1.0
-        version: 4.3.3(vite@5.4.11(@types/node@20.17.6))
+        version: 4.3.3(vite@5.4.11(@types/node@20.17.9))
       '@vitest/coverage-v8':
         specifier: ^2.0.0
-        version: 2.1.5(vitest@2.1.5(@types/node@20.17.6)(jsdom@25.0.1))
+        version: 2.1.5(vitest@2.1.5(@types/node@20.17.9)(jsdom@25.0.1))
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.20(postcss@8.4.49)
@@ -250,13 +250,13 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^5.0.0
-        version: 5.4.11(@types/node@20.17.6)
+        version: 5.4.11(@types/node@20.17.9)
       vitest:
         specifier: ^2.0.0
-        version: 2.1.5(@types/node@20.17.6)(jsdom@25.0.1)
+        version: 2.1.5(@types/node@20.17.9)(jsdom@25.0.1)
       vitest-sonar-reporter:
         specifier: ^2.0.0
-        version: 2.0.0(vitest@2.1.5(@types/node@20.17.6)(jsdom@25.0.1))
+        version: 2.0.0(vitest@2.1.5(@types/node@20.17.9)(jsdom@25.0.1))
 
 packages:
 
@@ -2064,8 +2064,11 @@ packages:
   '@types/ms@0.7.34':
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
 
-  '@types/node@20.17.6':
-    resolution: {integrity: sha512-VEI7OdvK2wP7XHnsuXbAJnEpEkF6NjSN45QJlL4VGqZSXsnicpesdTWsg9RISeSdYd3yeRj/y3k5KGjUXYnFwQ==}
+  '@types/node@20.17.9':
+    resolution: {integrity: sha512-0JOXkRyLanfGPE2QRCwgxhzlBAvaRdCNMcvbd7jFfpmD4eEXll7LRwy5ymJmyeZqk7Nh7eD2LeUyQ68BbndmXw==}
+
+  '@types/node@22.10.1':
+    resolution: {integrity: sha512-qKgsUwfHZV2WCWLAnVP1JqnpE6Im6h3Y0+fYgMTasNQ7V++CBX5OT1as0g0f+OyubbFqhf6XVNIsmN4IIhEgGQ==}
 
   '@types/prop-types@15.7.13':
     resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
@@ -4760,6 +4763,9 @@ packages:
 
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
+
+  undici-types@6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
 
   undici@5.28.4:
     resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==}
@@ -9509,9 +9515,13 @@ snapshots:
 
   '@types/ms@0.7.34': {}
 
-  '@types/node@20.17.6':
+  '@types/node@20.17.9':
     dependencies:
       undici-types: 6.19.8
+
+  '@types/node@22.10.1':
+    dependencies:
+      undici-types: 6.20.0
 
   '@types/prop-types@15.7.13': {}
 
@@ -9534,7 +9544,7 @@ snapshots:
 
   '@types/ws@8.5.12':
     dependencies:
-      '@types/node': 20.17.6
+      '@types/node': 22.10.1
 
   '@typescript-eslint/eslint-plugin@8.15.0(@typescript-eslint/parser@8.15.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.6.3))(eslint@9.15.0(jiti@1.21.6))(typescript@5.6.3)':
     dependencies:
@@ -9658,18 +9668,18 @@ snapshots:
       '@typescript-eslint/types': 8.15.0
       eslint-visitor-keys: 4.2.0
 
-  '@vitejs/plugin-react@4.3.3(vite@5.4.11(@types/node@20.17.6))':
+  '@vitejs/plugin-react@4.3.3(vite@5.4.11(@types/node@20.17.9))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.11(@types/node@20.17.6)
+      vite: 5.4.11(@types/node@20.17.9)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@2.1.5(vitest@2.1.5(@types/node@20.17.6)(jsdom@25.0.1))':
+  '@vitest/coverage-v8@2.1.5(vitest@2.1.5(@types/node@20.17.9)(jsdom@25.0.1))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -9683,7 +9693,7 @@ snapshots:
       std-env: 3.8.0
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.1.5(@types/node@20.17.6)(jsdom@25.0.1)
+      vitest: 2.1.5(@types/node@20.17.9)(jsdom@25.0.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -9694,13 +9704,13 @@ snapshots:
       chai: 5.1.2
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.5(vite@5.4.11(@types/node@20.17.6))':
+  '@vitest/mocker@2.1.5(vite@5.4.11(@types/node@20.17.9))':
     dependencies:
       '@vitest/spy': 2.1.5
       estree-walker: 3.0.3
       magic-string: 0.30.12
     optionalDependencies:
-      vite: 5.4.11(@types/node@20.17.6)
+      vite: 5.4.11(@types/node@20.17.9)
 
   '@vitest/pretty-format@2.1.5':
     dependencies:
@@ -12755,6 +12765,8 @@ snapshots:
 
   undici-types@6.19.8: {}
 
+  undici-types@6.20.0: {}
+
   undici@5.28.4:
     dependencies:
       '@fastify/busboy': 2.1.1
@@ -12808,13 +12820,13 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-node@2.1.5(@types/node@20.17.6):
+  vite-node@2.1.5(@types/node@20.17.9):
     dependencies:
       cac: 6.7.14
       debug: 4.3.7
       es-module-lexer: 1.5.4
       pathe: 1.1.2
-      vite: 5.4.11(@types/node@20.17.6)
+      vite: 5.4.11(@types/node@20.17.9)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -12826,40 +12838,40 @@ snapshots:
       - supports-color
       - terser
 
-  vite-tsconfig-paths@5.1.3(typescript@5.6.3)(vite@5.4.11(@types/node@20.17.6)):
+  vite-tsconfig-paths@5.1.3(typescript@5.6.3)(vite@5.4.11(@types/node@20.17.9)):
     dependencies:
       debug: 4.3.7
       globrex: 0.1.2
       tsconfck: 3.1.4(typescript@5.6.3)
     optionalDependencies:
-      vite: 5.4.11(@types/node@20.17.6)
+      vite: 5.4.11(@types/node@20.17.9)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@5.4.11(@types/node@20.17.6):
+  vite@5.4.11(@types/node@20.17.9):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.49
       rollup: 4.27.2
     optionalDependencies:
-      '@types/node': 20.17.6
+      '@types/node': 20.17.9
       fsevents: 2.3.3
 
-  vitest-mock-extended@2.0.2(typescript@5.6.3)(vitest@2.1.5(@types/node@20.17.6)(jsdom@25.0.1)):
+  vitest-mock-extended@2.0.2(typescript@5.6.3)(vitest@2.1.5(@types/node@20.17.9)(jsdom@25.0.1)):
     dependencies:
       ts-essentials: 10.0.2(typescript@5.6.3)
       typescript: 5.6.3
-      vitest: 2.1.5(@types/node@20.17.6)(jsdom@25.0.1)
+      vitest: 2.1.5(@types/node@20.17.9)(jsdom@25.0.1)
 
-  vitest-sonar-reporter@2.0.0(vitest@2.1.5(@types/node@20.17.6)(jsdom@25.0.1)):
+  vitest-sonar-reporter@2.0.0(vitest@2.1.5(@types/node@20.17.9)(jsdom@25.0.1)):
     dependencies:
-      vitest: 2.1.5(@types/node@20.17.6)(jsdom@25.0.1)
+      vitest: 2.1.5(@types/node@20.17.9)(jsdom@25.0.1)
 
-  vitest@2.1.5(@types/node@20.17.6)(jsdom@25.0.1):
+  vitest@2.1.5(@types/node@20.17.9)(jsdom@25.0.1):
     dependencies:
       '@vitest/expect': 2.1.5
-      '@vitest/mocker': 2.1.5(vite@5.4.11(@types/node@20.17.6))
+      '@vitest/mocker': 2.1.5(vite@5.4.11(@types/node@20.17.9))
       '@vitest/pretty-format': 2.1.5
       '@vitest/runner': 2.1.5
       '@vitest/snapshot': 2.1.5
@@ -12875,11 +12887,11 @@ snapshots:
       tinyexec: 0.3.1
       tinypool: 1.0.2
       tinyrainbow: 1.2.0
-      vite: 5.4.11(@types/node@20.17.6)
-      vite-node: 2.1.5(@types/node@20.17.6)
+      vite: 5.4.11(@types/node@20.17.9)
+      vite-node: 2.1.5(@types/node@20.17.9)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 20.17.6
+      '@types/node': 20.17.9
       jsdom: 25.0.1
     transitivePeerDependencies:
       - less
