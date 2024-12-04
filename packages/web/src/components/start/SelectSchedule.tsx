@@ -15,7 +15,7 @@ const SelectSchedule = ({
   const user = useUser();
   useEffect(() => {
     const fetchSchedules = async () => {
-      const data = (await callApi(user.token, '/schedules')) as ScheduleType[];
+      const data = await callApi<ScheduleType[]>(user.token, '/api/schedules');
       data.sort((a: ScheduleType, b: ScheduleType) =>
         a.name.localeCompare(b.name)
       );

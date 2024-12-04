@@ -39,23 +39,8 @@ export function API({ stack, app }: StackContext) {
   const api = new Api(stack, "Api", {
     routes: {
       "GET /session": "packages/functions/src/handlers/api/session.handler",
-      "GET /list": "packages/functions/src/handlers/api/list-templates.handler",
-      "POST /description":
-        "packages/functions/src/handlers/api/describe-template.handler",
       "POST /start":
         "packages/functions/src/handlers/api/start-instance.handler",
-      "GET /costcenters": {
-        function: {
-          handler: "packages/functions/src/handlers/api/costcenters.handler",
-          bind: [table]
-        }
-      },
-      "GET /schedules": {
-        function: {
-          handler: "packages/functions/src/handlers/api/schedules.handler",
-          bind: [table]
-        }
-      },
       "POST /ec2/snapshot":
         "packages/functions/src/handlers/api/snapshot.handler",
       "POST /ec2/restore": "packages/functions/src/handlers/api/restore.handler"
@@ -110,8 +95,6 @@ export function API({ stack, app }: StackContext) {
     prefix: "/auth"
   });
 
-  const domainPrefix = `${stack.stage}-${app.name}`;
-
   const site = new NextjsSite(stack, "Site", {
     path: "packages/web",
     environment: {
@@ -122,6 +105,20 @@ export function API({ stack, app }: StackContext) {
       // see https://github.com/sst/sst/issues/3270#issuecomment-2218550203
       // if you add a bind here, it will required to undeploy/re-deploy the
       // NextjsSite construct in prod
+      auth,
+      table
+    ],
+    permissions: [
+      "ec2:DescribeLaunchTemplates",
+      "ec2:DescribeLaunchTemplateVersions",
+      "iam:CreateServiceLinkedRole",
+      "ec2:RunInstances",
+      "ec2:CreateTags",
+      "ec2:DescribeInstances",
+      "ec2:DescribeSnapshots",
+      "ec2:CreateSnapshot",
+      "ec2:DeleteSnapshot",
+      "ec2:CreateReplaceRootVolumeTask"
     ],
     customDomain: {
       domainName: siteDomain,

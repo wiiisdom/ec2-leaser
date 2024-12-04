@@ -23,12 +23,15 @@ definitions:
   steps:
     - step: &frontend-sonar
         name: sonar frontend
+        oidc: true
         size: 2x
         caches:
           - pnpm
           - sonar
         script:
+          - *aws
           - *pnpm-install
+          - pnpm sst types --stage dev
           - cd packages/web/
           - pnpm typecheck
           - pnpm coverage
@@ -42,6 +45,9 @@ definitions:
                 -Dsonar.tests=test
                 -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
                 -Dsonar.testExecutionReportPaths=./sonar-report.xml
+                -Dsonar.issue.ignore.multicriteria=next1
+                -Dsonar.issue.ignore.multicriteria.next1.ruleKey=typescript:S100
+                -Dsonar.issue.ignore.multicriteria.next1.resourceKey=**/*route.ts
               SONAR_SCANNER_OPTS: -Xmx2048m
           - pnpm lint
     - step: &backend-sonar

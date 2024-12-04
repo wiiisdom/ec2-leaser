@@ -33,6 +33,7 @@
   },
   "include": [
     "./src",
+    "./sst-env.d.ts",
     "./test",
     "./dist/types/**/*.ts",
     "./next-env.d.ts",

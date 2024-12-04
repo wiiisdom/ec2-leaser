@@ -7,7 +7,7 @@ import SelectCostCenter from './SelectCostCenter';
 import SelectSchedule from './SelectSchedule';
 import { LaunchTemplateType } from '../../models/LaunchTemplate';
 import { useUser } from '@/contexts/UserContext';
-import { callApi } from '@/api';
+import { callLegacyApi } from '@/api';
 import StartResult from './StartResult';
 import { InstanceInfo } from '@/models/Instance';
 
@@ -51,7 +51,7 @@ const StartInstanceContent = () => {
       schedule
     };
 
-    callApi(user.token, '/start', 'POST', body)
+    callLegacyApi(user.token, '/start', 'POST', body)
       .then(data => {
         setStarting(false);
         setInstanceInfo(data);

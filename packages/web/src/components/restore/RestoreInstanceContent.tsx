@@ -6,7 +6,7 @@ import { infer as zodInfer } from 'zod';
 
 import { FormSchema } from '@/schemas/FormSchema';
 import { FormInstance } from '../common/FormInstance';
-import { callApi } from '@/api';
+import { callLegacyApi } from '@/api';
 import { useUser } from '@/contexts/UserContext';
 
 const RestoreInstanceContent = () => {
@@ -23,7 +23,12 @@ const RestoreInstanceContent = () => {
   const onSubmit = async (values: zodInfer<typeof FormSchema>) => {
     setLoading(true);
     try {
-      const result = await callApi(user.token, '/ec2/restore', 'POST', values);
+      const result = await callLegacyApi(
+        user.token,
+        '/ec2/restore',
+        'POST',
+        values
+      );
       setMessage(`Restoring the instance ID ${result.instanceId}`);
     } catch (e) {
       if (e instanceof Error) {

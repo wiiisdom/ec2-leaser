@@ -15,10 +15,10 @@ const SelectCostCenter = ({
   const user = useUser();
   useEffect(() => {
     const fetchCostCenters = async () => {
-      const data = (await callApi(
+      const data = await callApi<CostCenterType[]>(
         user.token,
-        '/costcenters'
-      )) as CostCenterType[];
+        '/api/costcenters'
+      );
       data.sort((a: CostCenterType, b: CostCenterType) =>
         a.name.localeCompare(b.name)
       );

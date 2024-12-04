@@ -17,7 +17,7 @@ const SelectLaunchTemplate = ({
   const [search, setSearch] = useState('');
   const { data, isLoading, error } = useQuery({
     queryKey: ['launchTemplates'],
-    queryFn: () => callApi(user.token, '/list'),
+    queryFn: () => callApi<LaunchTemplateType[]>(user.token, '/api/templates'),
     ...fetchPolicy
   });
 

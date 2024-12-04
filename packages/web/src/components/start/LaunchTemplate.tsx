@@ -19,7 +19,7 @@ const LaunchTemplate = memo(
     const { data, isLoading, error } = useQuery({
       queryKey: ['template', id],
       queryFn: () =>
-        callApi(user.token, '/description', 'POST', { instanceId: id }),
+        callApi<{ description: string }>(user.token, `/api/templates/${id}`),
       ...fetchPolicy
     });
     const onClick = () =>
@@ -35,7 +35,7 @@ const LaunchTemplate = memo(
         description={
           isLoading
             ? 'Loading...'
-            : data?.description ?? 'No description available'
+            : (data?.description ?? 'No description available')
         }
         selected={selected}
         onClick={onClick}

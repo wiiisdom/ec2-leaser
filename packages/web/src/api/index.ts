@@ -10,10 +10,31 @@ export const fetchPolicy = {
   refetchOnWindowFocus: false
 };
 
-export const callApi = async (
+export const callApi = async <T>(
   token: string,
   path: string,
-  method: string = 'GET',
+  method = 'GET',
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  body?: any
+): Promise<T> => {
+  const response = await fetch(path, {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(message);
+  }
+  return response.json();
+};
+
+export const callLegacyApi = async (
+  token: string,
+  path: string,
+  method = 'GET',
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   body?: any
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any

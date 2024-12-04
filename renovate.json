@@ -5,6 +5,14 @@
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
+    },
+    {
+      "matchPackageNames": ["aws-cdk-lib"],
+      "allowedVersions": "2.161.1"
+    },
+    {
+      "matchPackageNames": ["constructs"],
+      "allowedVersions": "10.3.0"
     }
   ]
 }
