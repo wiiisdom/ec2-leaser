@@ -7,15 +7,16 @@ import SelectCostCenter from './SelectCostCenter';
 import SelectSchedule from './SelectSchedule';
 import { LaunchTemplateType } from '../../models/LaunchTemplate';
 import { useUser } from '@/contexts/UserContext';
-import { callLegacyApi } from '@/api';
+import { callApi } from '@/api';
 import StartResult from './StartResult';
 import { InstanceInfo } from '@/models/Instance';
+import { StartInstanceInput } from '@/lib/ec2Utils';
 
 const StartInstanceContent = () => {
   const user = useUser();
   const [selectedLaunchTemplate, setSelectedLaunchTemplate] =
     useState<LaunchTemplateType | null>(null);
-  const [costCenter, setCostCenter] = useState(null);
+  const [costCenter, setCostCenter] = useState('');
   const [title, setTitle] = useState('');
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState('');
@@ -43,15 +44,15 @@ const StartInstanceContent = () => {
     // show spinner
     setStarting(true);
 
-    const body = {
-      instanceId: selectedLaunchTemplate.id,
+    const body: StartInstanceInput = {
+      launchTemplateId: selectedLaunchTemplate.id,
       owner: user.userId,
       title,
       costCenter,
       schedule
     };
 
-    callLegacyApi(user.token, '/start', 'POST', body)
+    callApi<InstanceInfo>(user.token, '/api/instances', 'POST', body)
       .then(data => {
         setStarting(false);
         setInstanceInfo(data);

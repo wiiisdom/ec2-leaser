@@ -6,7 +6,7 @@ import { infer as zodInfer } from 'zod';
 
 import { FormSchema } from '@/schemas/FormSchema';
 import { FormInstance } from '../common/FormInstance';
-import { callLegacyApi } from '@/api';
+import { callApi } from '@/api';
 import { useUser } from '@/contexts/UserContext';
 
 const SnapshotInstanceContent = () => {
@@ -24,12 +24,9 @@ const SnapshotInstanceContent = () => {
   const onSubmit = async (values: zodInfer<typeof FormSchema>) => {
     setLoading(true);
     try {
-      const result = await callLegacyApi(
-        user.token,
-        '/ec2/snapshot',
-        'POST',
-        values
-      );
+      const result = await callApi<{
+        snapshotId: string;
+      }>(user.token, `/api/instances/${values.instanceId}/snapshot`, 'POST');
       setMessage(
         `Saving a snapshot under the snapshot ID ${result.snapshotId}`
       );

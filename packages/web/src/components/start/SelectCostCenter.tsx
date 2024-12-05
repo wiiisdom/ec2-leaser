@@ -8,7 +8,7 @@ const SelectCostCenter = ({
   costCenter,
   setCostCenter
 }: {
-  costCenter: CostCenterType | null;
+  costCenter: string;
   setCostCenter: Function;
 }) => {
   const [costCenters, setCostCenters] = useState<CostCenterType[]>([]);

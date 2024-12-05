@@ -12,7 +12,7 @@ describe('SelectCostCenter', () => {
       { name: 'cc2', description: 'cc2 desc' }
     ]);
     const setCostCenter = vi.fn();
-    const costCenter = null;
+    const costCenter = '';
     render(
       <SelectCostCenter costCenter={costCenter} setCostCenter={setCostCenter} />
     );

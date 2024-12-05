@@ -35,8 +35,8 @@ Deploy the infrastructure with SST (front and back stack)
 (it push the frontend to S3 and invalidate cloudfront distribution)
 
 ```
-npx sst deploy --stage prod --region eu-central-1 # on aws prod account
-npx sst deploy --stage demo --region us-east-1 # on aws demo account
+pnpm sst deploy --stage prod --region eu-central-1 # on aws prod account
+pnpm sst deploy --stage demo --region us-east-1 # on aws demo account
 
 ```
 

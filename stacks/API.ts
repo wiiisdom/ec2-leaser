@@ -14,6 +14,7 @@ import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Alarm } from "aws-cdk-lib/aws-cloudwatch";
 import { SnsAction } from "aws-cdk-lib/aws-cloudwatch-actions";
 import { ResponseHeadersPolicy } from "aws-cdk-lib/aws-cloudfront";
+import { RetentionDays } from "aws-cdk-lib/aws-logs";
 
 export function API({ stack, app }: StackContext) {
   // Config
@@ -38,28 +39,9 @@ export function API({ stack, app }: StackContext) {
   // Create the HTTP API
   const api = new Api(stack, "Api", {
     routes: {
-      "GET /session": "packages/functions/src/handlers/api/session.handler",
-      "POST /start":
-        "packages/functions/src/handlers/api/start-instance.handler",
-      "POST /ec2/snapshot":
-        "packages/functions/src/handlers/api/snapshot.handler",
-      "POST /ec2/restore": "packages/functions/src/handlers/api/restore.handler"
+      "GET /session": "packages/functions/src/handlers/api/session.handler"
     }
   });
-
-  // API permission
-  api.attachPermissions([
-    "ec2:DescribeLaunchTemplates",
-    "ec2:DescribeLaunchTemplateVersions",
-    "iam:CreateServiceLinkedRole",
-    "ec2:RunInstances",
-    "ec2:CreateTags",
-    "ec2:DescribeInstances",
-    "ec2:DescribeSnapshots",
-    "ec2:CreateSnapshot",
-    "ec2:DeleteSnapshot",
-    "ec2:CreateReplaceRootVolumeTask"
-  ]);
 
   // Create the Cron tasks to destroy old resources
   const destroyEc2Cron = new Cron(stack, "DestroyEc2", {
@@ -129,6 +111,9 @@ export function API({ stack, app }: StackContext) {
         defaultBehavior: {
           responseHeadersPolicy: ResponseHeadersPolicy.SECURITY_HEADERS
         }
+      },
+      server: {
+        logRetention: RetentionDays.ONE_YEAR
       }
     }
   });
@@ -150,6 +135,15 @@ export function API({ stack, app }: StackContext) {
         });
         alarm.addAlarmAction(new SnsAction(alarmTopic));
       }
+    }
+    if (site.cdk?.function) {
+      const alarm = new Alarm(stack, "NextFunctionAlarm", {
+        metric: site.cdk?.function?.metricErrors(),
+        alarmName: `${stack.stackName} NextFunction`,
+        threshold: 1,
+        evaluationPeriods: 1
+      });
+      alarm.addAlarmAction(new SnsAction(alarmTopic));
     }
 
     const destroyEc2Alarm = new Alarm(stack, `FunctionAlarm-DestroyEC2`, {
