@@ -7,10 +7,8 @@ import { infer as zodInfer } from 'zod';
 import { FormSchema } from '@/schemas/FormSchema';
 import { FormInstance } from '../common/FormInstance';
 import { callApi } from '@/api';
-import { useUser } from '@/contexts/UserContext';
 
 const RestoreInstanceContent = () => {
-  const user = useUser();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -25,7 +23,7 @@ const RestoreInstanceContent = () => {
     try {
       const result = await callApi<{
         instanceId: string;
-      }>(user.token, `/api/instances/${values.instanceId}/restore`, 'POST');
+      }>(`/api/instances/${values.instanceId}/restore`, 'POST');
       setMessage(`Restoring the instance ID ${result.instanceId}`);
     } catch (e) {
       if (e instanceof Error) {

@@ -1,4 +1,5 @@
 import { Button } from './ui/button';
+import { signIn } from 'next-auth/react';
 
 const LoginScreen = () => {
   return (
@@ -25,7 +26,7 @@ const LoginScreen = () => {
             <div className="m-1">
               <a
                 data-testid="azure-login"
-                href={`${process.env.NEXT_PUBLIC_API}/auth/azure/authorize`}
+                onClick={() => signIn('microsoft-entra-id')}
               >
                 <Button>Login with Azure</Button>
               </a>

@@ -5,7 +5,7 @@ import { InstanceInfo } from '@/models/Instance';
 export const fetchCache = 'force-no-store';
 
 export async function POST(request: Request) {
-  checkSession();
+  await checkSession();
   try {
     const input = (await request.json()) as StartInstanceInput;
 

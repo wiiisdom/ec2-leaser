@@ -7,7 +7,7 @@ export async function POST(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  checkSession();
+  await checkSession();
   try {
     const instanceId = (await params).id;
     const ebsSnapshot = await snapshotInstance(instanceId);

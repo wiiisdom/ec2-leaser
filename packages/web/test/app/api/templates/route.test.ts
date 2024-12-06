@@ -30,9 +30,7 @@ it('should return templates when authentication succeeds', async () => {
 
 it('should handle authentication failure', async () => {
   const authError = new Error('Unauthorized');
-  vi.mocked(checkSession).mockImplementation(() => {
-    throw authError;
-  });
+  vi.mocked(checkSession).mockRejectedValue(authError);
 
   await expect(GET()).rejects.toThrow(authError);
 

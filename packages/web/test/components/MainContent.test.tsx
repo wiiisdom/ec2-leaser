@@ -2,6 +2,9 @@ import { describe, vi, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 import MainContent from '../../src/components/MainContent';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SessionProvider } from 'next-auth/react';
+
+global.fetch = () => Promise.resolve(new Response(JSON.stringify({})));
 
 describe('MainContent', () => {
   it('should render all features if env var set to 1', async () => {
@@ -10,9 +13,11 @@ describe('MainContent', () => {
     const queryClient = new QueryClient();
 
     const { queryByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <MainContent />
-      </QueryClientProvider>
+      <SessionProvider>
+        <QueryClientProvider client={queryClient}>
+          <MainContent />
+        </QueryClientProvider>
+      </SessionProvider>
     );
 
     expect(queryByTestId('start')).toBeInTheDocument();
@@ -24,9 +29,11 @@ describe('MainContent', () => {
     const queryClient = new QueryClient();
 
     const { queryByTestId } = render(
-      <QueryClientProvider client={queryClient}>
-        <MainContent />
-      </QueryClientProvider>
+      <SessionProvider>
+        <QueryClientProvider client={queryClient}>
+          <MainContent />
+        </QueryClientProvider>
+      </SessionProvider>
     );
     expect(queryByTestId('start')).not.toBeInTheDocument();
     expect(queryByTestId('snapshot')).not.toBeInTheDocument();

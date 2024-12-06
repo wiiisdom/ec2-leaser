@@ -18,6 +18,11 @@ export default defineConfig(() => {
         reporter: ['lcov', 'text'],
         include: ['src/**/*.{ts,tsx}'],
         exclude: ['src/components/ui/**']
+      },
+      server: {
+        deps: {
+          inline: ['next']
+        }
       }
     }
   };

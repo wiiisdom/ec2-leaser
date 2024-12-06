@@ -1,28 +1,11 @@
-import { Session } from "sst/node/auth";
-import { headers } from "next/headers";
+import { auth } from '@/auth';
 
-declare module "sst/node/auth" {
-  export interface SessionTypes {
-    user: {
-      userID: string;
-    };
-  }
-}
-
-export const checkSession = () => {
-  const authorization = headers().get("Authorization");
-  // remove Bearer from token
-  const token = authorization?.split(" ")[1];
-
-  if (!token) {
-    throw new Error("No token");
-  }
-
-  const session = Session.verify(token);
+export const checkSession = async () => {
+  const session = await auth();
 
   // Check user is authenticated
-  if (session.type !== "user") {
-    throw new Error("Not authenticated");
+  if (!session?.user) {
+    throw new Error('Not authenticated');
   }
   return session;
 };

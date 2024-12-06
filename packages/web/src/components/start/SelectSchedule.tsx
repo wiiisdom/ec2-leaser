@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Spinner from './../common/Spinner';
 import { ScheduleType } from '../../models/Schedule';
 import { callApi } from '@/api';
-import { useUser } from '@/contexts/UserContext';
 
 const SelectSchedule = ({
   schedule,
@@ -12,10 +11,9 @@ const SelectSchedule = ({
   setSchedule: Function;
 }) => {
   const [schedules, setSchedules] = useState<ScheduleType[]>([]);
-  const user = useUser();
   useEffect(() => {
     const fetchSchedules = async () => {
-      const data = await callApi<ScheduleType[]>(user.token, '/api/schedules');
+      const data = await callApi<ScheduleType[]>('/api/schedules');
       data.sort((a: ScheduleType, b: ScheduleType) =>
         a.name.localeCompare(b.name)
       );
@@ -28,7 +26,7 @@ const SelectSchedule = ({
     fetchSchedules().catch(() => {
       // comment for sonar
     });
-  }, [setSchedule, user.token]);
+  }, [setSchedule]);
 
   const optionsRender = schedules.map(s => (
     <option value={s.name} key={s.name}>

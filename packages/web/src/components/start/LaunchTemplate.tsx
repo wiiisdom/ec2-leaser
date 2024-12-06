@@ -1,7 +1,6 @@
 import { MouseEventHandler, memo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { callApi, fetchPolicy } from '@/api';
-import { useUser } from '@/contexts/UserContext';
 
 const LaunchTemplate = memo(
   ({
@@ -15,11 +14,9 @@ const LaunchTemplate = memo(
     selected: boolean;
     setLaunchTemplate: Function;
   }) => {
-    const user = useUser();
     const { data, isLoading, error } = useQuery({
       queryKey: ['template', id],
-      queryFn: () =>
-        callApi<{ description: string }>(user.token, `/api/templates/${id}`),
+      queryFn: () => callApi<{ description: string }>(`/api/templates/${id}`),
       ...fetchPolicy
     });
     const onClick = () =>
