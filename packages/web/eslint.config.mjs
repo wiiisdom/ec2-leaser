@@ -19,6 +19,7 @@ export default [
   {
     ignores: [
       '**/.next',
+      '**/.open-next',
       '**/dist',
       '**/coverage',
       'tailwind.config.ts',
