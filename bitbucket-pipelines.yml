@@ -31,7 +31,8 @@ definitions:
         script:
           - *aws
           - *pnpm-install
-          - pnpm sst types --stage dev
+          - pnpm build --stage dev
+          - pnpm typecheck
           - cd packages/web/
           - pnpm typecheck
           - pnpm coverage
@@ -40,7 +41,7 @@ definitions:
               EXTRA_ARGS: >
                 -Dsonar.organization=${SONAR_ORGANIZATION}
                 -Dsonar.projectKey=ec2-leaser-frontend
-                -Dsonar.exclusions=src/components/ui/**,src/libs/**
+                -Dsonar.exclusions=src/components/ui/**
                 -Dsonar.sources=src
                 -Dsonar.tests=test
                 -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
