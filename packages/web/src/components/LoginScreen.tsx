@@ -2,9 +2,9 @@ import { Button } from './ui/button';
 import { signIn } from 'next-auth/react';
 
 const LoginScreen = () => {
-  const onClick = () => {
+  function onClick() {
     signIn('microsoft-entra-id');
-  };
+  }
 
   return (
     <section className="body-font text-gray-600">

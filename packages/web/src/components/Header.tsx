@@ -2,9 +2,9 @@ import { signOut } from 'next-auth/react';
 import { Button } from './ui/button';
 
 const Header = () => {
-  const onClick = () => {
+  function onClick() {
     signOut();
-  };
+  }
 
   return (
     <header className="body-font text-gray-600">
