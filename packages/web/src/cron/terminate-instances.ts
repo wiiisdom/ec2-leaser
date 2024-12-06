@@ -2,7 +2,7 @@ import {
   DescribeInstancesCommand,
   EC2Client,
   TerminateInstancesCommand,
-  Instance,
+  Instance
 } from '@aws-sdk/client-ec2';
 import debug from 'debug';
 
@@ -20,13 +20,13 @@ export const handler = async () => {
       Filters: [
         {
           Name: 'instance-state-name',
-          Values: ['running', 'stopped'],
+          Values: ['running', 'stopped']
         },
         {
           Name: 'tag:Ec2LeaserDuration',
-          Values: ['*'],
-        },
-      ],
+          Values: ['*']
+        }
+      ]
     })
   );
   for (const reservation of data.Reservations ?? []) {
@@ -42,17 +42,21 @@ export const handler = async () => {
 };
 
 const checkInstance = async (instance: Instance) => {
-  info(`Will check ec2 ${instance.InstanceId} last started on ${instance.LaunchTime}`);
+  info(
+    `Will check ec2 ${instance.InstanceId} last started on ${instance.LaunchTime}`
+  );
   if (instance.LaunchTime === undefined) {
     // no launch date, skipping !
     return false;
   }
   if (addDays(instance.LaunchTime, getDays(instance)) < today) {
-    info(`Will terminate ec2 ${instance.InstanceId} last started on ${instance.LaunchTime}`);
+    info(
+      `Will terminate ec2 ${instance.InstanceId} last started on ${instance.LaunchTime}`
+    );
     if (instance.InstanceId) {
       await client.send(
         new TerminateInstancesCommand({
-          InstanceIds: [instance.InstanceId],
+          InstanceIds: [instance.InstanceId]
         })
       );
       info(`Instance ${instance.InstanceId} terminated.`);

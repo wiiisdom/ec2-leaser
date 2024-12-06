@@ -46,7 +46,7 @@ export function API({ stack, app }: StackContext) {
   // Create the Cron tasks to destroy old resources
   const destroyEc2Cron = new Cron(stack, "DestroyEc2", {
     schedule: "rate(20 minutes)",
-    job: "packages/functions/src/handlers/cron/terminate-instances.handler"
+    job: "packages/web/src/cron/terminate-instances.handler"
   });
 
   // Cron permissions
