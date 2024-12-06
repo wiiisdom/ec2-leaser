@@ -8,26 +8,24 @@ It's also possible to snapshot and restore instances!
 
 ## Architecture
 
-The backend is managed serverlessly via [SST](https://sst.dev/).
-The frontend is a React application. It's design to be deployed on AWS.
+It's a fullstack application (NextJs) deployed via [SST](https://sst.dev/) on AWS.
 
 ## How to run the application locally ?
 
-Run the backend only (you need only that to use a local frontend):
+Run the backend if you want to work with the cron job
 
 ```
 pnpm install
 pnpm dev
 ```
 
-Start the frontend:
+Run NextJs if you want to work with the app
 
 ```
+pnpm install
 cd packages/web/
 pnpm dev
 ```
-
-no need to provide environment variables, are these are made available to the frontend via SST.
 
 ## How to deploy the application
 
@@ -46,19 +44,12 @@ To add cost center list so that the frontend can make use of it, add items direc
 visit [DynamoDB section](https://console.aws.amazon.com/dynamodbv2/home)
 search for `{stage}-ec2-leaser-config`
 
-See below for an example on how to enter the items in the table.
+See below for an example on how to enter the items in the table:
 
-### Cost centers list
-
-| PK          | SK          | description                          |
-| ----------- | ----------- | ------------------------------------ |
-| costcenters | eng:360Eyes | Usage for Engineering 360Eyes        |
-| costcenters | eng:360WP   | Usage for Engineering 360WebPlatform |
-| costcenters | eng:lab     | Generic Lab usage                    |
-
-### Schedules list
-
-| PK        | SK                   | description                                           |
-| --------- | -------------------- | ----------------------------------------------------- |
-| schedules | lille-office-stop    | Stop automatically the instance at 7pm (CET timezone) |
-| schedules | montreal-office-stop | Stop automatically the instance at 7pm (EST timezone) |
+| PK          | SK                   | description                                           |
+| ----------- | -------------------- | ----------------------------------------------------- |
+| costcenters | eng:360Eyes          | Usage for Engineering 360Eyes                         |
+| costcenters | eng:360WP            | Usage for Engineering 360WebPlatform                  |
+| costcenters | eng:lab              | Generic Lab usage                                     |
+| schedules   | lille-office-stop    | Stop automatically the instance at 7pm (CET timezone) |
+| schedules   | montreal-office-stop | Stop automatically the instance at 7pm (EST timezone) |
