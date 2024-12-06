@@ -24,12 +24,12 @@ const LoginScreen = () => {
           </p>
           <div className="flex justify-center">
             <div className="m-1">
-              <a
+              <Button
                 data-testid="azure-login"
                 onClick={() => signIn('microsoft-entra-id')}
               >
-                <Button>Login with Azure</Button>
-              </a>
+                Login with Azure
+              </Button>
             </div>
           </div>
         </div>

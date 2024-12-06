@@ -34,7 +34,7 @@ const StartInstanceContent = () => {
     } else {
       setTitle('');
     }
-  }, [selectedLaunchTemplate?.name]);
+  }, [selectedLaunchTemplate?.name, session?.user?.email]);
 
   const handleStart = () => {
     if (selectedLaunchTemplate === null) {
