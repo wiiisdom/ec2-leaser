@@ -2,7 +2,7 @@ import { signOut } from 'next-auth/react';
 import { Button } from './ui/button';
 
 const Header = () => {
-  function onClick() {
+  function handleClick() {
     signOut();
   }
 
@@ -29,7 +29,7 @@ const Header = () => {
           <span className="ml-3 text-xl">EC2 Leaser</span>
         </a>
 
-        <Button onClick={onClick}>Sign out</Button>
+        <Button onClick={handleClick}>Sign out</Button>
       </div>
     </header>
   );

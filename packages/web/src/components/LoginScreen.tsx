@@ -2,7 +2,7 @@ import { Button } from './ui/button';
 import { signIn } from 'next-auth/react';
 
 const LoginScreen = () => {
-  function onClick() {
+  function handleClick() {
     signIn('microsoft-entra-id');
   }
 
@@ -28,7 +28,7 @@ const LoginScreen = () => {
           </p>
           <div className="flex justify-center">
             <div className="m-1">
-              <Button data-testid="azure-login" onClick={onClick}>
+              <Button data-testid="azure-login" onClick={handleClick}>
                 Login with Azure
               </Button>
             </div>
