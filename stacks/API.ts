@@ -43,13 +43,6 @@ export function API({ stack, app }: StackContext) {
   const domain =
     stack.stage === "prod" ? "wiiisdom.com" : `${stack.stage}.wiiisdom.com`;
 
-  // Creates the full address to use as URL
-  const siteDomain = app.name + "." + domain;
-
-  // const siteUrl = new Config.Parameter(stack, "SITE_URL", {
-  //   value: `https://${siteDomain}`
-  // });
-
   const site = new NextjsSite(stack, "Site", {
     path: "packages/web",
     environment: {
@@ -78,7 +71,7 @@ export function API({ stack, app }: StackContext) {
       "ec2:CreateReplaceRootVolumeTask"
     ],
     customDomain: {
-      domainName: siteDomain,
+      domainName: app.name + "." + domain,
       hostedZone: domain
     },
     cdk: {

@@ -2,6 +2,10 @@ import { signOut } from 'next-auth/react';
 import { Button } from './ui/button';
 
 const Header = () => {
+  function onClick() {
+    signOut();
+  }
+
   return (
     <header className="body-font text-gray-600">
       <div className="container flex flex-col flex-wrap items-center mx-auto p-5 md:flex-row md:justify-between">
@@ -25,7 +29,7 @@ const Header = () => {
           <span className="ml-3 text-xl">EC2 Leaser</span>
         </a>
 
-        <Button onClick={() => signOut()}>Sign out</Button>
+        <Button onClick={onClick}>Sign out</Button>
       </div>
     </header>
   );

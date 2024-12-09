@@ -18,9 +18,6 @@ export const callApi = async <T>(
 ): Promise<T> => {
   const response = await fetch(path, {
     method,
-    headers: {
-      // Authorization: `Bearer ${token}`
-    },
     body: body ? JSON.stringify(body) : undefined
   });
   if (!response.ok) {
