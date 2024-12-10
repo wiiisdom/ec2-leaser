@@ -1,14 +1,5 @@
 import { RemovalPolicy, Duration } from "aws-cdk-lib";
-import {
-  Api,
-  Auth,
-  Config,
-  Cron,
-  NextjsSite,
-  StackContext,
-  StaticSite,
-  Table
-} from "sst/constructs";
+import { Config, Cron, NextjsSite, StackContext, Table } from "sst/constructs";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Alarm } from "aws-cdk-lib/aws-cloudwatch";
@@ -21,6 +12,7 @@ export function API({ stack, app }: StackContext) {
   const azureClientId = new Config.Secret(stack, "AZURE_CLIENT_ID");
   const azureClientSecret = new Config.Secret(stack, "AZURE_CLIENT_SECRET");
   const azureTenantId = new Config.Secret(stack, "AZURE_TENANT_ID");
+  const authSecret = new Config.Secret(stack, "AUTH_SECRET");
 
   // Create a table for the cost center list
   const table = new Table(stack, `config`, {
@@ -33,13 +25,6 @@ export function API({ stack, app }: StackContext) {
       table: {
         removalPolicy: RemovalPolicy.DESTROY
       }
-    }
-  });
-
-  // Create the HTTP API
-  const api = new Api(stack, "Api", {
-    routes: {
-      "GET /session": "packages/functions/src/handlers/api/session.handler"
     }
   });
 
@@ -58,37 +43,20 @@ export function API({ stack, app }: StackContext) {
   const domain =
     stack.stage === "prod" ? "wiiisdom.com" : `${stack.stage}.wiiisdom.com`;
 
-  // Creates the full address to use as URL
-  const siteDomain = app.name + "." + domain;
-
-  const siteUrl = new Config.Parameter(stack, "SITE_URL", {
-    value: `https://${siteDomain}`
-  });
-
-  const auth = new Auth(stack, "auth", {
-    authenticator: {
-      handler: "packages/functions/src/handlers/api/auth.handler",
-      bind: [azureClientId, azureClientSecret, azureTenantId, siteUrl]
-    }
-  });
-
-  auth.attach(stack, {
-    api,
-    prefix: "/auth"
-  });
-
   const site = new NextjsSite(stack, "Site", {
     path: "packages/web",
     environment: {
-      NEXT_PUBLIC_API: api.url,
       NEXT_PUBLIC_SHOW_SNAPSHOT_RESTORE: app.stage !== "prod" ? "1" : "0"
     },
     bind: [
       // see https://github.com/sst/sst/issues/3270#issuecomment-2218550203
       // if you add a bind here, it will required to undeploy/re-deploy the
       // NextjsSite construct in prod
-      auth,
-      table
+      table,
+      azureClientId,
+      azureClientSecret,
+      azureTenantId,
+      authSecret
     ],
     permissions: [
       "ec2:DescribeLaunchTemplates",
@@ -103,7 +71,7 @@ export function API({ stack, app }: StackContext) {
       "ec2:CreateReplaceRootVolumeTask"
     ],
     customDomain: {
-      domainName: siteDomain,
+      domainName: app.name + "." + domain,
       hostedZone: domain
     },
     cdk: {
@@ -122,20 +90,7 @@ export function API({ stack, app }: StackContext) {
   if (!app.local) {
     const alarmTopic = new Topic(stack, `${stack.stackName}-AlarmTopic`);
     alarmTopic.addSubscription(new EmailSubscription("lab@wiiisdom.com"));
-    for (const route of api.routes) {
-      const func = api.getFunction(route);
-      if (func) {
-        const alarm = new Alarm(stack, `FunctionAlarm-${func.id}`, {
-          metric: func.metricErrors({
-            period: Duration.minutes(15)
-          }),
-          alarmName: `${stack.stackName} ${route}`,
-          threshold: 5,
-          evaluationPeriods: 1
-        });
-        alarm.addAlarmAction(new SnsAction(alarmTopic));
-      }
-    }
+
     if (site.cdk?.function) {
       const alarm = new Alarm(stack, "NextFunctionAlarm", {
         metric: site.cdk?.function?.metricErrors(),
@@ -176,12 +131,4 @@ export function API({ stack, app }: StackContext) {
     });
     tableWriteCapacity.addAlarmAction(new SnsAction(alarmTopic));
   }
-
-  // Show API endpoint  and site url in output
-  stack.addOutputs({
-    ApiEndpoint: {
-      value: api.url,
-      exportName: `${app.stage}-${app.name}-api`
-    }
-  });
 }

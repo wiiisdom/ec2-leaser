@@ -7,11 +7,8 @@ import { infer as zodInfer } from 'zod';
 import { FormSchema } from '@/schemas/FormSchema';
 import { FormInstance } from '../common/FormInstance';
 import { callApi } from '@/api';
-import { useUser } from '@/contexts/UserContext';
 
 const SnapshotInstanceContent = () => {
-  const user = useUser();
-
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -26,7 +23,7 @@ const SnapshotInstanceContent = () => {
     try {
       const result = await callApi<{
         snapshotId: string;
-      }>(user.token, `/api/instances/${values.instanceId}/snapshot`, 'POST');
+      }>(`/api/instances/${values.instanceId}/snapshot`, 'POST');
       setMessage(
         `Saving a snapshot under the snapshot ID ${result.snapshotId}`
       );

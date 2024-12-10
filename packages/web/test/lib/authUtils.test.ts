@@ -1,24 +1,15 @@
 import { it, expect, vi } from 'vitest';
-import { Session } from 'sst/node/auth';
 import { checkSession } from '@/lib/authUtils';
+import { auth } from '@/auth';
 
-vi.mock('next/headers', () => ({
-  headers: () => ({
-    get: vi.fn().mockReturnValue('test 12345')
-  })
-}));
+vi.mock('@/auth');
 
 it('checkSession must throw if not auth', async () => {
-  expect(() => checkSession()).toThrowError(/Not auth/);
+  await expect(() => checkSession()).rejects.toThrowError(/Not auth/);
 });
 
-it('checkSession must pass  if  auth', async () => {
-  vi.spyOn(Session, 'verify').mockImplementation(() => ({
-    type: 'user',
-    properties: {
-      userId: 'XXXXX'
-    }
-  }));
-
-  expect(() => checkSession()).not.toThrowError(/Not auth/);
+it('checkSession must pass if auth', async () => {
+  vi.mocked(auth).mockResolvedValue({ user: { id: '12345' } } as any);
+  const session = await checkSession();
+  expect(session).toBeDefined();
 });

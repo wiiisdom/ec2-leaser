@@ -3,6 +3,8 @@ import { ClientOnly } from '@/app/[[...slug]]/client';
 import React from 'react';
 import { vi, it, expect } from 'vitest';
 
+global.fetch = () => Promise.resolve(new Response(JSON.stringify({})));
+
 // Mock the dynamic import of App component
 vi.mock('next/dynamic', () => ({
   __esModule: true,

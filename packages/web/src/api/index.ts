@@ -11,7 +11,6 @@ export const fetchPolicy = {
 };
 
 export const callApi = async <T>(
-  token: string,
   path: string,
   method = 'GET',
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
@@ -19,9 +18,6 @@ export const callApi = async <T>(
 ): Promise<T> => {
   const response = await fetch(path, {
     method,
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
     body: body ? JSON.stringify(body) : undefined
   });
   if (!response.ok) {
@@ -29,18 +25,4 @@ export const callApi = async <T>(
     throw new Error(message);
   }
   return response.json();
-};
-
-export const getUserInfo = async (token: string) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API}/session`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-  const { userId } = (await response.json()) as { userId: string };
-  return {
-    userId,
-    token
-  };
 };

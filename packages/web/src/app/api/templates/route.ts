@@ -4,7 +4,7 @@ import { listLaunchTemplates } from '@/lib/ec2Utils';
 export const fetchCache = 'force-no-store';
 
 export async function GET() {
-  checkSession();
+  await checkSession();
 
   const templates = await listLaunchTemplates();
   return Response.json(templates);

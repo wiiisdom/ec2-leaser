@@ -6,14 +6,15 @@ import SelectTitle from './SelectTitle';
 import SelectCostCenter from './SelectCostCenter';
 import SelectSchedule from './SelectSchedule';
 import { LaunchTemplateType } from '../../models/LaunchTemplate';
-import { useUser } from '@/contexts/UserContext';
 import { callApi } from '@/api';
 import StartResult from './StartResult';
 import { InstanceInfo } from '@/models/Instance';
 import { StartInstanceInput } from '@/lib/ec2Utils';
+import { useSession } from 'next-auth/react';
 
 const StartInstanceContent = () => {
-  const user = useUser();
+  const { data: session } = useSession();
+
   const [selectedLaunchTemplate, setSelectedLaunchTemplate] =
     useState<LaunchTemplateType | null>(null);
   const [costCenter, setCostCenter] = useState('');
@@ -25,7 +26,7 @@ const StartInstanceContent = () => {
 
   useEffect(() => {
     if (selectedLaunchTemplate?.name) {
-      const originalName = `ec2-leaser-${selectedLaunchTemplate.name}-${user.userId}`;
+      const originalName = `ec2-leaser-${selectedLaunchTemplate.name}-${session?.user?.email}`;
       const cleanName = originalName
         .toLowerCase()
         .replace(/[^a-zA-Z0-9]+/g, '-');
@@ -33,7 +34,7 @@ const StartInstanceContent = () => {
     } else {
       setTitle('');
     }
-  }, [selectedLaunchTemplate?.name, user.userId]);
+  }, [selectedLaunchTemplate?.name, session?.user?.email]);
 
   const handleStart = () => {
     if (selectedLaunchTemplate === null) {
@@ -46,13 +47,13 @@ const StartInstanceContent = () => {
 
     const body: StartInstanceInput = {
       launchTemplateId: selectedLaunchTemplate.id,
-      owner: user.userId,
+      owner: session?.user?.email as string,
       title,
       costCenter,
       schedule
     };
 
-    callApi<InstanceInfo>(user.token, '/api/instances', 'POST', body)
+    callApi<InstanceInfo>('/api/instances', 'POST', body)
       .then(data => {
         setStarting(false);
         setInstanceInfo(data);

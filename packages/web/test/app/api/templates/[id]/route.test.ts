@@ -31,9 +31,7 @@ it('should return description when authentication succeeds', async () => {
 
 it('should handle authentication failure', async () => {
   const authError = new Error('Unauthorized');
-  vi.mocked(checkSession).mockImplementation(() => {
-    throw authError;
-  });
+  vi.mocked(checkSession).mockRejectedValue(authError);
 
   await expect(
     GET(new Request('http://localhost/api/templates/lt-1'), {

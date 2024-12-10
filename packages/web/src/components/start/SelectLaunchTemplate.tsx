@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { callApi, fetchPolicy } from '../../api';
 import LaunchTemplateContainer from './LaunchTemplateContainer';
 import { LaunchTemplateType } from '../../models/LaunchTemplate';
-import { useUser } from '@/contexts/UserContext';
 
 const SelectLaunchTemplate = ({
   selectedLaunchTemplateId,
@@ -13,11 +12,10 @@ const SelectLaunchTemplate = ({
   selectedLaunchTemplateId: string | null;
   setLaunchTemplate: Function;
 }) => {
-  const user = useUser();
   const [search, setSearch] = useState('');
   const { data, isLoading, error } = useQuery({
     queryKey: ['launchTemplates'],
-    queryFn: () => callApi<LaunchTemplateType[]>(user.token, '/api/templates'),
+    queryFn: () => callApi<LaunchTemplateType[]>('/api/templates'),
     ...fetchPolicy
   });
 

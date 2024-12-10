@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Spinner from './../common/Spinner';
 import { CostCenterType } from '../../models/CostCenter';
 import { callApi } from '@/api';
-import { useUser } from '@/contexts/UserContext';
 
 const SelectCostCenter = ({
   costCenter,
@@ -12,13 +11,9 @@ const SelectCostCenter = ({
   setCostCenter: Function;
 }) => {
   const [costCenters, setCostCenters] = useState<CostCenterType[]>([]);
-  const user = useUser();
   useEffect(() => {
     const fetchCostCenters = async () => {
-      const data = await callApi<CostCenterType[]>(
-        user.token,
-        '/api/costcenters'
-      );
+      const data = await callApi<CostCenterType[]>('/api/costcenters');
       data.sort((a: CostCenterType, b: CostCenterType) =>
         a.name.localeCompare(b.name)
       );
@@ -27,7 +22,7 @@ const SelectCostCenter = ({
     fetchCostCenters().catch(() => {
       // comment for sonar
     });
-  }, [user.token]);
+  }, []);
 
   const optionsRender = costCenters.map(cc => (
     <option value={cc.name} key={cc.name}>

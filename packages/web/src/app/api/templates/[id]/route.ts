@@ -9,7 +9,7 @@ export async function GET(
 ) {
   const launchTemplateId = (await params).id;
 
-  checkSession();
+  await checkSession();
 
   const description =
     await getLaunchTemplateLastVersionDescription(launchTemplateId);

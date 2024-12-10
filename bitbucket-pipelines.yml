@@ -21,37 +21,8 @@ definitions:
         corepack prepare pnpm@latest-9 --activate;
         pnpm install
   steps:
-    - step: &frontend-sonar
-        name: sonar frontend
-        oidc: true
-        size: 2x
-        caches:
-          - pnpm
-          - sonar
-        script:
-          - *aws
-          - *pnpm-install
-          - pnpm sst types --stage dev
-          - cd packages/web/
-          - pnpm typecheck
-          - pnpm coverage
-          - pipe: sonarsource/sonarcloud-scan:3.1.0
-            variables:
-              EXTRA_ARGS: >
-                -Dsonar.organization=${SONAR_ORGANIZATION}
-                -Dsonar.projectKey=ec2-leaser-frontend
-                -Dsonar.exclusions=src/components/ui/**,src/libs/**
-                -Dsonar.sources=src
-                -Dsonar.tests=test
-                -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
-                -Dsonar.testExecutionReportPaths=./sonar-report.xml
-                -Dsonar.issue.ignore.multicriteria=next1
-                -Dsonar.issue.ignore.multicriteria.next1.ruleKey=typescript:S100
-                -Dsonar.issue.ignore.multicriteria.next1.resourceKey=**/*route.ts
-              SONAR_SCANNER_OPTS: -Xmx2048m
-          - pnpm lint
-    - step: &backend-sonar
-        name: sonar backend (sst)
+    - step: &sonar
+        name: TypeCheck, Coverage, Sonar & Lint
         oidc: true
         size: 2x
         caches:
@@ -62,34 +33,33 @@ definitions:
           - *pnpm-install
           - pnpm build --stage dev
           - pnpm typecheck
-          - cd packages/functions/
+          - cd packages/web/
           - pnpm typecheck
           - pnpm coverage
           - pipe: sonarsource/sonarcloud-scan:3.1.0
             variables:
               EXTRA_ARGS: >
                 -Dsonar.organization=${SONAR_ORGANIZATION}
-                -Dsonar.projectKey=ec2-leaser-backend
-                -Dsonar.javascript.node.maxspace=4096
+                -Dsonar.projectKey=ec2-leaser-frontend
+                -Dsonar.exclusions=src/components/ui/**
                 -Dsonar.sources=src
                 -Dsonar.tests=test
                 -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
                 -Dsonar.testExecutionReportPaths=./sonar-report.xml
-              SONAR_SCANNER_OPTS: -Xmx4096m
+                -Dsonar.issue.ignore.multicriteria=next1
+                -Dsonar.issue.ignore.multicriteria.next1.ruleKey=typescript:S100
+                -Dsonar.issue.ignore.multicriteria.next1.resourceKey=**/*route.ts
+              SONAR_SCANNER_OPTS: -Xmx2048m
           - pnpm lint
 
 pipelines:
   pull-requests:
     "**":
-      - parallel:
-          - step: *backend-sonar
-          - step: *frontend-sonar
+      - step: *sonar
 
   branches:
     main:
-      - parallel:
-          - step: *backend-sonar
-          - step: *frontend-sonar
+      - step: *sonar
       - parallel:
           - step:
               name: Sync to GitHub

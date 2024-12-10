@@ -1,6 +1,11 @@
 import { Button } from './ui/button';
+import { signIn } from 'next-auth/react';
 
 const LoginScreen = () => {
+  function handleClick() {
+    signIn('microsoft-entra-id');
+  }
+
   return (
     <section className="body-font text-gray-600">
       <div className="container flex flex-col items-center mx-auto px-5 py-24 md:flex-row">
@@ -23,12 +28,9 @@ const LoginScreen = () => {
           </p>
           <div className="flex justify-center">
             <div className="m-1">
-              <a
-                data-testid="azure-login"
-                href={`${process.env.NEXT_PUBLIC_API}/auth/azure/authorize`}
-              >
-                <Button>Login with Azure</Button>
-              </a>
+              <Button data-testid="azure-login" onClick={handleClick}>
+                Login with Azure
+              </Button>
             </div>
           </div>
         </div>

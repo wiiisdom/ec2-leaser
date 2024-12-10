@@ -1,10 +1,10 @@
+import { signOut } from 'next-auth/react';
 import { Button } from './ui/button';
 
 const Header = () => {
-  const handleSignOut = () => {
-    localStorage.clear();
-    window.location.replace(window.location.origin);
-  };
+  function handleClick() {
+    signOut();
+  }
 
   return (
     <header className="body-font text-gray-600">
@@ -29,7 +29,7 @@ const Header = () => {
           <span className="ml-3 text-xl">EC2 Leaser</span>
         </a>
 
-        <Button onClick={handleSignOut}>Sign out</Button>
+        <Button onClick={handleClick}>Sign out</Button>
       </div>
     </header>
   );
