@@ -31,7 +31,7 @@ definitions:
         script:
           - *aws
           - *pnpm-install
-          - pnpm build --stage dev
+          - AWS_REGION=us-east-1 pnpm build --stage dev
           - pnpm typecheck
           - cd packages/web/
           - pnpm typecheck
@@ -74,7 +74,7 @@ pipelines:
               script:
                 - *aws
                 - *pnpm-install
-                - npx sst deploy --stage prod --region eu-central-1
+                - AWS_REGION=eu-central-1 pnpm sst deploy --stage prod
           - step:
               name: Deploy to demo
               caches:
@@ -84,4 +84,4 @@ pipelines:
               script:
                 - *aws
                 - *pnpm-install
-                - npx sst deploy --stage demo --region us-east-1
+                - AWS_REGION=us-east-1 pnpm sst deploy --stage demo

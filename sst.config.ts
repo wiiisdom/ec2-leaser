@@ -5,7 +5,7 @@ export default {
   config(_input) {
     return {
       name: "ec2-leaser",
-      region: "us-east-1"
+      region: _input.stage === "prod" ? "eu-central-1" : "us-east-1"
     };
   },
   stacks(app) {

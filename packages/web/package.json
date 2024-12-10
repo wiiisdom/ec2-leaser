@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "sst bind next dev",
-    "build": "sst bind next build",
+    "build": "sst bind --region $AWS_REGION next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "sst bind vitest",
