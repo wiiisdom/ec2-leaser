@@ -40,7 +40,8 @@ definitions:
             variables:
               EXTRA_ARGS: >
                 -Dsonar.organization=${SONAR_ORGANIZATION}
-                -Dsonar.projectKey=ec2-leaser-frontend
+                -Dsonar.projectKey=ec2-leaser
+                -Dsonar.projectName=ec2-leaser
                 -Dsonar.exclusions=src/components/ui/**
                 -Dsonar.sources=src
                 -Dsonar.tests=test
