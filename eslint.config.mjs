@@ -23,7 +23,9 @@ export default [
       '**/dist',
       '**/coverage',
       'tailwind.config.ts',
-      'test'
+      'test',
+      '.build',
+      '.sst'
     ]
   },
   ...fixupConfigRules(

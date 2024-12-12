@@ -16,14 +16,13 @@ Run the backend if you want to work with the cron job
 
 ```
 pnpm install
-pnpm dev
+pnpm sst dev
 ```
 
 Run NextJs if you want to work with the app
 
 ```
 pnpm install
-cd packages/web/
 pnpm dev
 ```
 

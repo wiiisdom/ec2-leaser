@@ -11,11 +11,7 @@ definitions:
     pnpm: $BITBUCKET_CLONE_DIR/.pnpm-store
     sonar: ~/.sonar/cache
   scripts:
-    - script:
-        &aws curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip";
-        unzip -qq awscliv2.zip;
-        ./aws/install;
-        export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token;
+    - script: &aws export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token;
         echo $BITBUCKET_STEP_OIDC_TOKEN > $(pwd)/web-identity-token
     - script: &pnpm-install corepack enable;
         corepack prepare pnpm@latest-9 --activate;
@@ -31,9 +27,7 @@ definitions:
         script:
           - *aws
           - *pnpm-install
-          - AWS_REGION=us-east-1 pnpm build --stage dev
-          - pnpm typecheck
-          - cd packages/web/
+          - AWS_REGION=us-east-1 pnpm sst build --stage dev
           - pnpm typecheck
           - pnpm coverage
           - pipe: sonarsource/sonarcloud-scan:3.1.0
@@ -55,7 +49,7 @@ definitions:
 
 pipelines:
   pull-requests:
-    "**":
+    '**':
       - step: *sonar
 
   branches:

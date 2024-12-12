@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Spinner from './../common/Spinner';
+import Spinner from '../common/Spinner';
 import { useQuery } from '@tanstack/react-query';
 import { callApi, fetchPolicy } from '../../api';
 import LaunchTemplateContainer from './LaunchTemplateContainer';

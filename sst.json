@@ -1,5 +1,0 @@
-{
-  "name": "ec2-leaser",
-  "region": "us-east-1",
-  "main": "stacks/index.ts"
-}

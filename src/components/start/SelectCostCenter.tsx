@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Spinner from './../common/Spinner';
+import Spinner from '../common/Spinner';
 import { CostCenterType } from '../../models/CostCenter';
 import { callApi } from '@/api';
 

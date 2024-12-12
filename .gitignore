@@ -14,3 +14,18 @@ cdk.context.json
 
 coverage
 sonar-report.xml
+
+# production
+/dist
+tsconfig.tsbuildinfo
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+.next
+.open-next
+next-env.d.ts

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Spinner from './../common/Spinner';
+import Spinner from '../common/Spinner';
 import { ScheduleType } from '../../models/Schedule';
 import { callApi } from '@/api';
 
