@@ -70,7 +70,7 @@ importers:
         version: 1.0.7(tailwindcss@3.4.16)
       zod:
         specifier: ^3.22.4
-        version: 3.23.8
+        version: 3.24.1
     devDependencies:
       '@eslint/compat':
         specifier: ^1.1.1
@@ -6215,8 +6215,8 @@ packages:
     resolution: {integrity: sha512-9qv4rlDiopXg4E69k+vMHjNN63YFMe9sZMrdlvKnCjlCRWeCBswPPMPUfx+ipsAWq1LXHe70RcbaHdJJpS6hyQ==}
     engines: {node: '>= 10'}
 
-  zod@3.23.8:
-    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
 
 snapshots:
 
@@ -15319,7 +15319,7 @@ snapshots:
       uuid: 9.0.1
       ws: 8.18.0
       yargs: 17.7.2
-      zod: 3.23.8
+      zod: 3.24.1
     transitivePeerDependencies:
       - '@aws-sdk/client-sso-oidc'
       - '@jest/transform'
@@ -15923,4 +15923,4 @@ snapshots:
       compress-commons: 4.1.2
       readable-stream: 3.6.2
 
-  zod@3.23.8: {}
+  zod@3.24.1: {}
