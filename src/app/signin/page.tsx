@@ -1,11 +1,7 @@
-import { Button } from './ui/button';
-import { signIn } from 'next-auth/react';
+import { signIn } from '@/auth';
+import { Button } from '@/components/ui/button';
 
-const LoginScreen = () => {
-  function handleClick() {
-    signIn('microsoft-entra-id');
-  }
-
+export default function SignInPage() {
   return (
     <section className="body-font text-gray-600">
       <div className="container flex flex-col items-center mx-auto px-5 py-24 md:flex-row">
@@ -28,15 +24,21 @@ const LoginScreen = () => {
           </p>
           <div className="flex justify-center">
             <div className="m-1">
-              <Button data-testid="azure-login" onClick={handleClick}>
-                Login with Azure
-              </Button>
+              <form
+                className="w-full"
+                action={async () => {
+                  'use server';
+                  await signIn('microsoft-entra-id', { redirectTo: '/' });
+                }}
+              >
+                <Button data-testid="azure-login" className="w-full">
+                  Login with Azure
+                </Button>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default LoginScreen;
+}

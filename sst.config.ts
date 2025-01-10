@@ -63,9 +63,6 @@ export default {
             : `${stack.stage}.wiiisdom.com`;
 
         const site = new NextjsSite(stack, 'Site', {
-          environment: {
-            NEXT_PUBLIC_SHOW_SNAPSHOT_RESTORE: app.stage !== 'prod' ? '1' : '0'
-          },
           bind: [
             // see https://github.com/sst/sst/issues/3270#issuecomment-2218550203
             // if you add a bind here, it will required to undeploy/re-deploy the

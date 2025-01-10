@@ -1,14 +1,13 @@
-import { useState } from 'react';
-
+'use client';
+import { callApi } from '@/api';
+import { FormInstance } from '@/components/common/FormInstance';
+import { FormSchema } from '@/schemas/FormSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { infer as zodInfer } from 'zod';
 
-import { FormSchema } from '@/schemas/FormSchema';
-import { FormInstance } from '../common/FormInstance';
-import { callApi } from '@/api';
-
-const RestoreInstanceContent = () => {
+export default function RestoreInstancePage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -41,11 +40,9 @@ const RestoreInstanceContent = () => {
         onSubmit={onSubmit}
         loading={loading}
         description="This is the instance ID you want to restore. It will work only
-                  if it has been snapshot'ed before."
+                    if it has been snapshot'ed before."
       />
       {message && <p>{message}</p>}
     </div>
   );
-};
-
-export default RestoreInstanceContent;
+}

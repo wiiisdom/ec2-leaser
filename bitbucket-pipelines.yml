@@ -41,9 +41,13 @@ definitions:
                 -Dsonar.tests=test
                 -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
                 -Dsonar.testExecutionReportPaths=./sonar-report.xml
-                -Dsonar.issue.ignore.multicriteria=next1
+                -Dsonar.issue.ignore.multicriteria=next1,next2,next3
                 -Dsonar.issue.ignore.multicriteria.next1.ruleKey=typescript:S100
-                -Dsonar.issue.ignore.multicriteria.next1.resourceKey=**/*route.ts
+                -Dsonar.issue.ignore.multicriteria.next1.resourceKey=**/route.ts
+                -Dsonar.issue.ignore.multicriteria.next2.ruleKey=typescript:S3317
+                -Dsonar.issue.ignore.multicriteria.next2.resourceKey=**/page.tsx
+                -Dsonar.issue.ignore.multicriteria.next3.ruleKey=typescript:S3317
+                -Dsonar.issue.ignore.multicriteria.next3.resourceKey=**/layout.tsx
               SONAR_SCANNER_OPTS: -Xmx2048m
           - pnpm lint
 

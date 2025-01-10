@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -5,10 +6,10 @@ import { useForm } from 'react-hook-form';
 import { infer as zodInfer } from 'zod';
 
 import { FormSchema } from '@/schemas/FormSchema';
-import { FormInstance } from '../common/FormInstance';
 import { callApi } from '@/api';
+import { FormInstance } from '@/components/common/FormInstance';
 
-const SnapshotInstanceContent = () => {
+export default function SnapshotInstancePage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -47,6 +48,4 @@ const SnapshotInstanceContent = () => {
       {message && <p>{message}</p>}
     </div>
   );
-};
-
-export default SnapshotInstanceContent;
+}
