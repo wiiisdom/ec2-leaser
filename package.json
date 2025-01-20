@@ -12,9 +12,9 @@
     "lint": "eslint . **/src/**/*.ts{,x} --fix --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.726.0",
-    "@aws-sdk/client-ec2": "3.726.0",
-    "@aws-sdk/lib-dynamodb": "3.726.0",
+    "@aws-sdk/client-dynamodb": "3.730.0",
+    "@aws-sdk/client-ec2": "3.730.0",
+    "@aws-sdk/lib-dynamodb": "3.730.0",
     "@hookform/resolvers": "^3.3.2",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-navigation-menu": "^1.1.4",
