@@ -84,3 +84,17 @@ pipelines:
                 - *aws
                 - *pnpm-install
                 - AWS_REGION=us-east-1 pnpm sst deploy --stage demo
+
+  custom:
+    dtrack:
+      - step:
+          name: Dependency Track
+          script:
+            - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+            - trivy fs --format cyclonedx --output bom.json .
+            - >
+              curl -s -S -f -X POST "${DTRACK_URL}/v1/bom" -H "X-Api-Key: ${DTRACK_API_KEY}"
+              -H "Content-Type: multipart/form-data" -F "project=${DTRACK_PROJECT_ID}"
+              -F "bom=@bom.json"
+          artifacts:
+            - bom.json
