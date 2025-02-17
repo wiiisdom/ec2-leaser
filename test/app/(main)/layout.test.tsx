@@ -1,10 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import MainLayout from '@/app/(main)/layout';
 import { expect, it, vi } from 'vitest';
 import { auth } from '@/auth';
 import { redirect } from 'next/navigation';
+import { SessionProvider } from 'next-auth/react';
 
 vi.mock('@/auth');
+vi.mock('next-auth/react');
 
 vi.mock('next/navigation', () => ({
   redirect: vi.fn(() => {
@@ -18,11 +20,19 @@ it('renders children correctly if authenticated', async () => {
     user: { name: 'Test User' }
   } as any);
 
+  vi.mocked(SessionProvider).mockImplementation(
+    ({ children }) => children as any
+  );
+
   const testChild = <div data-testid="test-child">Test Content</div>;
-  render(await MainLayout({ children: testChild }));
+  const { getByTestId } = render(
+    await MainLayout({
+      children: testChild
+    })
+  );
 
   // Test that the child component is rendered
-  expect(screen.getByText('Test Content')).toBeInTheDocument();
+  expect(getByTestId('test-child')).toBeInTheDocument();
 });
 
 it('redirects to /signin if no session', async () => {

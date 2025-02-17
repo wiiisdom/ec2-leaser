@@ -24,7 +24,7 @@
         "name": "next"
       }
     ],
-    "types": ["@testing-library/jest-dom/vitest"],
+    "types": ["@testing-library/jest-dom"],
     /* shadcn/ui */
     "baseUrl": ".",
     "paths": {

@@ -7,7 +7,7 @@
       "automerge": true
     },
     {
-      "matchPackageNames": ["aws-cdk-lib", "constructs"],
+      "matchPackageNames": ["aws-cdk-lib", "constructs", "sst"],
       "enabled": false
     }
   ]
