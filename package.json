@@ -15,7 +15,7 @@
     "@aws-sdk/client-dynamodb": "3.749.0",
     "@aws-sdk/client-ec2": "3.749.0",
     "@aws-sdk/lib-dynamodb": "3.749.0",
-    "@hookform/resolvers": "^3.3.2",
+    "@hookform/resolvers": "^4.0.0",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-navigation-menu": "^1.1.4",
     "@radix-ui/react-slot": "^1.0.2",
