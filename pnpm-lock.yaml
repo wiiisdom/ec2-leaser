@@ -15,8 +15,8 @@ importers:
         specifier: 3.758.0
         version: 3.758.0(aws-crt@1.21.3(debug@4.4.0))
       '@aws-sdk/client-ec2':
-        specifier: 3.758.0
-        version: 3.758.0(aws-crt@1.21.3(debug@4.4.0))
+        specifier: 3.760.0
+        version: 3.760.0(aws-crt@1.21.3(debug@4.4.0))
       '@aws-sdk/lib-dynamodb':
         specifier: 3.758.0
         version: 3.758.0(@aws-sdk/client-dynamodb@3.758.0(aws-crt@1.21.3(debug@4.4.0)))
@@ -319,8 +319,8 @@ packages:
     resolution: {integrity: sha512-XsUBM790xe7VPUnFw19y4dsz0557VViSTMsisa0UEUp+ZvTzqkMq9wvignwlHH+M8eLbUO7EYv7t7JPRa+04fQ==}
     engines: {node: '>=16.0.0'}
 
-  '@aws-sdk/client-ec2@3.758.0':
-    resolution: {integrity: sha512-bMH9s7/zebK92LvuLQshQEJ1Ar8016Ip/Aw0lRYf/+KSPNCAENX8fVwFt/O4o+UdYFLGqmPGGRwcO2JnL6nRMg==}
+  '@aws-sdk/client-ec2@3.760.0':
+    resolution: {integrity: sha512-84lwzkKmLhjYBTHUTUfNamsdYMOWtwZeLrTccps2TC8FcMXxQ/YRdpe+bqXE0MwO/tG7FAngjFPQ9dFOFlGZ+g==}
     engines: {node: '>=18.0.0'}
 
   '@aws-sdk/client-ecr@3.699.0':
@@ -6991,7 +6991,7 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-ec2@3.758.0(aws-crt@1.21.3(debug@4.4.0))':
+  '@aws-sdk/client-ec2@3.760.0(aws-crt@1.21.3(debug@4.4.0))':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
