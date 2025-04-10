@@ -17,7 +17,7 @@ const SelectStart = ({
   ) : (
     <button
       onClick={handleStart}
-      className="py-2 w-56 text-white text-lg bg-yellow-500 hover:bg-yellow-600 border-0 rounded focus:outline-none"
+      className="py-2 w-56 text-white text-lg bg-yellow-500 hover:bg-yellow-600 border-0 rounded focus:outline-hidden"
     >
       Start it!
     </button>

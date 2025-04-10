@@ -37,14 +37,14 @@ const SelectLaunchTemplate = ({
           <p className="w-full text-gray-500 leading-relaxed lg:w-1/2">
             Click on the desired <i>launch template</i> you want to start.
           </p>
-          <div className="relative flex-grow w-full">
+          <div className="relative grow w-full">
             <input
               type="text"
               id="search"
               name="search"
               placeholder="search..."
               onChange={e => setSearch(e.target.value)}
-              className="px-3 py-1 w-full text-gray-700 text-base leading-8 bg-gray-100 focus:bg-transparent bg-opacity-50 border border-gray-300 focus:border-yellow-500 rounded outline-none transition-colors duration-200 ease-in-out focus:ring-yellow-200 focus:ring-2"
+              className="px-3 py-1 w-full text-gray-700 text-base leading-8 bg-gray-100 focus:bg-transparent bg-opacity-50 border border-gray-300 focus:border-yellow-500 rounded outline-hidden transition-colors duration-200 ease-in-out focus:ring-yellow-200 focus:ring-2"
             />
           </div>
         </div>

@@ -30,7 +30,7 @@ const SelectTitle = ({
           </p>
         </div>
         <div className="flex flex-col items-end mx-auto px-8 w-full space-y-4 sm:flex-row sm:px-0 sm:space-x-4 sm:space-y-0 lg:w-2/3">
-          <div className="relative flex-grow w-full">
+          <div className="relative grow w-full">
             <label htmlFor="name" className="text-gray-600 text-sm leading-7">
               Instance Name
             </label>
@@ -40,7 +40,7 @@ const SelectTitle = ({
               name="name"
               value={title}
               onChange={e => setCleanTitle(e.target.value)}
-              className="px-3 py-1 w-full text-gray-700 text-base leading-8 bg-gray-100 focus:bg-transparent bg-opacity-50 border border-gray-300 focus:border-yellow-500 rounded outline-none transition-colors duration-200 ease-in-out focus:ring-yellow-200 focus:ring-2"
+              className="px-3 py-1 w-full text-gray-700 text-base leading-8 bg-gray-100 focus:bg-transparent bg-opacity-50 border border-gray-300 focus:border-yellow-500 rounded outline-hidden transition-colors duration-200 ease-in-out focus:ring-yellow-200 focus:ring-2"
             />
           </div>
           <SelectStart disabled={disabled} handleStart={handleStart} />

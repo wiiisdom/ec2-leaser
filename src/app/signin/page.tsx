@@ -12,7 +12,7 @@ export default function SignInPage() {
             src="/peak.jpeg"
           />
         </div>
-        <div className="flex flex-col items-center text-center md:items-start md:pl-16 md:w-1/2 md:text-left lg:flex-grow lg:pl-24">
+        <div className="flex flex-col items-center text-center md:items-start md:pl-16 md:w-1/2 md:text-left lg:grow lg:pl-24">
           <h1 className="title-font mb-4 text-gray-900 text-3xl font-medium sm:text-4xl">
             EC2 Leaser
           </h1>

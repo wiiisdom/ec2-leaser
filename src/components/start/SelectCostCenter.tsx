@@ -46,7 +46,7 @@ const SelectCostCenter = ({
           {costCenters.length ? (
             <select
               onChange={e => setCostCenter(e.target.value)}
-              className="mt-4 px-3 py-1 w-full text-gray-700 text-base leading-8 bg-gray-100 focus:bg-transparent bg-opacity-50 border border-gray-300 focus:border-yellow-500 rounded outline-none transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-yellow-200 lg:w-max"
+              className="mt-4 px-3 py-1 w-full text-gray-700 text-base leading-8 bg-gray-100 focus:bg-transparent bg-opacity-50 border border-gray-300 focus:border-yellow-500 rounded outline-hidden transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-yellow-200 lg:w-max"
             >
               {optionsRender}
             </select>
