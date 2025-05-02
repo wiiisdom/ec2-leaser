@@ -2,8 +2,6 @@ import { checkSession } from '@/lib/authUtils';
 import { startInstance, StartInstanceInput } from '@/lib/ec2Utils';
 import { InstanceInfo } from '@/models/Instance';
 
-export const fetchCache = 'force-no-store';
-
 export async function POST(request: Request) {
   await checkSession();
   try {

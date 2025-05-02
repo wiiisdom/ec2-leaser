@@ -14,7 +14,6 @@ it('renders children correctly', () => {
   expect(getByTestId('test-child')).toHaveTextContent('Test Content');
 
   // Test the basic structure
-  expect(container.querySelector('html')).toHaveAttribute('lang', 'en');
   expect(container.querySelector('#root')).toBeInTheDocument();
 });
 

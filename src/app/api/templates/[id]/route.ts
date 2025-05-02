@@ -1,8 +1,6 @@
 import { checkSession } from '@/lib/authUtils';
 import { getLaunchTemplateLastVersionDescription } from '@/lib/ec2Utils';
 
-export const fetchCache = 'force-no-store';
-
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }

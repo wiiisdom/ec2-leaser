@@ -1,8 +1,7 @@
 import { GET } from '@/app/api/costcenters/route';
 import { checkSession } from '@/lib/authUtils';
 import { getCostCenters } from '@/lib/dynamoUtils';
-import { beforeEach } from 'vitest';
-import { expect, it, vi } from 'vitest';
+import { beforeEach, expect, it, vi } from 'vitest';
 
 vi.mock('@/lib/authUtils');
 vi.mock('@/lib/dynamoUtils');

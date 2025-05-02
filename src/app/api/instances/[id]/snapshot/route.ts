@@ -1,8 +1,6 @@
 import { checkSession } from '@/lib/authUtils';
 import { snapshotInstance } from '@/lib/ec2Utils';
 
-export const fetchCache = 'force-no-store';
-
 export async function POST(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
