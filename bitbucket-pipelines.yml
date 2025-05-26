@@ -27,7 +27,6 @@ definitions:
         script:
           - *aws
           - *pnpm-install
-          - AWS_REGION=us-east-1 pnpm sst build --stage dev
           - pnpm typecheck
           - pnpm coverage
           - pipe: sonarsource/sonarcloud-scan:4.1.0

@@ -12,14 +12,14 @@ It's a fullstack application (NextJs) deployed via [SST](https://sst.dev/) on AW
 
 ## How to run the application locally ?
 
-Run the backend if you want to work with the cron job
+Run the multiplexer if you want to work with the cron job
 
 ```
 pnpm install
 pnpm sst dev
 ```
 
-Run NextJs if you want to work with the app
+Run to work with the app
 
 ```
 pnpm install

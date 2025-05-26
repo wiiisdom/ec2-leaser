@@ -5,10 +5,6 @@
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
-    },
-    {
-      "matchPackageNames": ["aws-cdk-lib", "constructs", "sst"],
-      "enabled": false
     }
   ]
 }

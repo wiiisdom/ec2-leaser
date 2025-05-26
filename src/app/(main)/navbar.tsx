@@ -1,7 +1,7 @@
 import { signOut } from '@/auth';
 import { Button } from '../../components/ui/button';
 import Link from 'next/link';
-import { Config } from 'sst/node/config';
+import { Resource } from 'sst';
 
 const Navbar = () => {
   return (
@@ -29,7 +29,7 @@ const Navbar = () => {
           </Link>
           <div className="ml-5 flex gap-4">
             <Link href="/">Start new instance</Link>
-            {Config.STAGE === 'demo' && (
+            {Resource.App.stage === 'demo' && (
               <>
                 <Link href="/instances/snapshot">Snapshot instance</Link>
                 <Link href="/instances/restore">Restore instance</Link>
