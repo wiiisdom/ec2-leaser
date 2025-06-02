@@ -55,7 +55,7 @@
     "autoprefixer": "^10.4.16",
     "aws-cdk-lib": "2.199.0",
     "aws-sdk-client-mock": "^4.0.0",
-    "constructs": "10.3.0",
+    "constructs": "10.4.2",
     "eslint": "^9.8.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.9",
