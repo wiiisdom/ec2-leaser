@@ -104,6 +104,23 @@ export default $config({
             FunctionName: site.nodes.server.name
           }
         });
+      site.nodes.server &&
+        new aws.cloudwatch.MetricAlarm('Ec2LeaserNextSite5xxAlarm', {
+          metricName: 'Url5xxCount',
+          alarmDescription:
+            'Alarm when the Next.js site returns more than 5 5xx errors in 5 minutes',
+          threshold: 5,
+          evaluationPeriods: 1,
+          comparisonOperator: 'GreaterThanThreshold',
+          statistic: 'Sum',
+          period: 300,
+          namespace: 'AWS/Lambda',
+          alarmActions: [alarmTopic.arn],
+          dimensions: {
+            FunctionName: site.nodes.server.name
+          }
+        });
+
       new aws.cloudwatch.MetricAlarm('DestroyEc2Alarm', {
         threshold: 1,
         evaluationPeriods: 1,
