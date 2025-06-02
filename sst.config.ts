@@ -10,7 +10,7 @@ export default $config({
       home: 'aws',
       providers: {
         aws: {
-          region: 'us-east-1',
+          region: input?.stage === 'prod' ? 'eu-central-1' : 'us-east-1',
           defaultTags: {
             tags: {
               costcenter: 'eng:lab',
@@ -24,6 +24,12 @@ export default $config({
     };
   },
   async run() {
+    $transform(sst.aws.Function, args => {
+      args.logging = {
+        retention: '1 year'
+      };
+    });
+
     const azureClientId = new sst.Secret('AzureClientId');
     const azureClientSecret = new sst.Secret('AzureClientSecret');
     const azureTenantId = new sst.Secret('AzureTenantId');
