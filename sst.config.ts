@@ -86,7 +86,18 @@ export default $config({
           ],
           resources: ['*']
         }
-      ]
+      ],
+      transform: {
+        cdn: args => {
+          args.defaultCacheBehavior = $resolve(args.defaultCacheBehavior).apply(
+            behavior => {
+              behavior.responseHeadersPolicyId =
+                '67f7725c-6f97-4210-82d7-5512b31e9d03'; // AWS Managed Security Headers Policy
+              return behavior;
+            }
+          );
+        }
+      }
     });
     if (!$dev) {
       // Setup alarms
