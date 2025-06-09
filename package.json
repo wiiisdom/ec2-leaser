@@ -12,9 +12,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.817.0",
-    "@aws-sdk/client-ec2": "3.819.0",
-    "@aws-sdk/lib-dynamodb": "3.817.0",
+    "@aws-sdk/client-dynamodb": "3.825.0",
+    "@aws-sdk/client-ec2": "3.825.0",
+    "@aws-sdk/lib-dynamodb": "3.825.0",
     "@hookform/resolvers": "^5.0.0",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-navigation-menu": "^1.1.4",
