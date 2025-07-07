@@ -70,7 +70,7 @@ importers:
         version: 1.0.7(tailwindcss@4.1.11)
       zod:
         specifier: ^3.22.4
-        version: 3.25.67
+        version: 3.25.72
     devDependencies:
       '@eslint/compat':
         specifier: ^1.1.1
@@ -3732,8 +3732,8 @@ packages:
   zod@3.24.2:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
-  zod@3.25.67:
-    resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
+  zod@3.25.72:
+    resolution: {integrity: sha512-Cl+fe4dNL4XumOBNBsr0lHfA80PQiZXHI4xEMTEr8gt6aGz92t3lBA32e71j9+JeF/VAYvdfBnuwJs+BMx/BrA==}
 
 snapshots:
 
@@ -4673,8 +4673,8 @@ snapshots:
       express-rate-limit: 7.5.0(express@5.1.0)
       pkce-challenge: 4.1.0
       raw-body: 3.0.0
-      zod: 3.25.67
-      zod-to-json-schema: 3.24.3(zod@3.25.67)
+      zod: 3.25.72
+      zod-to-json-schema: 3.24.3(zod@3.25.72)
     transitivePeerDependencies:
       - supports-color
 
@@ -7694,10 +7694,10 @@ snapshots:
     dependencies:
       zod: 3.24.2
 
-  zod-to-json-schema@3.24.3(zod@3.25.67):
+  zod-to-json-schema@3.24.3(zod@3.25.72):
     dependencies:
-      zod: 3.25.67
+      zod: 3.25.72
 
   zod@3.24.2: {}
 
-  zod@3.25.67: {}
+  zod@3.25.72: {}
