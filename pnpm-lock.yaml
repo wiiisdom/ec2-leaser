@@ -160,8 +160,8 @@ importers:
         specifier: ^19.0.0
         version: 19.1.1(react@19.1.1)
       sst:
-        specifier: 3.17.13
-        version: 3.17.13
+        specifier: 3.17.14
+        version: 3.17.14
       tailwindcss:
         specifier: ^4.1.3
         version: 4.1.13
@@ -3272,48 +3272,48 @@ packages:
   split2@3.2.2:
     resolution: {integrity: sha512-9NThjpgZnifTkJpzTZ7Eue85S49QwpNhZTq6GRJwObb6jnLFNGB7Qm73V5HewTROPyxD0C29xqmaI68bQtV+hg==}
 
-  sst-darwin-arm64@3.17.13:
-    resolution: {integrity: sha512-HZaDReT/c+2CcEnFkYjMty63II2ckQrUniiSdoEH6eAWyU1Iy7UwKK4I2GYm+5dy9xeSBaOKga6FMdLqFxIiUg==}
+  sst-darwin-arm64@3.17.14:
+    resolution: {integrity: sha512-ItOltB8HH+8XSS7FnQfR/yqsJVMr+/HvibBCNOf57WnjuNqWGLB4db/ESCeYuaQqpjpUt5lrT9ezflWrf4O9Tg==}
     cpu: [arm64]
     os: [darwin]
 
-  sst-darwin-x64@3.17.13:
-    resolution: {integrity: sha512-1DlYMrmrI5RY3/Ob039JatgvDKZ5QNtyRkVu0WcnsOvcxFE4dzrCiYKYHg2A+FMDl+H1qcwy2gGA3BTwC9in1w==}
+  sst-darwin-x64@3.17.14:
+    resolution: {integrity: sha512-J22TN1Fa878qUXsZtPybzrUbGd68p6CjXpmpqMVTyKJ9u/purkO2TiXtcFs7Ow4nr1RuCXFKo3eQ1fHDeO9YUg==}
     cpu: [x64]
     os: [darwin]
 
-  sst-linux-arm64@3.17.13:
-    resolution: {integrity: sha512-A4+ZamchUdaX0pqvYWZ+r7OP1bruwEj9qgWT5kU7Q5pqaotIsEitYQi0q9nZFKH+5mXYesUwSy5FA+Q8T3X/Rg==}
+  sst-linux-arm64@3.17.14:
+    resolution: {integrity: sha512-5wivBPIcRClHdWknp4z/lww7WyU27YkHEfF2lmt7dDS1XtM3VfTW1GdzQDsaox3wdIAmpKeYF5Wg79+cCRM/iA==}
     cpu: [arm64]
     os: [linux]
 
-  sst-linux-x64@3.17.13:
-    resolution: {integrity: sha512-yhKZc5CojqjB2DnyeVka5jeRb4oc3lBx8Qf6or0w4cs47SBIqyvO0iR/3IeKvRRL1hiEUeUF8r/q83rQo9jZMw==}
+  sst-linux-x64@3.17.14:
+    resolution: {integrity: sha512-fAaTdD6eP3kuNzkGVdYu3MOuNJkpm1rOH5Um2R2gbjtHwZ0QwP8r0f1d/ghP2kHXdgJqiNwqBbZmOuRCqmCuRA==}
     cpu: [x64]
     os: [linux]
 
-  sst-linux-x86@3.17.13:
-    resolution: {integrity: sha512-G1FIUmpUaECB/3CV5EO/y1QmV5mQ8RUkFeZq64oyILEEaMzSWWKz0glHzQ3+p316VE74MzbktiWRqsCKQy8GeA==}
+  sst-linux-x86@3.17.14:
+    resolution: {integrity: sha512-I0/IQmBk/4o1FVzMov9Ombxab4GzGNxGoyC3HTqDCRwC4jS9mnv5eTTpOQ57kGYehSnzUcflDPLZtVmKCc19+Q==}
     cpu: [x86]
     os: [linux]
 
-  sst-win32-arm64@3.17.13:
-    resolution: {integrity: sha512-9uCiIXmsGoxGeNWgM81x/d6V/vecjoiHXhBUPDGlQ1Dct1SbtHAgaf/g2ec5XwSQb9B/tne4qk81eMlTl83Z1A==}
+  sst-win32-arm64@3.17.14:
+    resolution: {integrity: sha512-fueSfZqrGcPlhN0Lm5HpmDcCKr+JmMBBBjt38HlRU08ekY7lB05QAWNXgyBwXxLdXqVIFHCUaO2Mf4K+SMCv9A==}
     cpu: [arm64]
     os: [win32]
 
-  sst-win32-x64@3.17.13:
-    resolution: {integrity: sha512-hTuj4rFSCI/9tX4NMUpNJ69Q9td/giekELDRNv03ys8TpJGoGvPT8D6VD1eX7j1CQnOZIgeEphfW9WmCXkLaIA==}
+  sst-win32-x64@3.17.14:
+    resolution: {integrity: sha512-DO8U5Uno2iD1N+AgJPde4nTP8oIeBI/rTaW5yuxJSW8cMMzySi9vQ45wz9vyZDteoHzmSwtnoC8QhZMgs0gVnQ==}
     cpu: [x64]
     os: [win32]
 
-  sst-win32-x86@3.17.13:
-    resolution: {integrity: sha512-AuMDGux+H1kPckKJ7Szgi04EpBoOKh/v5zFNAPjvWSkcWcGZ+hsBUx3h/FO/AkGK3RnlLMRj4CQQLoa10RSSIg==}
+  sst-win32-x86@3.17.14:
+    resolution: {integrity: sha512-Q+QKLERFU05wzYpcIhGX0XaLe+jsMuh95IQnrGDU8f82LM1KdWY+a62BaY1J4lbGpNrdZO22GXwIcqrFZOw8qA==}
     cpu: [x86]
     os: [win32]
 
-  sst@3.17.13:
-    resolution: {integrity: sha512-NaNTZL7uk2AsXzPBySQy7aqXlStXorR+bA785NxvCbskwkc44nVSQcEsvX5tdsD6/jrWpw9tDy4sStv2ycLAng==}
+  sst@3.17.14:
+    resolution: {integrity: sha512-HkyMnBj55DZjzgNFoHQ1XPr9vXi2UHWz3TkuboyCybpJQcR7vW4za8uDDDPivAcUyqQe2aP8pzuxL6+cAztqsg==}
     hasBin: true
 
   stackback@0.0.2:
@@ -7309,31 +7309,31 @@ snapshots:
       readable-stream: 3.6.2
     optional: true
 
-  sst-darwin-arm64@3.17.13:
+  sst-darwin-arm64@3.17.14:
     optional: true
 
-  sst-darwin-x64@3.17.13:
+  sst-darwin-x64@3.17.14:
     optional: true
 
-  sst-linux-arm64@3.17.13:
+  sst-linux-arm64@3.17.14:
     optional: true
 
-  sst-linux-x64@3.17.13:
+  sst-linux-x64@3.17.14:
     optional: true
 
-  sst-linux-x86@3.17.13:
+  sst-linux-x86@3.17.14:
     optional: true
 
-  sst-win32-arm64@3.17.13:
+  sst-win32-arm64@3.17.14:
     optional: true
 
-  sst-win32-x64@3.17.13:
+  sst-win32-x64@3.17.14:
     optional: true
 
-  sst-win32-x86@3.17.13:
+  sst-win32-x86@3.17.14:
     optional: true
 
-  sst@3.17.13:
+  sst@3.17.14:
     dependencies:
       aws-sdk: 2.1692.0
       aws4fetch: 1.0.18
@@ -7341,14 +7341,14 @@ snapshots:
       opencontrol: 0.0.6
       openid-client: 5.6.4
     optionalDependencies:
-      sst-darwin-arm64: 3.17.13
-      sst-darwin-x64: 3.17.13
-      sst-linux-arm64: 3.17.13
-      sst-linux-x64: 3.17.13
-      sst-linux-x86: 3.17.13
-      sst-win32-arm64: 3.17.13
-      sst-win32-x64: 3.17.13
-      sst-win32-x86: 3.17.13
+      sst-darwin-arm64: 3.17.14
+      sst-darwin-x64: 3.17.14
+      sst-linux-arm64: 3.17.14
+      sst-linux-x64: 3.17.14
+      sst-linux-x86: 3.17.14
+      sst-win32-arm64: 3.17.14
+      sst-win32-x64: 3.17.14
+      sst-win32-x86: 3.17.14
     transitivePeerDependencies:
       - supports-color
 
