@@ -73,7 +73,7 @@ importers:
         version: 1.0.7(tailwindcss@4.1.14)
       zod:
         specifier: ^4.0.0
-        version: 4.1.11
+        version: 4.1.12
     devDependencies:
       '@eslint/compat':
         specifier: ^1.1.1
@@ -3719,8 +3719,8 @@ packages:
   zod@3.24.2:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
-  zod@4.1.11:
-    resolution: {integrity: sha512-WPsqwxITS2tzx1bzhIKsEs19ABD5vmCVa4xBo2tq/SrV4RNZtfws1EnCWQXM6yh8bD08a1idvkB5MZSBiZsjwg==}
+  zod@4.1.12:
+    resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}
 
 snapshots:
 
@@ -7695,4 +7695,4 @@ snapshots:
 
   zod@3.24.2: {}
 
-  zod@4.1.11: {}
+  zod@4.1.12: {}
