@@ -14,7 +14,7 @@ definitions:
     - script: &aws export AWS_WEB_IDENTITY_TOKEN_FILE=$(pwd)/web-identity-token;
         echo $BITBUCKET_STEP_OIDC_TOKEN > $(pwd)/web-identity-token
     - script: &pnpm-install corepack enable;
-        corepack prepare pnpm@latest-9 --activate;
+        corepack prepare pnpm@latest-10 --activate;
         pnpm install
   steps:
     - step: &sonar
