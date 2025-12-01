@@ -132,9 +132,6 @@ importers:
       aws-sdk-client-mock:
         specifier: ^4.0.0
         version: 4.1.0
-      constructs:
-        specifier: 10.4.2
-        version: 10.4.2
       eslint:
         specifier: ^9.8.0
         version: 9.39.1(jiti@2.6.1)
@@ -1992,9 +1989,6 @@ packages:
   concat-stream@2.0.0:
     resolution: {integrity: sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==}
     engines: {'0': node >= 6.0}
-
-  constructs@10.4.2:
-    resolution: {integrity: sha512-wsNxBlAott2qg8Zv87q3eYZYgheb9lchtBfjHzzLHtXbttwSrHPs1NNQbBrmbb1YZvYg2+Vh0Dor76w4mFxJkA==}
 
   content-disposition@1.0.0:
     resolution: {integrity: sha512-Au9nRL8VNUut/XSzbQA38+M78dzP4D+eqg3gfJHMIHHYa3bg067xj1KxMUWj+VULbiZMowKngFFbKczUrNJ1mg==}
@@ -5770,8 +5764,6 @@ snapshots:
       readable-stream: 3.6.2
       typedarray: 0.0.6
     optional: true
-
-  constructs@10.4.2: {}
 
   content-disposition@1.0.0:
     dependencies:
