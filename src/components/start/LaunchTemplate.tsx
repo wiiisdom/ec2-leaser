@@ -2,6 +2,7 @@ import { MouseEventHandler, memo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { callApi, fetchPolicy } from '@/api';
 
+// eslint-disable-next-line react/display-name
 const LaunchTemplate = memo(
   ({
     id,

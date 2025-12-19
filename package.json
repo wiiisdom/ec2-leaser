@@ -6,7 +6,7 @@
     "build": "next build",
     "coverage": "sst shell --stage=dev -- vitest run --coverage  --reporter=default --reporter=vitest-sonar-reporter --outputFile=sonar-report.xml",
     "dev": "next dev",
-    "lint": "next lint",
+    "lint": "eslint .",
     "start": "next start",
     "test": "sst shell vitest",
     "typecheck": "tsc --noEmit"
@@ -25,7 +25,7 @@
     "clsx": "^2.0.0",
     "debug": "^4.3.4",
     "lucide-react": "^0.561.0",
-    "next": "^15.5.7",
+    "next": "16.0.10",
     "next-auth": "5.0.0-beta.30",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -35,9 +35,6 @@
     "zod": "^4.0.0"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.0.0",
-    "@eslint/eslintrc": "^3.1.0",
-    "@eslint/js": "^9.8.0",
     "@tailwindcss/postcss": "^4.1.3",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/jest-dom": "^6.1.4",
@@ -48,15 +45,12 @@
     "@types/node": "^24.0.0",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.0.1",
-    "@typescript-eslint/parser": "^8.0.1",
     "@vitejs/plugin-react": "^5.0.0",
     "@vitest/coverage-v8": "^4.0.0",
     "autoprefixer": "^10.4.16",
     "aws-sdk-client-mock": "^4.0.0",
     "eslint": "^9.8.0",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.9",
+    "eslint-config-next": "16.0.10",
     "globals": "^16.0.0",
     "jsdom": "^27.0.0",
     "postcss": "^8.4.31",
@@ -70,7 +64,9 @@
   },
   "pnpm": {
     "overrides": {
-      "brace-expansion@>=1.0.0 <=1.1.11": ">=1.1.12"
+      "brace-expansion@>=1.0.0 <=1.1.11": ">=1.1.12",
+      "@types/react": "19.2.7",
+      "@types/react-dom": "19.2.3"
     }
   }
 }

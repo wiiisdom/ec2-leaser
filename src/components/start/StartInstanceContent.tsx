@@ -24,17 +24,15 @@ const StartInstanceContent = () => {
   const [instanceInfo, setInstanceInfo] = useState<InstanceInfo>();
   const [schedule, setSchedule] = useState('');
 
-  useEffect(() => {
-    if (selectedLaunchTemplate?.name) {
-      const originalName = `ec2-leaser-${selectedLaunchTemplate.name}-${session?.user?.email}`;
-      const cleanName = originalName
+  const computedTitle = selectedLaunchTemplate?.name
+    ? `ec2-leaser-${selectedLaunchTemplate.name}-${session?.user?.email}`
         .toLowerCase()
-        .replace(/[^a-zA-Z0-9]+/g, '-');
-      setTitle(selectedLaunchTemplate?.name ? cleanName : '');
-    } else {
-      setTitle('');
-    }
-  }, [selectedLaunchTemplate?.name, session?.user?.email]);
+        .replaceAll(/[^a-zA-Z0-9]+/g, '-')
+    : '';
+
+  useEffect(() => {
+    setTitle(computedTitle);
+  }, [computedTitle]);
 
   const handleStart = () => {
     if (selectedLaunchTemplate === null) {
