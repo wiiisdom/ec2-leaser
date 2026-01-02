@@ -24,7 +24,7 @@ importers:
         version: 3.953.0(@aws-sdk/client-dynamodb@3.953.0(aws-crt@1.26.2(debug@4.4.3)))
       '@hookform/resolvers':
         specifier: ^5.0.0
-        version: 5.2.2(react-hook-form@7.68.0(react@19.2.3))
+        version: 5.2.2(react-hook-form@7.69.0(react@19.2.3))
       '@radix-ui/react-label':
         specifier: ^2.0.2
         version: 2.1.8(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -66,7 +66,7 @@ importers:
         version: 19.2.3(react@19.2.3)
       react-hook-form:
         specifier: ^7.47.0
-        version: 7.68.0(react@19.2.3)
+        version: 7.69.0(react@19.2.3)
       tailwind-merge:
         specifier: ^3.0.0
         version: 3.4.0
@@ -3437,8 +3437,8 @@ packages:
     peerDependencies:
       react: ^19.2.3
 
-  react-hook-form@7.68.0:
-    resolution: {integrity: sha512-oNN3fjrZ/Xo40SWlHf1yCjlMK417JxoSJVUXQjGdvdRCU07NTFei1i1f8ApUAts+IVh14e4EdakeLEA+BEAs/Q==}
+  react-hook-form@7.69.0:
+    resolution: {integrity: sha512-yt6ZGME9f4F6WHwevrvpAjh42HMvocuSnSIHUGycBqXIJdhqGSPQzTpGF+1NLREk/58IdPxEMfPcFCjlMhclGw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -4921,10 +4921,10 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@hookform/resolvers@5.2.2(react-hook-form@7.68.0(react@19.2.3))':
+  '@hookform/resolvers@5.2.2(react-hook-form@7.69.0(react@19.2.3))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.68.0(react@19.2.3)
+      react-hook-form: 7.69.0(react@19.2.3)
 
   '@httptoolkit/websocket-stream@6.0.1':
     dependencies:
@@ -7950,7 +7950,7 @@ snapshots:
       react: 19.2.3
       scheduler: 0.27.0
 
-  react-hook-form@7.68.0(react@19.2.3):
+  react-hook-form@7.69.0(react@19.2.3):
     dependencies:
       react: 19.2.3
 
