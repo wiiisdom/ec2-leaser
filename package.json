@@ -27,8 +27,8 @@
     "lucide-react": "^0.563.0",
     "next": "16.1.4",
     "next-auth": "5.0.0-beta.30",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "react-hook-form": "^7.47.0",
     "tailwind-merge": "^3.0.0",
     "tailwindcss-animate": "^1.0.7",
@@ -43,7 +43,7 @@
     "@tsconfig/node22": "^22.0.0",
     "@types/debug": "^4.1.7",
     "@types/node": "^24.0.0",
-    "@types/react": "19.2.9",
+    "@types/react": "19.2.10",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "^5.0.0",
     "@vitest/coverage-v8": "^4.0.0",
@@ -65,7 +65,7 @@
   "pnpm": {
     "overrides": {
       "brace-expansion@>=1.0.0 <=1.1.11": ">=1.1.12",
-      "@types/react": "19.2.9",
+      "@types/react": "19.2.10",
       "@types/react-dom": "19.2.3"
     }
   }
