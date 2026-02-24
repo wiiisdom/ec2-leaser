@@ -40,7 +40,7 @@
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.1",
-    "@tsconfig/node22": "^22.0.0",
+    "@tsconfig/node24": "^24.0.0",
     "@types/debug": "^4.1.7",
     "@types/node": "^24.0.0",
     "@types/react": "19.2.14",
